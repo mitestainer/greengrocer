@@ -8,26 +8,34 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
         crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Mukta|VT323" rel="stylesheet" />
     <style>
         * {
-            outline: 1px solid;
             box-sizing: border-box;
         }
         body {
             margin: 0;
+            font-family: 'Mukta', sans-serif;
+            overflow: hidden;
         }
         #header {
             display: flex;
             justify-content: space-between;
+        }
+        #header-left {
+            display: inherit;
+            justify-content: space-around;
+            align-items: center;
+            width: 50%;
         }
         #header-right {
             display: inherit;
             align-items: center;
             background-color: #e3e8ed;
             width: 50%;
-            border-radius: 0.25rem;
+            border-radius: 0 0 0 0.25rem;
             justify-content: space-around;
-            padding: 0.35rem 0;
+            padding: 0.25rem 0;
         }
         #season-box {
             display: inherit;
@@ -53,30 +61,51 @@
         }
         .container {
             display: flex;
+            height: 90vh;
+            padding: 0.25rem 0;
         }
 
         .wrapper {
             display: inherit;
-            flex: 1 0 50%;
             flex-wrap: wrap;
+            height: inherit;
         }
-
+        #left {
+            flex: 1 0;
+            overflow: auto;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-radius: 0 0.25rem 0 0;
+            padding: 0.5rem;
+            background-color: #e3e8ed;
+        }
+        #right {
+            width: 20.5rem;
+            align-items: flex-start;
+            justify-content: center;
+        }
         .label {
             background-color: #b4d455;
             border-radius: 0.3rem;
-            margin: 0.25rem;
             cursor: pointer;
             display: inherit;
             flex-flow: column wrap;
             justify-content: center;
             align-items: center;
-            flex: 1 0 20%;
+            width: 10rem;
+            height: 8.75rem;
         }
 
         .label input[type='number'] {
             width: 50px;
         }
-
+        #checkout {
+            background-color: #000;
+            color: #fff;
+        }
+        #checkout:hover {
+            
+        }
         .fix {
             height: 2rem;
             width: 2rem;
@@ -102,10 +131,17 @@
             background-color: antiquewhite;
             display: none;
             flex-direction: column;
+            font-family: 'VT323', monospace;
+            letter-spacing: 0.1rem;
+            cursor: default;
+            font-size: 0.999rem;
         }
-
+        .title-line {
+            text-align: center;
+            font-weight: bold;
+        }
         .receiptItem {
-            margin: 0.25rem 0;
+            margin: 0;
             display: inherit;
             justify-content: space-between;
         }
@@ -148,7 +184,7 @@
             }
             .container {
                 height: 77vh;
-                overflow: auto;
+                padding: 0;
             }
             .wrapper > .label:nth-last-child(1) {
                 display: none;
@@ -157,6 +193,9 @@
                 flex: 0 1 100%;
                 flex-flow: row wrap;
                 justify-content: space-between;
+                height: auto;
+                width: auto;
+                margin: 0.25rem 0;
             }
             #right {
                 display: none;
@@ -174,15 +213,21 @@
                 justify-content: center;
                 align-items: center;
                 flex-direction: column;
+                cursor: pointer;
             }
-            #snippet-price p {
+            #snippet-total {
                 margin: 0;
+                text-align: center;
+            }
+            #snippet-total > span {
+                font-size: 0.8rem;
             }
             #snippet-checkout {
                 background-color: #000;
                 color: #fff;
                 border-radius: 0.25rem;
                 padding: 0.25rem 0.5rem;
+                cursor: pointer;
             }
             #above {
                 display: flex;
@@ -196,11 +241,17 @@
                 left: 0;
                 right: 0;
             }
+            #above div:nth-child(1) {
+                padding: 0.5rem 1rem 0 0;
+            }
             #close-receipt {
                 color: #fff;
                 display: flex;
                 justify-content: flex-end;
                 font-size: 1.75rem;
+            }
+            #close-receipt > i {
+                cursor: pointer;
             }
             #recepit-snippet {
                 align-self: center;
@@ -211,14 +262,21 @@
 
 <body>
     <div id="header">
-        <div>
-            <p><span>Pick your products:</span>
-                <input type="checkbox" id="toggleAll"><span id="select-all">Select all</span>
-            </p>
+        <div id="header-left">
+            <p>Pick your products:</p>
+            <label for="toggleAll">
+                <input type="checkbox" id="toggleAll" /><span id="select-all">Select all</span>
+            </label>
+            <label for="setValueAll">
+                <input type="checkbox" id="setValueAll" disabled /><span id="value-all">Set same value to all:</span>
+                <input type="number" id="input-value-all" disabled />
+            </label>
         </div>
         <div id="header-right">
             <div>
+                <label for="enable-season">
                 <input type="checkbox" id="enable-season" /><span id="season-span"> Enable Seasons</span>
+            </label>
             </div>
             <div id="season-box">
                 <label for="0" class="season-wrapper">
@@ -248,8 +306,7 @@
     </div>
     <div id="snippet-area">
         <div id="snippet-price">
-            <p id="snippet-total">total</p>
-            <p id="snippet-print">(click to print)</p>
+            <p id="snippet-total">Make a purchase</p>
         </div>
         <div id="snippet-checkout">
             <p>
@@ -288,7 +345,7 @@
                 regularPrice: undefined,
                 priceOnSeason: undefined,
                 priceOutOfSeason: undefined,
-                unit: 'kg'
+                unit: 'tray'
             }, {
                 productName: 'Turnip',
                 pic: 'images/turnip.png',
@@ -396,6 +453,9 @@
                 unit: 'unit'
             }
         ];
+
+        var cashierNames = ['Azeem Lawson', 'Kamran Mora', 'Wendy Grant', 'Jan Dejesus', 'Hana Macias', 'Kerry Medrano', 'Avery Weir', 'Missy Reed', 'Cyrus Lott', 'Lee Hough'];
+
         // Left side!
 
         var left = document.getElementById('left');
@@ -469,6 +529,8 @@
         var scale = document.querySelectorAll('.scale');
         var priceTag = document.querySelectorAll('.price-tag');
         var selectAll = document.getElementById('select-all');
+        var setValueAll = document.getElementById('setValueAll');
+        var inputValueAll = document.getElementById('input-value-all');
 
         // Toggle all boxes
 
@@ -479,6 +541,7 @@
                     testing[x].checked = true;
                     scale[x].removeAttribute('disabled');
                 }
+                setValueAll.removeAttribute('disabled');
             } else {
                 selectAll.textContent = 'Select all';
                 for (var x = 0; x < testing.length; x++) {
@@ -486,8 +549,29 @@
                     scale[x].setAttribute('disabled', 'disabled');
                     scale[x].value = "";
                 }
+                setValueAll.setAttribute('disabled', 'disabled');
+                setValueAll.checked = false;
+                inputValueAll.setAttribute('disabled', 'disabled');
+                inputValueAll.value = '';
             }
         });
+
+        // Set same value to all
+
+        setValueAll.addEventListener('change', function(e) {
+            if (e.target.checked) {
+                inputValueAll.removeAttribute('disabled');
+            } else {
+                inputValueAll.setAttribute('disabled', 'disabled');
+                inputValueAll.value = '';
+            }
+            inputValueAll.addEventListener('change', function(e) {
+                var newValue = e.target.valueAsNumber;
+                for (var x = 0; x < scale.length; x++) {
+                    scale[x].valueAsNumber = newValue;
+                }
+            })
+        })
 
         // Enable seasons
 
@@ -562,7 +646,6 @@
 
             for (var x = 0; x < scale.length; x++) {
                 if (scale[x].value > 0) {
-                    debugger;
                     var stringPrice = priceTag[x].textContent;
                     var re = /\d\.[0-9]{2}/g
                     var finalPrice = parseFloat(stringPrice.match(re));
@@ -610,6 +693,7 @@
             function drawLine(input) {
                 var p = document.createElement('p');
                 p.style.textAlign = 'center';
+                p.style.margin = '0';
                 receipt.appendChild(p);
                 var line = document.createElement('span');
                 p.appendChild(line);
@@ -623,8 +707,8 @@
 
             // Receipt Lines
 
-            addP('Title Here', 'title-line'); // Title
-
+            addP('Cash receipt'.toUpperCase(), 'title-line'); // Title
+            debugger;
             drawLine('*');
 
             // Date
@@ -637,7 +721,12 @@
             };
             var dateMonth = dateSetUp.getMonth() + 1;
             var dateYear = dateSetUp.getFullYear();
-            var dateHour = dateSetUp.getHours();
+            var dateHour;
+            if (dateSetUp.getHours() < 10) {
+                dateHour = '0' + dateSetUp.getHours();
+            } else {
+                dateHour = dateSetUp.getHours();
+            };
             var dateMinutes;
             if (dateSetUp.getMinutes() < 10) {
                 dateMinutes = '0' + dateSetUp.getMinutes();
@@ -652,6 +741,7 @@
             };
             var dateReady = dateDay + '/' + dateMonth + '/' + dateYear + ' - ' + dateHour + ':' + dateMinutes + ':' + dateSeconds;
             addItem('Date:', dateReady);
+            addItem('Cashier:', cashierNames[Number((Math.random() * 9).toFixed())]);
             drawLine('-');
 
             // Items
@@ -662,18 +752,24 @@
                 var amountPurchased = selected[x].parentNode.children[3].value;
                 var unitOfProduct = productList[idx].unit;
                 var sumOfProduct = sum[x].toFixed(2);
+                if (unitOfProduct === 'kg') {
                 addItem(purchasedProduct + ' (' + amountPurchased + unitOfProduct + ')', sumOfProduct);
+                } else {
+                    addItem(purchasedProduct + ' (' + amountPurchased + ' ' + unitOfProduct + ')', sumOfProduct);
+                }
             }
             drawLine('-');
 
-            addItem('Total', bill); // Total
+            addItem('Total'.toUpperCase(), bill); // Total
 
             // Credit card line
             var bankCard = document.createElement('div');
             //////
             var line1 = document.createElement('p');
+            line1.style.marginBottom = '0';
             line1.textContent = 'Bank Card';
             var line2 = document.createElement('p');
+            line2.style.marginTop = '0';
             line2.textContent = '**** **** **** ' + Math.floor((Math.random() * 8999) + 1000);
             bankCard.appendChild(line1);
             bankCard.appendChild(line2);
@@ -721,7 +817,7 @@
 
 
             var snippetTotal = document.getElementById('snippet-total');
-            snippetTotal.textContent = '$ ' + bill;
+            snippetTotal.innerHTML = 'The total is <strong>$ ' + bill + '</strong><br /><span>(Tap here to print your receipt)</span>';
 
             // Functions to add lines on the snippet receipt
 
@@ -747,21 +843,16 @@
             function drawLine(input) {
                 var p = document.createElement('p');
                 p.style.textAlign = 'center';
+                p.style.margin = '0';
                 receiptSnippet.appendChild(p);
                 var line = document.createElement('span');
                 line.className = 'line-snippet';
                 p.appendChild(line);
-                var x;
-                do {
-                    x = line.textContent;
-                    line.textContent += input;
-                } while (line.offsetWidth < line.parentNode.offsetWidth);
-                line.textContent = x;
             }
 
             // Receipt Lines
 
-            addP('Title Here', 'title-line'); // Title
+            addP('Cash receipt'.toUpperCase(), 'title-line'); // Title
 
             drawLine('*');
 
@@ -775,7 +866,12 @@
             };
             var dateMonth = dateSetUp.getMonth() + 1;
             var dateYear = dateSetUp.getFullYear();
-            var dateHour = dateSetUp.getHours();
+            var dateHour;
+            if (dateSetUp.getHours() < 10) {
+                dateHour = '0' + dateSetUp.getHours();
+            } else {
+                dateHour = dateSetUp.getHours();
+            };
             var dateMinutes;
             if (dateSetUp.getMinutes() < 10) {
                 dateMinutes = '0' + dateSetUp.getMinutes();
@@ -790,6 +886,7 @@
             };
             var dateReady = dateDay + '/' + dateMonth + '/' + dateYear + ' - ' + dateHour + ':' + dateMinutes + ':' + dateSeconds;
             addItem('Date:', dateReady);
+            addItem('Cashier:', cashierNames[Number((Math.random() * 9).toFixed())]);
             drawLine('-');
 
             // Items
@@ -804,7 +901,7 @@
             }
             drawLine('-');
 
-            addItem('Total', bill); // Total
+            addItem('Total'.toUpperCase(), bill); // Total
 
             // Credit card line
             var bankCard = document.createElement('div');
