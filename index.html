@@ -674,7 +674,7 @@
             var line1 = document.createElement('p');
             line1.textContent = 'Bank Card';
             var line2 = document.createElement('p');
-            line2.textContent = '**** **** **** ' + Math.floor((Math.random() * 9999) + 1000);
+            line2.textContent = '**** **** **** ' + Math.floor((Math.random() * 8999) + 1000);
             bankCard.appendChild(line1);
             bankCard.appendChild(line2);
             //////
@@ -688,13 +688,13 @@
         // Mobile receipt
 
         var receiptSnippet = document.createElement('div');
-        receiptSnippet.innerHTML = '';
         receiptSnippet.style.display = 'flex';
         receiptSnippet.id = 'recepit-snippet';
         receiptSnippet.className = 'receipt';
 
         var snippetCheckout = document.getElementById('snippet-checkout');
         snippetCheckout.addEventListener('click', function () {
+            receiptSnippet.innerHTML = '';
             var snippetSum = [];
             // Calculate the total
 
@@ -749,6 +749,7 @@
                 p.style.textAlign = 'center';
                 receiptSnippet.appendChild(p);
                 var line = document.createElement('span');
+                line.className = 'line-snippet';
                 p.appendChild(line);
                 var x;
                 do {
@@ -811,7 +812,7 @@
             var line1 = document.createElement('p');
             line1.textContent = 'Bank Card';
             var line2 = document.createElement('p');
-            line2.textContent = '**** **** **** ' + Math.floor((Math.random() * 9999) + 1000);
+            line2.textContent = '**** **** **** ' + Math.floor((Math.random() * 8999) + 1000);
             bankCard.appendChild(line1);
             bankCard.appendChild(line2);
             //////
@@ -833,12 +834,29 @@
             closeX.id = 'close-receipt';
             closeX.innerHTML = '<i class="fas fa-times"></i>';
             closeX.addEventListener('click', function (e) {
-                // console.log(e.target);
                 above.style.display = 'none';
             });
             closeReceipt.appendChild(closeX);
             above.appendChild(closeReceipt);
             above.appendChild(receiptSnippet);
+            var lineSnippet = document.querySelectorAll('.line-snippet');
+            for (var x = 0; x < lineSnippet.length; x++) {
+                if (x === 0 || x === 3) {
+                    var y;
+                    do {
+                        y = lineSnippet[x].textContent;
+                        lineSnippet[x].textContent += '*';
+                    } while (lineSnippet[x].offsetWidth < lineSnippet[x].parentNode.offsetWidth)
+                    lineSnippet[x].textContent = y;
+                } else {
+                    var y;
+                    do {
+                        y = lineSnippet[x].textContent;
+                        lineSnippet[x].textContent += '-';
+                    } while (lineSnippet[x].offsetWidth < lineSnippet[x].parentNode.offsetWidth)
+                    lineSnippet[x].textContent = y;
+                }
+            }
         });
     </script>
 </body>
