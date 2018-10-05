@@ -10,10 +10,47 @@
         crossorigin="anonymous" />
     <style>
         * {
-            outline: 1px solid;
+            /* outline: 1px solid; */
             box-sizing: border-box;
         }
-
+        body {
+            margin: 0;
+        }
+        #header {
+            display: flex;
+            justify-content: space-between;
+        }
+        #header-right {
+            display: inherit;
+            align-items: center;
+            background-color: #e3e8ed;
+            width: 50%;
+            border-radius: 0.25rem;
+            justify-content: space-around;
+            padding: 0.35rem 0;
+        }
+        #season-box {
+            display: inherit;
+            border: 2px solid #e3e8ed;
+            border-radius: inherit;
+        }
+        .season-wrapper {
+            background-color: #e3e8ed;
+            border-radius: 0.25rem;
+            width: 7rem;
+            margin: 0.25rem;
+            display: block;
+            padding: 0.25rem 0;
+            cursor: not-allowed;
+        }
+        .season-wrapper > * {
+            vertical-align: middle;
+            color: #c9d1d8;
+        }
+        .img-season {
+            height: 2rem;
+            width: 2rem;
+        }
         .container {
             display: flex;
         }
@@ -48,6 +85,11 @@
         .margin-fix {
             margin: 0;
         }
+        .product-holder {
+            display: inherit;
+            flex-direction: column;
+            align-items: center;
+        }
 
         .price-tag,
         .abcde {
@@ -67,24 +109,131 @@
             display: inherit;
             justify-content: space-between;
         }
+        #snippet-area {
+            display: none;
+        }
+
+        @media screen and (max-width: 400px) {
+            body {
+                height: 100vh;
+                width: 100vw;
+                overflow: hidden;
+            }
+            #header {
+                overflow: auto;
+                justify-content: flex-start;
+                height: 14vh;
+            }
+            #header > div:nth-child(1) {
+                width: 25vw;
+                flex: 1 0 auto;
+            }
+            #header > div > p {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background-color: #000;
+                color: #fff;
+            }
+            #header > div > p > span:nth-child(1) {
+                display: none;
+            }
+            #header-right {
+                justify-content: flex-start;
+                width: auto;
+            }
+            #header-right > div:nth-child(1) {
+                display: inherit;
+                flex-direction: column;
+            }
+            .container {
+                height: 77vh;
+                overflow: auto;
+            }
+            .wrapper > .label:nth-last-child(1) {
+                display: none;
+            }
+            .label {
+                flex: 0 1 100%;
+                flex-flow: row wrap;
+                justify-content: space-between;
+            }
+            #right {
+                display: none;
+            }
+            #snippet-area {
+                display: flex;
+                height: 9vh;
+            }
+            #snippet-price {
+                flex: 1;
+                background-color: green;
+                border-radius: 0.25rem;
+                margin: 0.1rem;
+                display: inherit;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+            #snippet-price p {
+                margin: 0;
+            }
+            #snippet-checkout {
+                background-color: #000;
+                color: #fff;
+                border-radius: 0.25rem;
+                padding: 0.25rem 0.5rem;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <p>Pick your products:
-        <input type="checkbox" id="toggleAll">Select all
-        <input type="checkbox" id="enable-season" /><span id="season-span"> Enable Seasons</span>
-        <div id="season-box">
-            <input type="radio" name="season" id="0" class="toggleSeason" disabled />Spring
-            <input type="radio" name="season" id="1" class="toggleSeason" disabled />Summer
-            <input type="radio" name="season" id="2" class="toggleSeason" disabled />Autumn
-            <input type="radio" name="season" id="3" class="toggleSeason" disabled />Winter
+    <div id="header">
+        <div>
+            <p><span>Pick your products:</span>
+                <input type="checkbox" id="toggleAll"><span id="select-all">Select all</span>
+            </p>
         </div>
-    </p>
+        <div id="header-right">
+            <div>
+                <input type="checkbox" id="enable-season" /><span id="season-span"> Enable Seasons</span>
+            </div>
+            <div id="season-box">
+                <label for="0" class="season-wrapper">
+                    <input type="radio" name="season" id="0" class="toggleSeason" disabled /><img src="images/spring.png"
+                        alt="" class="img-season" /><span>Spring</span>
+                </label>
+                <label for="1" class="season-wrapper">
+                    <input type="radio" name="season" id="1" class="toggleSeason" disabled /><img src="images/summer.png"
+                        alt="" class="img-season" /><span>Summer</span>
+                </label>
+                <label for="2" class="season-wrapper">
+                    <input type="radio" name="season" id="2" class="toggleSeason" disabled /><img src="images/autumn.png"
+                        alt="" class="img-season" /><span>Autumn</span>
+                </label>
+                <label for="3" class="season-wrapper">
+                    <input type="radio" name="season" id="3" class="toggleSeason" disabled /><img src="images/winter.png"
+                        alt="" class="img-season" /><span>Winter</span>
+                </label>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div id="left" class="wrapper"></div>
         <div id="right" class="wrapper">
             <div id="receipt"></div>
+        </div>
+    </div>
+    <div id="snippet-area">
+        <div id="snippet-price">
+            <p id="snippet-total">total</p>
+            <p id="snippet-print">(click to print)</p>
+        </div>
+        <div id="snippet-checkout">
+            <p>
+                <i class="fas fa-shopping-cart"></i> Checkout
+            </p>
         </div>
     </div>
     <script>
@@ -247,16 +396,21 @@
             cbox.className = 'testing';
             label[x].appendChild(cbox);
             // Setting product name
+            var pHolder = document.createElement('div');
+            pHolder.className = 'product-holder';
             var pName = document.createElement('p');
             pName.textContent = productList[x].productName;
             pName.className = 'margin-fix';
-            label[x].appendChild(pName);
+            pHolder.appendChild(pName);
+            //label[x].appendChild(pName);
             // Setting image
             var productImage = document.createElement('img');
             productImage.src = productList[x].pic;
             productImage.alt = productList[x].productName;
             productImage.className = 'fix';
-            label[x].appendChild(productImage);
+            pHolder.appendChild(productImage);
+            label[x].appendChild(pHolder);
+            //label[x].appendChild(productImage);
             // Setting price
             var productPrice = document.createElement('p');
             productPrice.textContent = 'Price: ' + productList[x].regularPrice + '/' + productList[x].unit;
@@ -279,7 +433,7 @@
         left.addEventListener('click', function (e) {
             if (e.target.id != 'checkout') {
                 var a = e.target.children[0];
-                var b = e.target.children[4];
+                var b = e.target.children[3];
                 a.checked = !a.checked;
                 if (a.checked) {
                     b.removeAttribute('disabled');
@@ -293,16 +447,19 @@
         var testing = document.querySelectorAll('.testing');
         var scale = document.querySelectorAll('.scale');
         var priceTag = document.querySelectorAll('.price-tag');
+        var selectAll = document.getElementById('select-all');
 
         // Toggle all boxes
 
         document.getElementById('toggleAll').addEventListener('click', function (e) {
             if (e.target.checked) {
+                selectAll.textContent = 'Deselect all';
                 for (var x = 0; x < testing.length; x++) {
                     testing[x].checked = true;
                     scale[x].removeAttribute('disabled');
                 }
             } else {
+                selectAll.textContent = 'Select all';
                 for (var x = 0; x < testing.length; x++) {
                     testing[x].checked = false;
                     scale[x].setAttribute('disabled', 'disabled');
@@ -316,16 +473,26 @@
         var enableSeason = document.getElementById('enable-season');
         var toggleSeason = document.querySelectorAll('.toggleSeason');
         var seasonSpan = document.getElementById('season-span');
+        var seasonWrapper = document.querySelectorAll('.season-wrapper');
+        var seasonBox = document.getElementById('season-box');
 
         enableSeason.addEventListener('change', function (e) {
             for (var x = 0; x < toggleSeason.length; x++) {
                 if (e.target.checked) {
                     seasonSpan.textContent = ' Disable Seasons';
                     toggleSeason[x].removeAttribute('disabled');
+                    seasonWrapper[x].style.backgroundColor = '#c9d1d8';
+                    seasonBox.style.border = '2px solid #c9d1d8';
+                    seasonWrapper[x].style.cursor = 'pointer';
+                    seasonWrapper[x].lastElementChild.style.color = '#7994b0';
                 } else {
                     seasonSpan.textContent = ' Enable Seasons';
                     toggleSeason[x].setAttribute('disabled', 'disabled');
                     toggleSeason[x].checked = false;
+                    seasonWrapper[x].style.backgroundColor = '#e3e8ed';
+                    seasonBox.style.border = '2px solid #e3e8ed';
+                    seasonWrapper[x].style.cursor = 'not-allowed';
+                    seasonWrapper[x].lastElementChild.style.color = '#c9d1d8';
                 }
             }
         })
@@ -352,6 +519,8 @@
                 }
             }
         });
+
+        // Removing seasons
 
         enableSeason.addEventListener('change', function (e) {
             if (e.target.checked === false) {
@@ -393,6 +562,7 @@
             var bill = sumValue(sum).toFixed(2);
 
             var receipt = document.getElementById('receipt');
+            receipt.innerHTML = '';
             receipt.style.display = 'flex';
 
             // Functions to add lines on the receipt
