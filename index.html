@@ -10,7 +10,7 @@
         crossorigin="anonymous" />
     <style>
         * {
-            /* outline: 1px solid; */
+            outline: 1px solid;
             box-sizing: border-box;
         }
         body {
@@ -96,7 +96,7 @@
             margin: 0;
         }
 
-        #receipt {
+        .receipt {
             width: 20rem;
             padding: 0.5rem 1rem;
             background-color: antiquewhite;
@@ -184,6 +184,27 @@
                 border-radius: 0.25rem;
                 padding: 0.25rem 0.5rem;
             }
+            #above {
+                display: flex;
+                flex-direction: column;
+                background-color: rgba(0, 0, 0, 0.75);
+                height: 100vh;
+                width: 100vw;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+            #close-receipt {
+                color: #fff;
+                display: flex;
+                justify-content: flex-end;
+                font-size: 1.75rem;
+            }
+            #recepit-snippet {
+                align-self: center;
+            }
         }
     </style>
 </head>
@@ -222,7 +243,7 @@
     <div class="container">
         <div id="left" class="wrapper"></div>
         <div id="right" class="wrapper">
-            <div id="receipt"></div>
+            <div id="receipt" class="receipt"></div>
         </div>
     </div>
     <div id="snippet-area">
@@ -533,9 +554,9 @@
 
         // Right side!
 
-        var sum = [];
         var checkoutFoo = document.getElementById('checkout');
         checkoutFoo.addEventListener('click', function () {
+            var sum = [];
 
             // Calculate the total
 
@@ -617,7 +638,12 @@
             var dateMonth = dateSetUp.getMonth() + 1;
             var dateYear = dateSetUp.getFullYear();
             var dateHour = dateSetUp.getHours();
-            var dateMinutes = dateSetUp.getMinutes();
+            var dateMinutes;
+            if (dateSetUp.getMinutes() < 10) {
+                dateMinutes = '0' + dateSetUp.getMinutes();
+            } else {
+                dateMinutes = dateSetUp.getMinutes();
+            };
             var dateSeconds;
             if (dateSetUp.getSeconds() < 10) {
                 dateSeconds = '0' + dateSetUp.getSeconds();
@@ -633,7 +659,7 @@
             for (var x = 0; x < selected.length; x++) {
                 var idx = selected[x].parentNode.id;
                 var purchasedProduct = productList[idx].productName;
-                var amountPurchased = selected[x].parentNode.children[4].value;
+                var amountPurchased = selected[x].parentNode.children[3].value;
                 var unitOfProduct = productList[idx].unit;
                 var sumOfProduct = sum[x].toFixed(2);
                 addItem(purchasedProduct + ' (' + amountPurchased + unitOfProduct + ')', sumOfProduct);
@@ -657,6 +683,162 @@
             drawLine('*');
             addP('Thanks for shopping!');
             sum = [];
+        });
+
+        // Mobile receipt
+
+        var receiptSnippet = document.createElement('div');
+        receiptSnippet.innerHTML = '';
+        receiptSnippet.style.display = 'flex';
+        receiptSnippet.id = 'recepit-snippet';
+        receiptSnippet.className = 'receipt';
+
+        var snippetCheckout = document.getElementById('snippet-checkout');
+        snippetCheckout.addEventListener('click', function () {
+            var snippetSum = [];
+            // Calculate the total
+
+            for (var x = 0; x < scale.length; x++) {
+                if (scale[x].value > 0) {
+                    var stringPrice = priceTag[x].textContent;
+                    var re = /\d\.[0-9]{2}/g
+                    var finalPrice = parseFloat(stringPrice.match(re));
+                    snippetSum.push(scale[x].valueAsNumber * finalPrice);
+                }
+            }
+            if (snippetSum.length === 0) {
+                alert('select any item first');
+            } else {
+                function sumValue(arr) {
+                    var total = 0;
+                    for (var x = 0; x < arr.length; x++) {
+                        total += arr[x];
+                    }
+                    return total;
+                }
+            }
+            var bill = sumValue(snippetSum).toFixed(2);
+
+
+            var snippetTotal = document.getElementById('snippet-total');
+            snippetTotal.textContent = '$ ' + bill;
+
+            // Functions to add lines on the snippet receipt
+
+            function addP(input, className) {
+                var p = document.createElement('p');
+                p.className = className;
+                p.textContent = input;
+                receiptSnippet.appendChild(p);
+            }
+
+            function addItem(first, second) {
+                var p = document.createElement('p');
+                p.className = 'receiptItem';
+                var sp1 = document.createElement('span');
+                var sp2 = document.createElement('span');
+                sp1.textContent = first;
+                sp2.textContent = second;
+                p.appendChild(sp1);
+                p.appendChild(sp2);
+                receiptSnippet.appendChild(p);
+            }
+
+            function drawLine(input) {
+                var p = document.createElement('p');
+                p.style.textAlign = 'center';
+                receiptSnippet.appendChild(p);
+                var line = document.createElement('span');
+                p.appendChild(line);
+                var x;
+                do {
+                    x = line.textContent;
+                    line.textContent += input;
+                } while (line.offsetWidth < line.parentNode.offsetWidth);
+                line.textContent = x;
+            }
+
+            // Receipt Lines
+
+            addP('Title Here', 'title-line'); // Title
+
+            drawLine('*');
+
+            // Date
+            var dateSetUp = new Date();
+            var dateDay;
+            if (dateSetUp.getDay() < 10) {
+                dateDay = '0' + dateSetUp.getDay();
+            } else {
+                dateDay = dateSetUp.getDay();
+            };
+            var dateMonth = dateSetUp.getMonth() + 1;
+            var dateYear = dateSetUp.getFullYear();
+            var dateHour = dateSetUp.getHours();
+            var dateMinutes;
+            if (dateSetUp.getMinutes() < 10) {
+                dateMinutes = '0' + dateSetUp.getMinutes();
+            } else {
+                dateMinutes = dateSetUp.getMinutes();
+            };
+            var dateSeconds;
+            if (dateSetUp.getSeconds() < 10) {
+                dateSeconds = '0' + dateSetUp.getSeconds();
+            } else {
+                dateSeconds = dateSetUp.getSeconds();
+            };
+            var dateReady = dateDay + '/' + dateMonth + '/' + dateYear + ' - ' + dateHour + ':' + dateMinutes + ':' + dateSeconds;
+            addItem('Date:', dateReady);
+            drawLine('-');
+
+            // Items
+            var selected = document.querySelectorAll('.testing:checked');
+            for (var x = 0; x < selected.length; x++) {
+                var idx = selected[x].parentNode.id;
+                var purchasedProduct = productList[idx].productName;
+                var amountPurchased = selected[x].parentNode.children[3].value;
+                var unitOfProduct = productList[idx].unit;
+                var sumOfProduct = snippetSum[x].toFixed(2);
+                addItem(purchasedProduct + ' (' + amountPurchased + unitOfProduct + ')', sumOfProduct);
+            }
+            drawLine('-');
+
+            addItem('Total', bill); // Total
+
+            // Credit card line
+            var bankCard = document.createElement('div');
+            //////
+            var line1 = document.createElement('p');
+            line1.textContent = 'Bank Card';
+            var line2 = document.createElement('p');
+            line2.textContent = '**** **** **** ' + Math.floor((Math.random() * 9999) + 1000);
+            bankCard.appendChild(line1);
+            bankCard.appendChild(line2);
+            //////
+            receiptSnippet.appendChild(bankCard);
+
+            drawLine('*');
+            addP('Thanks for shopping!');
+
+            snippetSum = [];
+        });
+
+        var snippetPrice = document.getElementById('snippet-price');
+        snippetPrice.addEventListener('click', function () {
+            var above = document.createElement('div');
+            above.id = 'above';
+            document.body.appendChild(above);
+            var closeReceipt = document.createElement('div');
+            var closeX = document.createElement('span');
+            closeX.id = 'close-receipt';
+            closeX.innerHTML = '<i class="fas fa-times"></i>';
+            closeX.addEventListener('click', function (e) {
+                // console.log(e.target);
+                above.style.display = 'none';
+            });
+            closeReceipt.appendChild(closeX);
+            above.appendChild(closeReceipt);
+            above.appendChild(receiptSnippet);
         });
     </script>
 </body>
