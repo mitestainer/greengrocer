@@ -268,15 +268,15 @@
                 <input type="checkbox" id="toggleAll" /><span id="select-all">Select all</span>
             </label>
             <label for="setValueAll">
-                <input type="checkbox" id="setValueAll" disabled /><span id="value-all">Set same value to all:</span>
+                <input type="checkbox" id="setValueAll" disabled /><span id="value-all">Set value to all selected:</span>
                 <input type="number" id="input-value-all" disabled />
             </label>
         </div>
         <div id="header-right">
             <div>
                 <label for="enable-season">
-                <input type="checkbox" id="enable-season" /><span id="season-span"> Enable Seasons</span>
-            </label>
+                    <input type="checkbox" id="enable-season" /><span id="season-span"> Enable Seasons</span>
+                </label>
             </div>
             <div id="season-box">
                 <label for="0" class="season-wrapper">
@@ -558,20 +558,26 @@
 
         // Set same value to all
 
-        setValueAll.addEventListener('change', function(e) {
+        setValueAll.addEventListener('change', function (e) {
             if (e.target.checked) {
                 inputValueAll.removeAttribute('disabled');
             } else {
                 inputValueAll.setAttribute('disabled', 'disabled');
                 inputValueAll.value = '';
             }
-            inputValueAll.addEventListener('change', function(e) {
+            inputValueAll.addEventListener('change', function (e) {
                 var newValue = e.target.valueAsNumber;
                 for (var x = 0; x < scale.length; x++) {
-                    scale[x].valueAsNumber = newValue;
+                    if (testing[x].checked) {
+                        scale[x].valueAsNumber = newValue;
+                    } else {
+                        scale[x].value = '';
+                    }
                 }
             })
-        })
+        });
+
+
 
         // Enable seasons
 
@@ -696,6 +702,7 @@
                 p.style.margin = '0';
                 receipt.appendChild(p);
                 var line = document.createElement('span');
+                line.style.display = 'inline-block';
                 p.appendChild(line);
                 var x;
                 do {
@@ -753,7 +760,7 @@
                 var unitOfProduct = productList[idx].unit;
                 var sumOfProduct = sum[x].toFixed(2);
                 if (unitOfProduct === 'kg') {
-                addItem(purchasedProduct + ' (' + amountPurchased + unitOfProduct + ')', sumOfProduct);
+                    addItem(purchasedProduct + ' (' + amountPurchased + unitOfProduct + ')', sumOfProduct);
                 } else {
                     addItem(purchasedProduct + ' (' + amountPurchased + ' ' + unitOfProduct + ')', sumOfProduct);
                 }
