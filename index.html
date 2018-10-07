@@ -18,9 +18,9 @@
             font-family: 'Mukta', sans-serif;
             overflow: hidden;
         }
-        /* body input[type='checkbox'], input[type='radio'] {
+        body input[type='checkbox'], input[type='radio'] {
             display: none;
-        } */
+        }
         #header {
             display: flex;
             justify-content: space-between;
@@ -38,7 +38,19 @@
         }
         .header-section {
             border: 2px solid #c9d1d8;
-            border-radius: inherit;
+            border-radius: 0.25rem;
+        }
+        #toggle-section {
+            display: inherit;
+            flex-direction: row;
+            width: 65%;
+            justify-content: space-between;
+        }
+        label[for='setValueAll'] {
+            display: inherit;
+            justify-content: inherit;
+            align-items: center;
+            border: 2px solid #e3e8ed;
         }
         #header-right {
             width: 50%;
@@ -46,9 +58,16 @@
         }
         #season-box {
             display: inherit;
+            border: 2px solid #e3e8ed;
         }
         .enable-header {
             cursor: pointer;
+            height: 2.5rem;
+            display: inherit;
+            justify-content: center;
+            align-items: center;
+            border-radius: 0.25rem;
+            width: 7rem;
         }
         .season-wrapper {
             background-color: #e3e8ed;
@@ -58,6 +77,7 @@
             display: block;
             padding: 0.25rem 0;
             cursor: not-allowed;
+            height: 2.5rem;
         }
         .season-wrapper-a {
             background-color: #c9d1d8;
@@ -70,6 +90,9 @@
         .img-season {
             height: 2rem;
             width: 2rem;
+        }
+        #header-snippet {
+            display: none;
         }
         .container {
             display: flex;
@@ -171,20 +194,23 @@
         .fix {
             height: 2rem;
             width: 2rem;
+            pointer-events: none;
         }
 
         .margin-fix {
             margin: 0;
+            pointer-events: none;
         }
         .product-holder {
             display: inherit;
             flex-direction: column;
             align-items: center;
+            pointer-events: none;
         }
 
-        .price-tag,
-        .abcde {
+        .price-tag {
             margin: 0;
+            pointer-events: none;
         }
 
         .receipt {
@@ -220,7 +246,7 @@
             #header {
                 overflow: auto;
                 justify-content: flex-start;
-                height: 14vh;
+                height: 10vh;
             }
             #header > div:nth-child(1) {
                 width: 25vw;
@@ -236,6 +262,9 @@
             #header > div > p > span:nth-child(1) {
                 display: none;
             }
+            #header-left, #header-right {
+                display: none;
+            }
             #header-right {
                 justify-content: flex-start;
                 width: auto;
@@ -244,9 +273,54 @@
                 display: inherit;
                 flex-direction: column;
             }
-            .container {
-                height: 77vh;
+            #header-snippet {
+                width: 100%;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+            }
+            #header-snippet div {
+                display: inherit;
+                flex-direction: column;
+                align-items: center;
+                background-color: #e3e8ed;
+                padding: 0.1rem 1rem;
+                border-radius: 0.25rem;
+                cursor: pointer;
+            }
+            #header-snippet i {
+                font-size: 1.75rem;
+                pointer-events: none;
+            }
+            #header-snippet p {
+                margin: 0;
+                pointer-events: none;
+            }
+            #header-snippet p ol {
                 padding: 0;
+            }
+            .snippet-container {
+                background-color: white;
+                width: 18rem;
+                display: inherit;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                padding: 1rem 0.25rem;
+                border-radius: 0.25rem;
+            }
+            .snippet-container p {
+
+            }
+            .snippet-container i {
+                color: #000;
+            }
+            .container {
+                height: 81vh;
+                padding: 0;
+            }
+            #left {
+                border-radius: none;
             }
             .wrapper > .label:nth-last-child(1) {
                 display: none;
@@ -254,7 +328,7 @@
             .label {
                 flex: 0 1 100%;
                 flex-flow: row wrap;
-                justify-content: space-between;
+                justify-content: space-around;
                 height: auto;
                 width: auto;
                 margin: 0.25rem 0;
@@ -265,10 +339,11 @@
             #snippet-area {
                 display: flex;
                 height: 9vh;
+                padding: 0.1rem;
             }
             #snippet-price {
                 flex: 1;
-                background-color: green;
+                background-color: #3bda00;
                 border-radius: 0.25rem;
                 margin: 0.1rem;
                 display: inherit;
@@ -276,6 +351,7 @@
                 align-items: center;
                 flex-direction: column;
                 cursor: pointer;
+                color: #0c5f0c;
             }
             #snippet-total {
                 margin: 0;
@@ -290,10 +366,13 @@
                 border-radius: 0.25rem;
                 padding: 0.25rem 0.5rem;
                 cursor: pointer;
+                display: inherit;
+                justify-content: center;
+                align-items: center;
+
             }
-            #above {
-                /* justify-content: unset; */
-                /* align-items: unset; */
+            #snippet-checkout p {
+                margin: 0;
             }
             #close-receipt {
                 color: #fff;
@@ -320,7 +399,7 @@
                 <label for="toggleAll" class="enable-header">
                     <input type="checkbox" id="toggleAll" /><span id="select-all">Select all</span>
                 </label>
-                <label for="setValueAll">
+                <label for="setValueAll" id='setValueAlla'>
                     <input type="checkbox" id="setValueAll" disabled /><span id="value-all">Set value to all selected:</span>
                     <input type="number" id="input-value-all" disabled />
                 </label>
@@ -347,6 +426,16 @@
                     <input type="radio" name="season" id="3" class="toggleSeason" disabled /><img src="images/winter.png"
                         alt="" class="img-season" /><span>Winter</span>
                 </label>
+            </div>
+        </div>
+        <div id="header-snippet">
+            <div id='optionsButton'>
+                <i class="fas fa-bars"></i>
+                <p>Options</p>
+            </div>
+            <div id='howTo'>
+                <i class="far fa-question-circle"></i>
+                <p>How to</p>
             </div>
         </div>
     </div>
@@ -749,8 +838,9 @@
         toggleAll.addEventListener('click', function (e) {
             if (e.target.checked) {
                 toggleAll.parentNode.className = 'enable-header season-wrapper-a';
-                document.getElementById('toggle-section').className = 'header-section';
                 selectAll.textContent = 'Deselect all';
+                document.getElementById('setValueAlla').className = 'header-section';
+                document.getElementById('setValueAlla').style.border = '2px solid #c9d1d8';
                 for (var x = 0; x < testing.length; x++) {
                     testing[x].checked = true;
                     label[x].style.border = '2px dashed #789618';
@@ -759,7 +849,8 @@
                 setValueAll.removeAttribute('disabled');
             } else {
                 toggleAll.parentNode.className = 'enable-header';
-                document.getElementById('toggle-section').removeAttribute('class');
+                document.getElementById('setValueAlla').removeAttribute('class');
+                document.getElementById('setValueAlla').style.border = '2px solid #e3e8ed';
                 selectAll.textContent = 'Select all';
                 for (var x = 0; x < testing.length; x++) {
                     testing[x].checked = false;
@@ -812,6 +903,7 @@
                     seasonSpan.textContent = ' Disable Seasons';
                     toggleSeason[x].removeAttribute('disabled');
                     seasonBox.className = 'header-section';
+                    seasonBox.style.border = '2px solid #c9d1d8';
                     seasonWrapper[x].className = 'season-wrapper season-wrapper-a';
                     seasonWrapper[x].lastElementChild.style.color = '#7994b0';
                 } else {
@@ -820,6 +912,7 @@
                     toggleSeason[x].setAttribute('disabled', 'disabled');
                     toggleSeason[x].checked = false;
                     seasonBox.removeAttribute('class');
+                    seasonBox.style.border = '2px solid #e3e8ed';
                     seasonWrapper[x].className = 'season-wrapper';
                     seasonWrapper[x].lastElementChild.style.color = '#c9d1d8';
                 }
@@ -1005,6 +1098,42 @@
             sum = [];
         });
 
+        //MOBILE
+
+        // Header buttons
+        var headerSnippet = document.getElementById('header-snippet');
+        var optionsButton = document.getElementById('optionsButton');
+        var howTo = document.getElementById('howTo');
+        headerSnippet.addEventListener('click', function (e) {
+            var above = document.createElement('div');
+            above.id = 'above';
+            document.body.appendChild(above);
+            var snippetContainer = document.createElement('div');
+            snippetContainer.className = 'snippet-container';
+            var title = document.createElement('p');
+            title.style.fontWeight = 'bold';
+            if (e.target.id === 'optionsButton') {
+                console.log('left');
+                title.textContent = 'Options';
+                snippetContainer.appendChild(title);
+            } else if (e.target.id === 'howTo') {
+                console.log('howto');
+                title.textContent = 'How To Play';
+                snippetContainer.appendChild(title);
+                var howToPlay = document.createElement('p');
+                howToPlay.innerHTML = '<ol><li>Tap a product to select</li><li>Input a value of how much of that product you want to buy</li><li>Click \'OK\' to send the value</li><li>If you want to remove the value, tap the product again and select \'Remove value\'</li><li>Tap the \'Checkout\' button to discover how much you will pay for the products</li><li>You can print your receipt by tapping the total value</li><li>Repeat the process if you want to make another purchase</li></ol>';
+                snippetContainer.appendChild(howToPlay);
+            }
+            var closeX = document.createElement('span');
+            closeX.id = 'close-receipt';
+            closeX.innerHTML = '<i class="fas fa-times"></i>';
+            closeX.addEventListener('click', function (e) {
+                document.body.removeChild(document.getElementById('above'));
+            });
+            snippetContainer.appendChild(closeX);
+            above.appendChild(snippetContainer);
+        })
+
         // Mobile receipt
 
         var receiptSnippet = document.createElement('div');
@@ -1013,9 +1142,9 @@
         receiptSnippet.className = 'receipt';
 
         var snippetCheckout = document.getElementById('snippet-checkout');
+        var snippetSum = [];
         snippetCheckout.addEventListener('click', function () {
             receiptSnippet.innerHTML = '';
-            var snippetSum = [];
             // Calculate the total
 
             for (var x = 0; x < scale.length; x++) {
@@ -1027,7 +1156,7 @@
                 }
             }
             if (snippetSum.length === 0) {
-                alert('select any item first');
+                alert('select anaay item first');
             } else {
                 function sumValue(arr) {
                     var total = 0;
@@ -1070,6 +1199,7 @@
                 p.style.margin = '0';
                 receiptSnippet.appendChild(p);
                 var line = document.createElement('span');
+                line.style.display = 'inline-block';
                 line.className = 'line-snippet';
                 p.appendChild(line);
             }
