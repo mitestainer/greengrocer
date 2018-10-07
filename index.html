@@ -18,29 +18,37 @@
             font-family: 'Mukta', sans-serif;
             overflow: hidden;
         }
+        /* body input[type='checkbox'], input[type='radio'] {
+            display: none;
+        } */
         #header {
             display: flex;
             justify-content: space-between;
         }
-        #header-left {
-            display: inherit;
-            justify-content: space-around;
-            align-items: center;
-            width: 50%;
-        }
-        #header-right {
+        .header {
             display: inherit;
             align-items: center;
             background-color: #e3e8ed;
-            width: 50%;
-            border-radius: 0 0 0 0.25rem;
             justify-content: space-around;
             padding: 0.25rem 0;
         }
+        #header-left {
+            width: 49.75%;
+            border-radius: 0 0 0.25rem 0;
+        }
+        .header-section {
+            border: 2px solid #c9d1d8;
+            border-radius: inherit;
+        }
+        #header-right {
+            width: 50%;
+            border-radius: 0 0 0 0.25rem;
+        }
         #season-box {
             display: inherit;
-            border: 2px solid #e3e8ed;
-            border-radius: inherit;
+        }
+        .enable-header {
+            cursor: pointer;
         }
         .season-wrapper {
             background-color: #e3e8ed;
@@ -50,6 +58,10 @@
             display: block;
             padding: 0.25rem 0;
             cursor: not-allowed;
+        }
+        .season-wrapper-a {
+            background-color: #c9d1d8;
+            cursor: pointer;
         }
         .season-wrapper > * {
             vertical-align: middle;
@@ -95,16 +107,66 @@
             width: 10rem;
             height: 8.75rem;
         }
-
-        .label input[type='number'] {
-            width: 50px;
+        input[type='checkbox']:checked + .label {
+            background-color: pink;
         }
         #checkout {
             background-color: #000;
             color: #fff;
         }
-        #checkout:hover {
-            
+        #above {
+            display: flex;
+            flex-direction: column;
+            background-color: rgba(0, 0, 0, 0.75);
+            height: 100vh;
+            width: 100vw;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            justify-content: center;
+            align-items: center;
+            }
+        .item-container {
+            background-color: white;
+            width: 18rem;
+            height: 13rem;
+            display: inherit;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .item-container p {
+            margin: 0;
+        }
+        #item-scale {
+            width: 75%;
+            display: inherit;
+            justify-content: space-around;
+            align-items: inherit;
+        }
+        #item-scale {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        #choose-container {
+            display: inherit;
+            margin: 0.5rem;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+        }
+        .choose-box {
+            flex: 0 1 35%;
+            text-align: center;
+            border-radius: 0.25rem;
+            display: inherit;
+            justify-content: center;
+            align-items: center;
+            height: 2rem;
+            cursor: pointer;
         }
         .fix {
             height: 2rem;
@@ -230,25 +292,15 @@
                 cursor: pointer;
             }
             #above {
-                display: flex;
-                flex-direction: column;
-                background-color: rgba(0, 0, 0, 0.75);
-                height: 100vh;
-                width: 100vw;
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-            }
-            #above div:nth-child(1) {
-                padding: 0.5rem 1rem 0 0;
+                /* justify-content: unset; */
+                /* align-items: unset; */
             }
             #close-receipt {
                 color: #fff;
                 display: flex;
                 justify-content: flex-end;
                 font-size: 1.75rem;
+                margin-top: 0.5rem;
             }
             #close-receipt > i {
                 cursor: pointer;
@@ -262,22 +314,22 @@
 
 <body>
     <div id="header">
-        <div id="header-left">
+        <div id="header-left" class="header">
             <p>Pick your products:</p>
-            <label for="toggleAll">
-                <input type="checkbox" id="toggleAll" /><span id="select-all">Select all</span>
-            </label>
-            <label for="setValueAll">
-                <input type="checkbox" id="setValueAll" disabled /><span id="value-all">Set value to all selected:</span>
-                <input type="number" id="input-value-all" disabled />
-            </label>
-        </div>
-        <div id="header-right">
-            <div>
-                <label for="enable-season">
-                    <input type="checkbox" id="enable-season" /><span id="season-span"> Enable Seasons</span>
+            <div id="toggle-section">
+                <label for="toggleAll" class="enable-header">
+                    <input type="checkbox" id="toggleAll" /><span id="select-all">Select all</span>
+                </label>
+                <label for="setValueAll">
+                    <input type="checkbox" id="setValueAll" disabled /><span id="value-all">Set value to all selected:</span>
+                    <input type="number" id="input-value-all" disabled />
                 </label>
             </div>
+        </div>
+        <div id="header-right" class="header">
+            <label for="enable-season" class="enable-header">
+                <input type="checkbox" id="enable-season" /><span id="season-span"> Enable Seasons</span>
+            </label>
             <div id="season-box">
                 <label for="0" class="season-wrapper">
                     <input type="radio" name="season" id="0" class="toggleSeason" disabled /><img src="images/spring.png"
@@ -328,6 +380,8 @@
             }, {
                 productName: 'Honey',
                 pic: 'images/honey.png',
+                onSeason: undefined,
+                outOfSeason: undefined,
                 regularPrice: undefined,
                 priceOnSeason: undefined,
                 priceOutOfSeason: undefined,
@@ -335,6 +389,8 @@
             }, {
                 productName: 'Grapes', // aka Wild Grapes
                 pic: 'images/wgrape.png',
+                onSeason: undefined,
+                outOfSeason: undefined,
                 regularPrice: 3.99,
                 priceOnSeason: undefined,
                 priceOutOfSeason: undefined,
@@ -342,6 +398,8 @@
             }, {
                 productName: 'Mushroom',
                 pic: 'images/mushroom.png',
+                onSeason: undefined,
+                outOfSeason: undefined,
                 regularPrice: undefined,
                 priceOnSeason: undefined,
                 priceOutOfSeason: undefined,
@@ -349,13 +407,17 @@
             }, {
                 productName: 'Turnip',
                 pic: 'images/turnip.png',
-                regularPrice: undefined,
+                onSeason: undefined,
+                outOfSeason: undefined,
+                regularPrice: 2.19,
                 priceOnSeason: undefined,
                 priceOutOfSeason: undefined,
-                unit: 'kg'
+                unit: 'unit'
             }, {
                 productName: 'Potato',
                 pic: 'images/potato.png',
+                onSeason: undefined,
+                outOfSeason: undefined,
                 regularPrice: 0.95,
                 priceOnSeason: undefined,
                 priceOutOfSeason: undefined,
@@ -363,13 +425,17 @@
             }, {
                 productName: 'Cucumber',
                 pic: 'images/cucumber.png',
+                onSeason: undefined,
+                outOfSeason: 3,
                 regularPrice: undefined,
                 priceOnSeason: undefined,
-                priceOutOfSeason: undefined,
+                priceOutOfSeason: 4.49,
                 unit: 'kg'
             }, {
                 productName: 'Cabbage',
                 pic: 'images/cabbage.png',
+                onSeason: undefined,
+                outOfSeason: undefined,
                 regularPrice: 0.69,
                 priceOnSeason: undefined,
                 priceOutOfSeason: undefined,
@@ -377,6 +443,8 @@
             }, {
                 productName: 'Strawberry',
                 pic: 'images/strawberry.png',
+                onSeason: undefined,
+                outOfSeason: undefined,
                 regularPrice: 2.99,
                 priceOnSeason: undefined,
                 priceOutOfSeason: undefined,
@@ -384,6 +452,8 @@
             }, {
                 productName: 'Onion',
                 pic: 'images/onion.png',
+                onSeason: undefined,
+                outOfSeason: undefined,
                 regularPrice: 0.95,
                 priceOnSeason: undefined,
                 priceOutOfSeason: undefined,
@@ -391,6 +461,8 @@
             }, {
                 productName: 'Tomato',
                 pic: 'images/tomato.png',
+                onSeason: undefined,
+                outOfSeason: undefined,
                 regularPrice: 1.59,
                 priceOnSeason: undefined,
                 priceOutOfSeason: undefined,
@@ -398,6 +470,8 @@
             }, {
                 productName: 'Corn',
                 pic: 'images/corn.png',
+                onSeason: undefined,
+                outOfSeason: undefined,
                 regularPrice: undefined,
                 priceOnSeason: undefined,
                 priceOutOfSeason: undefined,
@@ -405,6 +479,8 @@
             }, {
                 productName: 'Pineapple',
                 pic: 'images/pineapple.png',
+                onSeason: undefined,
+                outOfSeason: undefined,
                 regularPrice: 1.95,
                 priceOnSeason: undefined,
                 priceOutOfSeason: undefined,
@@ -412,6 +488,8 @@
             }, {
                 productName: 'Pumpkin',
                 pic: 'images/pumpkin.png',
+                onSeason: undefined,
+                outOfSeason: undefined,
                 regularPrice: 1.99,
                 priceOnSeason: undefined,
                 priceOutOfSeason: undefined,
@@ -419,6 +497,8 @@
             }, {
                 productName: 'Carrot',
                 pic: 'images/carrot.png',
+                onSeason: undefined,
+                outOfSeason: undefined,
                 regularPrice: 1.29,
                 priceOnSeason: undefined,
                 priceOutOfSeason: undefined,
@@ -426,6 +506,8 @@
             }, {
                 productName: 'Eggplant',
                 pic: 'images/eggplant.png',
+                onSeason: undefined,
+                outOfSeason: undefined,
                 regularPrice: 1.99,
                 priceOnSeason: undefined,
                 priceOutOfSeason: undefined,
@@ -433,6 +515,8 @@
             }, {
                 productName: 'Sweet Potato',
                 pic: 'images/spotato.png',
+                onSeason: undefined,
+                outOfSeason: undefined,
                 regularPrice: undefined,
                 priceOnSeason: undefined,
                 priceOutOfSeason: undefined,
@@ -440,6 +524,8 @@
             }, {
                 productName: 'Green Pepper',
                 pic: 'images/gpepper.png',
+                onSeason: undefined,
+                outOfSeason: undefined,
                 regularPrice: undefined,
                 priceOnSeason: undefined,
                 priceOutOfSeason: undefined,
@@ -447,6 +533,8 @@
             }, {
                 productName: 'Spinach',
                 pic: 'images/spinach.png',
+                onSeason: undefined,
+                outOfSeason: undefined,
                 regularPrice: undefined,
                 priceOnSeason: undefined,
                 priceOutOfSeason: undefined,
@@ -475,6 +563,7 @@
             var cbox = document.createElement('input');
             cbox.setAttribute('type', 'checkbox');
             cbox.className = 'testing';
+            cbox.id = x;
             label[x].appendChild(cbox);
             // Setting product name
             var pHolder = document.createElement('div');
@@ -498,10 +587,9 @@
             productPrice.className = 'price-tag';
             label[x].appendChild(productPrice);
             // Setting Input box 
-            var inputScale = document.createElement('input');
-            inputScale.setAttribute('type', 'number');
-            inputScale.setAttribute('disabled', 'disabled');
-            inputScale.className = 'scale';
+            var inputScale = document.createElement('p');
+            inputScale.textContent = ' ';
+            inputScale.className = 'scale margin-fix';
             label[x].appendChild(inputScale);
         };
 
@@ -509,7 +597,6 @@
         checkout.innerHTML = '<i class="fas fa-shopping-cart"></i> Checkout';
         label[(label.length - 1)].id = 'checkout';
         label[(label.length - 1)].appendChild(checkout);
-
 
         left.addEventListener('click', function (e) {
             if (e.target.id != 'checkout') {
@@ -522,6 +609,130 @@
                     b.setAttribute('disabled', 'disabled');
                     b.value = "";
                 }
+                var idSet = e.target.id;
+                label[idSet].style.border = '2px dashed #789618';
+                // Create container
+                var above = document.createElement('div');
+                above.id = 'above';
+                var itemContainer = document.createElement('div');
+                itemContainer.className = 'item-container';
+                //
+                var itemName = document.createElement('p');
+                itemName.textContent = productList[idSet].productName;
+                itemContainer.appendChild(itemName);
+                //
+                var itemPic = document.createElement('img');
+                itemPic.src = productList[idSet].pic;
+                itemPic.alt = itemName.textContent;
+                itemContainer.appendChild(itemPic);
+                //
+                var itemPrice = document.createElement('p');
+                itemPrice.textContent = label[idSet].children[2].textContent;
+                itemContainer.appendChild(itemPrice);
+                //
+                var itemSeason = document.createElement('p');
+                var setId = parseInt(e.target.id);
+                for (var x = 0; x < toggleSeason.length; x++) {
+                    if (toggleSeason[x].checked) {
+                        if (productList[setId].onSeason == toggleSeason[x].id) {
+                            itemSeason.textContent = 'On season!';
+                        } else if (productList[setId].outOfSeason == toggleSeason[x].id) {
+                            itemSeason.textContent = 'Out of season!';
+                        } else {
+                            itemSeason.textContent = ' ';
+                        }
+                    }
+                }
+                itemContainer.appendChild(itemSeason);
+                //
+                var itemScale = document.createElement('div');
+                itemScale.id = 'item-scale';
+                var itemMinus = document.createElement('span');
+                itemMinus.innerHTML = '<i class="fas fa-minus-square"></i>';
+                itemScale.appendChild(itemMinus);
+                var itemScaleSet = document.createElement('input');
+                itemScaleSet.type = 'number';
+                itemScale.appendChild(itemScaleSet);
+                var itemPlus = document.createElement('span');
+                itemPlus.innerHTML = '<i class="fas fa-plus-square"></i>';
+                itemScale.appendChild(itemPlus);
+                itemContainer.appendChild(itemScale);
+                // Logic
+                itemScaleSet.value = parseInt(scale[setId].textContent);
+                var itemScaleNewValue = 0;
+                itemMinus.addEventListener('click', function () {
+                    debugger;
+                    if (itemScaleSet.value <= 1) {
+                        itemScaleSet.value = '';
+                        itemScaleNewValue = 0;
+                    } else if (itemScaleSet.value == parseInt(scale[setId].textContent)) {
+                        itemScaleNewValue = itemScaleSet.valueAsNumber;
+                        itemScaleNewValue--;
+                        itemScaleSet.value = itemScaleNewValue;
+                    } else {
+                        itemScaleNewValue--;
+                        itemScaleSet.value = itemScaleNewValue;
+                        if (itemScaleNewValue === 0) {
+                            itemScaleSet.value = '';
+                        }
+                    }
+                });
+                itemPlus.addEventListener('click', function () {
+                    if (itemScaleSet.value === '') {
+                        if (itemScaleNewValue === 0) {
+                            itemScaleNewValue++;
+                            itemScaleSet.value = itemScaleNewValue;
+                        } else {
+                            itemScaleNewValue = 0;
+                            itemScaleSet.value = itemScaleNewValue;
+                        }
+                    } else {
+                        itemScaleNewValue++;
+                        itemScaleSet.value = itemScaleNewValue;
+                    }
+                });
+                //
+                var choose = document.createElement('div');
+                choose.id = 'choose-container';
+                var chooseOK = document.createElement('div');
+                chooseOK.id = 'choose-ok';
+                chooseOK.className = 'choose-box';
+                chooseOK.style.backgroundColor = 'green';
+                chooseOK.textContent = 'OK';
+                var chooseCancel = document.createElement('div');
+                chooseCancel.id = 'choose-cancel';
+                chooseCancel.className = 'choose-box';
+                chooseCancel.style.backgroundColor = 'red';
+                if (scale[setId].textContent === ' ') {
+                    chooseCancel.textContent = 'Cancel';
+                } else {
+                    chooseCancel.textContent = 'Remove Value';
+                }
+                choose.appendChild(chooseOK);
+                choose.appendChild(chooseCancel);
+                itemContainer.appendChild(choose);
+                //
+                above.appendChild(itemContainer);
+                document.body.appendChild(above);
+                // Logic
+                document.getElementById('choose-ok').addEventListener('click', function () {
+                    if (itemScaleSet.value == '') {
+                        alert('set a value');
+                    } else {
+                        scale[setId].textContent = itemScaleSet.value;
+                        document.body.removeChild(document.getElementById('above'));
+                    }
+                });
+                document.getElementById('choose-cancel').addEventListener('click', function () {
+                    label[idSet].style.border = '2px solid #b4d455';
+                    document.body.removeChild(document.getElementById('above'));
+                    testing[setId].checked = false;
+                    if (itemScaleSet.value === '') {
+                        scale[setId].textContent = ' ';
+                    } else {
+                        scale[setId].textContent = ' ';
+                    }
+                });
             }
         });
 
@@ -534,20 +745,27 @@
 
         // Toggle all boxes
 
-        document.getElementById('toggleAll').addEventListener('click', function (e) {
+        var toggleAll = document.getElementById('toggleAll');
+        toggleAll.addEventListener('click', function (e) {
             if (e.target.checked) {
+                toggleAll.parentNode.className = 'enable-header season-wrapper-a';
+                document.getElementById('toggle-section').className = 'header-section';
                 selectAll.textContent = 'Deselect all';
                 for (var x = 0; x < testing.length; x++) {
                     testing[x].checked = true;
+                    label[x].style.border = '2px dashed #789618';
                     scale[x].removeAttribute('disabled');
                 }
                 setValueAll.removeAttribute('disabled');
             } else {
+                toggleAll.parentNode.className = 'enable-header';
+                document.getElementById('toggle-section').removeAttribute('class');
                 selectAll.textContent = 'Select all';
                 for (var x = 0; x < testing.length; x++) {
                     testing[x].checked = false;
+                    label[x].style.border = '2px solid #b4d455';
                     scale[x].setAttribute('disabled', 'disabled');
-                    scale[x].value = "";
+                    scale[x].textContent = "";
                 }
                 setValueAll.setAttribute('disabled', 'disabled');
                 setValueAll.checked = false;
@@ -569,9 +787,9 @@
                 var newValue = e.target.valueAsNumber;
                 for (var x = 0; x < scale.length; x++) {
                     if (testing[x].checked) {
-                        scale[x].valueAsNumber = newValue;
+                        scale[x].textContent = newValue;
                     } else {
-                        scale[x].value = '';
+                        scale[x].textContent = '';
                     }
                 }
             })
@@ -590,19 +808,19 @@
         enableSeason.addEventListener('change', function (e) {
             for (var x = 0; x < toggleSeason.length; x++) {
                 if (e.target.checked) {
+                    enableSeason.parentNode.className = 'enable-header season-wrapper-a';
                     seasonSpan.textContent = ' Disable Seasons';
                     toggleSeason[x].removeAttribute('disabled');
-                    seasonWrapper[x].style.backgroundColor = '#c9d1d8';
-                    seasonBox.style.border = '2px solid #c9d1d8';
-                    seasonWrapper[x].style.cursor = 'pointer';
+                    seasonBox.className = 'header-section';
+                    seasonWrapper[x].className = 'season-wrapper season-wrapper-a';
                     seasonWrapper[x].lastElementChild.style.color = '#7994b0';
                 } else {
+                    enableSeason.parentNode.className = 'enable-header';
                     seasonSpan.textContent = ' Enable Seasons';
                     toggleSeason[x].setAttribute('disabled', 'disabled');
                     toggleSeason[x].checked = false;
-                    seasonWrapper[x].style.backgroundColor = '#e3e8ed';
-                    seasonBox.style.border = '2px solid #e3e8ed';
-                    seasonWrapper[x].style.cursor = 'not-allowed';
+                    seasonBox.removeAttribute('class');
+                    seasonWrapper[x].className = 'season-wrapper';
                     seasonWrapper[x].lastElementChild.style.color = '#c9d1d8';
                 }
             }
@@ -651,11 +869,11 @@
             // Calculate the total
 
             for (var x = 0; x < scale.length; x++) {
-                if (scale[x].value > 0) {
+                if (parseInt(scale[x].textContent) > 0) {
                     var stringPrice = priceTag[x].textContent;
                     var re = /\d\.[0-9]{2}/g
                     var finalPrice = parseFloat(stringPrice.match(re));
-                    sum.push(scale[x].valueAsNumber * finalPrice);
+                    sum.push(parseInt(scale[x].textContent) * finalPrice);
                 }
             }
             if (sum.length === 0) {
@@ -715,7 +933,6 @@
             // Receipt Lines
 
             addP('Cash receipt'.toUpperCase(), 'title-line'); // Title
-            debugger;
             drawLine('*');
 
             // Date
@@ -756,7 +973,7 @@
             for (var x = 0; x < selected.length; x++) {
                 var idx = selected[x].parentNode.id;
                 var purchasedProduct = productList[idx].productName;
-                var amountPurchased = selected[x].parentNode.children[3].value;
+                var amountPurchased = label[idx].children[3].textContent;
                 var unitOfProduct = productList[idx].unit;
                 var sumOfProduct = sum[x].toFixed(2);
                 if (unitOfProduct === 'kg') {
@@ -802,11 +1019,11 @@
             // Calculate the total
 
             for (var x = 0; x < scale.length; x++) {
-                if (scale[x].value > 0) {
+                if (parseInt(scale[x].textContent) > 0) {
                     var stringPrice = priceTag[x].textContent;
                     var re = /\d\.[0-9]{2}/g
                     var finalPrice = parseFloat(stringPrice.match(re));
-                    snippetSum.push(scale[x].valueAsNumber * finalPrice);
+                    snippetSum.push(parseInt(scale[x].textContent) * finalPrice);
                 }
             }
             if (snippetSum.length === 0) {
@@ -901,10 +1118,14 @@
             for (var x = 0; x < selected.length; x++) {
                 var idx = selected[x].parentNode.id;
                 var purchasedProduct = productList[idx].productName;
-                var amountPurchased = selected[x].parentNode.children[3].value;
+                var amountPurchased = label[idx].children[3].textContent;
                 var unitOfProduct = productList[idx].unit;
                 var sumOfProduct = snippetSum[x].toFixed(2);
-                addItem(purchasedProduct + ' (' + amountPurchased + unitOfProduct + ')', sumOfProduct);
+                if (unitOfProduct === 'kg') {
+                    addItem(purchasedProduct + ' (' + amountPurchased + unitOfProduct + ')', sumOfProduct);
+                } else {
+                    addItem(purchasedProduct + ' (' + amountPurchased + ' ' + unitOfProduct + ')', sumOfProduct);
+                }
             }
             drawLine('-');
 
@@ -933,15 +1154,6 @@
             var above = document.createElement('div');
             above.id = 'above';
             document.body.appendChild(above);
-            var closeReceipt = document.createElement('div');
-            var closeX = document.createElement('span');
-            closeX.id = 'close-receipt';
-            closeX.innerHTML = '<i class="fas fa-times"></i>';
-            closeX.addEventListener('click', function (e) {
-                above.style.display = 'none';
-            });
-            closeReceipt.appendChild(closeX);
-            above.appendChild(closeReceipt);
             above.appendChild(receiptSnippet);
             var lineSnippet = document.querySelectorAll('.line-snippet');
             for (var x = 0; x < lineSnippet.length; x++) {
@@ -961,6 +1173,15 @@
                     lineSnippet[x].textContent = y;
                 }
             }
+            var closeReceipt = document.createElement('div');
+            var closeX = document.createElement('span');
+            closeX.id = 'close-receipt';
+            closeX.innerHTML = '<i class="fas fa-times"></i>';
+            closeX.addEventListener('click', function (e) {
+                document.body.removeChild(document.getElementById('above'));
+            });
+            closeReceipt.appendChild(closeX);
+            above.appendChild(closeReceipt);
         });
     </script>
 </body>
