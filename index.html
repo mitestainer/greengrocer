@@ -12,6 +12,7 @@
     <style>
         * {
             box-sizing: border-box;
+            /* outline: 1px solid; */
         }
         body {
             margin: 0;
@@ -19,7 +20,7 @@
             overflow: hidden;
         }
         body input[type='checkbox'], input[type='radio'] {
-            display: none;
+            /* display: none; */
         }
         #header {
             display: flex;
@@ -45,6 +46,7 @@
             flex-direction: row;
             width: 65%;
             justify-content: space-between;
+            align-items: center;
         }
         label[for='setValueAll'] {
             display: inherit;
@@ -103,7 +105,7 @@
         .wrapper {
             display: inherit;
             flex-wrap: wrap;
-            height: inherit;
+            height: 100%;
         }
         #left {
             flex: 1 0;
@@ -113,6 +115,9 @@
             border-radius: 0 0.25rem 0 0;
             padding: 0.5rem;
             background-color: #e3e8ed;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-gap: 0.5em;
         }
         #right {
             width: 20.5rem;
@@ -123,7 +128,7 @@
             background-color: #b4d455;
             border-radius: 0.3rem;
             cursor: pointer;
-            display: inherit;
+            display: flex;
             flex-flow: column wrap;
             justify-content: center;
             align-items: center;
@@ -136,6 +141,7 @@
         #checkout {
             background-color: #000;
             color: #fff;
+            grid-area: 4 / 6 / 5 / 7;
         }
         #above {
             display: flex;
@@ -170,7 +176,7 @@
             justify-content: space-around;
             align-items: inherit;
         }
-        #item-scale {
+        #item-scale i {
             font-size: 1.5rem;
             cursor: pointer;
         }
@@ -299,6 +305,32 @@
             #header-snippet p ol {
                 padding: 0;
             }
+            .enable-header {
+                background-color: #e3e8ed;
+                display: flex;
+            }
+            .options-fix {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 0.5em;
+            }
+            #snippet-season-holder {
+                display: grid;
+                grid-template-columns: 50% 50%;
+                grid-gap: 0.5em;
+                justify-content: center;
+            }
+            .snippet-season {
+                display: flex;
+                text-align: center;
+                text-transform: capitalize;
+                justify-content: inherit;
+                flex-direction: column;
+            }
+            .season-mobile {
+                width: 5em;
+            }
             .snippet-container {
                 background-color: white;
                 width: 18rem;
@@ -321,6 +353,9 @@
             }
             #left {
                 border-radius: none;
+                grid-template-columns: 1fr;
+                grid-gap: initial;
+                padding: 0.25rem 0.5rem;
             }
             .wrapper > .label:nth-last-child(1) {
                 display: none;
@@ -333,6 +368,9 @@
                 width: auto;
                 margin: 0.25rem 0;
             }
+            #item-scale i {
+                font-size: 2rem;
+            }
             #right {
                 display: none;
             }
@@ -343,7 +381,7 @@
             }
             #snippet-price {
                 flex: 1;
-                background-color: #3bda00;
+                background-color: #74d613;
                 border-radius: 0.25rem;
                 margin: 0.1rem;
                 display: inherit;
@@ -386,6 +424,18 @@
             }
             #recepit-snippet {
                 align-self: center;
+            }
+            @media screen and (max-height: 650px) {
+                #header-snippet > div {
+                    height: 90%;
+                    font-size: 2.5vh;
+                }
+                #header-snippet i {
+                    font-size: 4.5vh;
+                }
+                .snippet-container {
+                    font-size: 2.35vh;
+                }
             }
         }
     </style>
@@ -1031,10 +1081,10 @@
             // Date
             var dateSetUp = new Date();
             var dateDay;
-            if (dateSetUp.getDay() < 10) {
-                dateDay = '0' + dateSetUp.getDay();
+            if (dateSetUp.getDate() < 10) {
+                dateDay = '0' + dateSetUp.getDate();
             } else {
-                dateDay = dateSetUp.getDay();
+                dateDay = dateSetUp.getDate();
             };
             var dateMonth = dateSetUp.getMonth() + 1;
             var dateYear = dateSetUp.getFullYear();
@@ -1113,17 +1163,100 @@
             var title = document.createElement('p');
             title.style.fontWeight = 'bold';
             if (e.target.id === 'optionsButton') {
-                console.log('left');
                 title.textContent = 'Options';
                 snippetContainer.appendChild(title);
+
+                var int1 = document.createElement('div');
+                int1.className = 'options-fix';
+                var int2 = document.createElement('input');
+                int2.setAttribute('type', 'checkbox');
+                int2.id = 'toggleAlla';
+                int1.appendChild(int2);
+                var int3 = document.createElement('label');
+                int3.className = 'enable-header';
+                int3.htmlFor = 'toggleAlla';
+                var int4 = document.createElement('span');
+                int4.textContent = 'Enable All';
+                int3.appendChild(int4);
+                int1.appendChild(int3);
+
+                var intA1 = document.createElement('div');
+                intA1.className = 'options-fix';
+                var intA = document.createElement('input');
+                intA.setAttribute('type', 'checkbox');
+                intA.setAttribute('disabled', 'disabled');
+                intA.id = 'setValueAllb';
+                intA1.appendChild(intA);
+                var intB = document.createElement('label');
+                intB.className = 'enable-header';
+                intB.htmlFor = 'setValueAllb';
+                var intC = document.createElement('span');
+                intC.textContent = 'Set Value to All';
+                intB.appendChild(intC);
+                intA1.appendChild(intB);
+                var intD = document.createElement('input');
+                intD.setAttribute('type', 'number');
+                intD.setAttribute('disabled', 'disabled');
+                intD.id = 'inputb'
+                intA1.appendChild(intD);
+                var intE = document.createElement('button');
+                intE.className = 'enable-header';
+                intE.textContent = 'OK';
+                intE.id = 'intOK';
+                intE.setAttribute('disabled', 'disabled');
+                intA1.appendChild(intE);
+                int1.appendChild(intA1);
+
+                snippetContainer.appendChild(int1);
             } else if (e.target.id === 'howTo') {
-                console.log('howto');
                 title.textContent = 'How To Play';
                 snippetContainer.appendChild(title);
                 var howToPlay = document.createElement('p');
                 howToPlay.innerHTML = '<ol><li>Tap a product to select</li><li>Input a value of how much of that product you want to buy</li><li>Click \'OK\' to send the value</li><li>If you want to remove the value, tap the product again and select \'Remove value\'</li><li>Tap the \'Checkout\' button to discover how much you will pay for the products</li><li>You can print your receipt by tapping the total value</li><li>Repeat the process if you want to make another purchase</li></ol>';
                 snippetContainer.appendChild(howToPlay);
             }
+
+            var snippetSeasons = document.createElement('div');
+            snippetSeasons.className = 'options-fix';
+            var seasonbutton = document.createElement('input');
+            seasonbutton.id = 'seasonbutton';
+            seasonbutton.setAttribute('type', 'checkbox');
+            snippetSeasons.appendChild(seasonbutton);
+            var enableSeasonA = document.createElement('label');
+            enableSeasonA.htmlFor = 'seasonbutton';
+            enableSeasonA.textContent = 'Enable Seasons';
+            enableSeasonA.className = 'enable-header';
+            snippetSeasons.appendChild(enableSeasonA);
+            var snippetholderS = document.createElement('div');
+            snippetholderS.id = 'snippet-season-holder';
+
+            function createSeason(seasonName) {
+            var snippetS = document.createElement('label');
+            snippetS.htmlFor = seasonName;
+            snippetS.id = 'snippet-' + seasonName;
+            snippetS.className = 'snippet-season';
+            var seasonSelect = document.createElement('input');
+            seasonSelect.setAttribute('type', 'checkbox');
+            seasonSelect.setAttribute('disabled', 'disabled');
+            seasonSelect.id = seasonName;
+            snippetS.appendChild(seasonSelect);
+            var seasonImage = document.createElement('img');
+            seasonImage.src = 'images/' + seasonName + '.png';
+            seasonImage.className = 'season-mobile';
+            snippetS.appendChild(seasonImage);
+            var seasonTitle = document.createElement('span');
+            seasonTitle.textContent = seasonName;
+            snippetS.appendChild(seasonTitle);
+            snippetholderS.appendChild(snippetS);
+            snippetSeasons.appendChild(snippetholderS);
+            }
+            createSeason('spring');
+            createSeason('summer');
+            createSeason('autumn');
+            createSeason('winter');
+
+            snippetContainer.appendChild(snippetSeasons);
+
             var closeX = document.createElement('span');
             closeX.id = 'close-receipt';
             closeX.innerHTML = '<i class="fas fa-times"></i>';
@@ -1132,7 +1265,65 @@
             });
             snippetContainer.appendChild(closeX);
             above.appendChild(snippetContainer);
-        })
+
+            // Logic
+
+            // Toggle All
+            var toggleAlla = document.getElementById('toggleAlla');
+            var setValueAllb = document.getElementById('setValueAllb');
+
+            toggleAlla.addEventListener('change', function (e) {
+                for (var x = 0; x < testing.length; x++) {
+                    if (e.target.checked) {
+                        setValueAllb.removeAttribute('disabled');
+                        testing[x].checked = true;
+                        label[x].style.border = '2px dashed #789618';
+                    } else {
+                        setValueAllb.setAttribute('disabled', 'disabled');
+                        testing[x].checked = false;
+                        label[x].style.border = '2px solid #b4d455';
+                    }
+                }
+            });
+
+            // Set value to all
+            var inputb = document.getElementById('inputb');
+            var intE = document.getElementById('intOK');
+            setValueAllb.addEventListener('change', function(e) {
+                if (e.target.checked === true) {
+                    inputb.removeAttribute('disabled');
+                    intE.removeAttribute('disabled');
+                } else {
+                    inputb.setAttribute('disabled', 'disabled');
+                    intE.setAttribute('disabled', 'disabled');
+                }
+                var intValue;
+                inputb.addEventListener('change', function(e) {
+                    intValue = e.target.value;
+                    console.log(intValue);
+                    if (intValue < 1) {
+                        e.target.value = '';
+                        intValue = '';
+                    }
+                })
+            });
+
+            // Select season
+            var seasonbutton = document.getElementById('seasonbutton');
+            seasonbutton.addEventListener('change', function(e) {
+                var seasonNames = ['spring', 'summer', 'autumn', 'winter'];
+                if (e.target.checked === true) {
+                    for (var x = 0; x < seasonNames.length; x++) {
+                        document.getElementById(seasonNames[x]).removeAttribute('disabled');
+                    }
+                } else {
+                    for (var x = 0; x < seasonNames.length; x++) {
+                        document.getElementById(seasonNames[x]).setAttribute('disabled', 'disabled');
+                }
+                }
+            });
+        });
+
 
         // Mobile receipt
 
@@ -1213,10 +1404,10 @@
             // Date
             var dateSetUp = new Date();
             var dateDay;
-            if (dateSetUp.getDay() < 10) {
-                dateDay = '0' + dateSetUp.getDay();
+            if (dateSetUp.getDate() < 10) {
+                dateDay = '0' + dateSetUp.getDate();
             } else {
-                dateDay = dateSetUp.getDay();
+                dateDay = dateSetUp.getDate();
             };
             var dateMonth = dateSetUp.getMonth() + 1;
             var dateYear = dateSetUp.getFullYear();
