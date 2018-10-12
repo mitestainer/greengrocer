@@ -11,438 +11,438 @@
     <link href="https://fonts.googleapis.com/css?family=Mukta|VT323" rel="stylesheet" />
     <style>
         * {
-            box-sizing: border-box;
-            outline: 1px solid; 
-        }
-        body {
-            margin: 0;
-            font-family: 'Mukta', sans-serif;
-            overflow: hidden;
-        }
-        body input[type='checkbox'], input[type='radio'] {
-            /* display: none; */
-        }
-        #header {
-            display: flex;
-            justify-content: space-between;
-        }
-        .header {
-            display: inherit;
-            align-items: center;
-            background-color: #e3e8ed;
-            justify-content: space-around;
-            padding: 0.25rem 0;
-        }
-        #header-left {
-            width: 49.75%;
-            border-radius: 0 0 0.25rem 0;
-        }
-        .header-section {
-            border: 2px solid #c9d1d8;
-            border-radius: 0.25rem;
-        }
-        #toggle-section {
-            display: inherit;
-            flex-direction: row;
-            width: 65%;
-            justify-content: space-between;
-            align-items: center;
-        }
-        label[for='setValueAll'] {
-            display: inherit;
-            justify-content: inherit;
-            align-items: center;
-            border: 2px solid #e3e8ed;
-        }
-        #header-right {
-            width: 50%;
-            border-radius: 0 0 0 0.25rem;
-        }
-        #season-box {
-            display: inherit;
-            border: 2px solid #e3e8ed;
-        }
-        .enable-header {
-            cursor: pointer;
-            height: 2.5rem;
-            display: inherit;
-            justify-content: center;
-            align-items: center;
-            border-radius: 0.25rem;
-            width: 7rem;
-        }
-        .season-wrapper {
-            background-color: #e3e8ed;
-            border-radius: 0.25rem;
-            width: 7rem;
-            margin: 0.25rem;
-            display: block;
-            padding: 0.25rem 0;
-            cursor: not-allowed;
-            height: 2.5rem;
-        }
-        .season-wrapper-a {
-            background-color: #c9d1d8;
-            cursor: pointer;
-        }
-        .season-wrapper > * {
-            vertical-align: middle;
-            color: #c9d1d8;
-        }
-        .img-season {
-            height: 2rem;
-            width: 2rem;
-        }
-        #header-snippet {
-            display: none;
-        }
-        .container {
-            display: flex;
-            height: 90vh;
-            padding: 0.25rem 0;
-        }
-
-        .wrapper {
-            display: inherit;
-            flex-wrap: wrap;
-            height: 100%;
-        }
-        #left {
-            flex: 1 0;
-            overflow: auto;
-            justify-content: space-between;
-            align-items: flex-start;
-            border-radius: 0 0.25rem 0 0;
-            padding: 0.5rem;
-            background-color: #e3e8ed;
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            grid-gap: 0.5em;
-        }
-        #right {
-            width: 20.5rem;
-            align-items: flex-start;
-            justify-content: center;
-        }
-        .label {
-            background-color: #b4d455;
-            border-radius: 0.3rem;
-            cursor: pointer;
-            display: flex;
-            flex-flow: column wrap;
-            justify-content: center;
-            align-items: center;
-            width: 10rem;
-            height: 8.75rem;
-        }
-        input[type='checkbox']:checked + .label {
-            background-color: pink;
-        }
-        #checkout {
-            background-color: #000;
-            color: #fff;
-            grid-area: 4 / 6 / 5 / 7;
-        }
-        #above {
-            display: flex;
-            flex-direction: column;
-            background-color: rgba(0, 0, 0, 0.75);
-            height: 100vh;
-            width: 100vw;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-
-            justify-content: center;
-            align-items: center;
+                box-sizing: border-box;
+                outline: 1px solid; 
             }
-        .item-container {
-            background-color: white;
-            width: 18rem;
-            height: 13rem;
-            display: inherit;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-        .item-container p {
-            margin: 0;
-        }
-        #item-scale {
-            width: 75%;
-            display: inherit;
-            justify-content: space-around;
-            align-items: inherit;
-        }
-        #item-scale i {
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        #choose-container {
-            display: inherit;
-            margin: 0.5rem;
-            justify-content: space-around;
-            align-items: center;
-            width: 100%;
-        }
-        .choose-box {
-            flex: 0 1 35%;
-            text-align: center;
-            border-radius: 0.25rem;
-            display: inherit;
-            justify-content: center;
-            align-items: center;
-            height: 2rem;
-            cursor: pointer;
-        }
-        .fix {
-            height: 2rem;
-            width: 2rem;
-            pointer-events: none;
-        }
-
-        .margin-fix {
-            margin: 0;
-            pointer-events: none;
-        }
-        .product-holder {
-            display: inherit;
-            flex-direction: column;
-            align-items: center;
-            pointer-events: none;
-        }
-
-        .price-tag {
-            margin: 0;
-            pointer-events: none;
-        }
-
-        .receipt {
-            width: 20rem;
-            padding: 0.5rem 1rem;
-            background-color: antiquewhite;
-            display: none;
-            flex-direction: column;
-            font-family: 'VT323', monospace;
-            letter-spacing: 0.1rem;
-            cursor: default;
-            font-size: 0.999rem;
-        }
-        .title-line {
-            text-align: center;
-            font-weight: bold;
-        }
-        .receiptItem {
-            margin: 0;
-            display: inherit;
-            justify-content: space-between;
-        }
-        #snippet-area {
-            display: none;
-        }
-
-        @media screen and (max-width: 520px) {
             body {
-                height: 100vh;
-                width: 100vw;
+                margin: 0;
+                font-family: 'Mukta', sans-serif;
                 overflow: hidden;
             }
+            body input[type='checkbox'], input[type='radio'] {
+                /* display: none; */
+            }
             #header {
-                overflow: auto;
-                justify-content: flex-start;
-                height: 10vh;
-            }
-            #header > div:nth-child(1) {
-                width: 25vw;
-                flex: 1 0 auto;
-            }
-            #header > div > p {
                 display: flex;
-                flex-direction: column;
+                justify-content: space-between;
+            }
+            .header {
+                display: inherit;
                 align-items: center;
-                background-color: #000;
-                color: #fff;
+                background-color: #e3e8ed;
+                justify-content: space-around;
+                padding: 0.25rem 0;
             }
-            #header > div > p > span:nth-child(1) {
-                display: none;
+            #header-left {
+                width: 49.75%;
+                border-radius: 0 0 0.25rem 0;
             }
-            #header-left, #header-right {
-                display: none;
+            .header-section {
+                border: 2px solid #c9d1d8;
+                border-radius: 0.25rem;
+            }
+            #toggle-section {
+                display: inherit;
+                flex-direction: row;
+                width: 65%;
+                justify-content: space-between;
+                align-items: center;
+            }
+            label[for='setValueAll'] {
+                display: inherit;
+                justify-content: inherit;
+                align-items: center;
+                border: 2px solid #e3e8ed;
             }
             #header-right {
-                justify-content: flex-start;
-                width: auto;
+                width: 50%;
+                border-radius: 0 0 0 0.25rem;
             }
-            #header-right > div:nth-child(1) {
+            #season-box {
                 display: inherit;
-                flex-direction: column;
-            }
-            #header-snippet {
-                width: 100%;
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-            }
-            .snippet-buttons {
-                display: inherit;
-                flex-direction: column;
-                align-items: center;
-                background-color: #e3e8ed;
-                padding: 0.1rem 1rem;
-                border-radius: 0.25rem;
-                cursor: pointer;
-            }
-            #header-snippet i {
-                font-size: 1.75rem;
-                pointer-events: none;
-            }
-            #header-snippet p {
-                margin: 0;
-                pointer-events: none;
-            }
-            #header-snippet p ol {
-                padding: 0;
+                border: 2px solid #e3e8ed;
             }
             .enable-header {
-                background-color: #e3e8ed;
-                display: flex;
-            }
-            .options-fix {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                margin-bottom: 0.5em;
-            }
-            #snippet-season-holder {
-                display: grid;
-                grid-template-columns: 50% 50%;
-                grid-gap: 0.5em;
-                justify-content: center;
-            }
-            .snippet-season {
-                display: flex;
-                text-align: center;
-                text-transform: capitalize;
-                justify-content: inherit;
-                flex-direction: column;
-            }
-            .season-mobile {
-                width: 5em;
-                pointer-events: none;
-            }
-            .snippet-season span {
-                pointer-events: none;
-            }
-            .snippet-container {
-                background-color: white;
-                width: 18rem;
+                cursor: pointer;
+                height: 2.5rem;
                 display: inherit;
                 justify-content: center;
                 align-items: center;
-                flex-direction: column;
-                padding: 1rem 0.25rem;
                 border-radius: 0.25rem;
+                width: 7rem;
             }
-            .snippet-container p {
-
+            .season-wrapper {
+                background-color: #e3e8ed;
+                border-radius: 0.25rem;
+                width: 7rem;
+                margin: 0.25rem;
+                display: block;
+                padding: 0.25rem 0;
+                cursor: not-allowed;
+                height: 2.5rem;
             }
-            .snippet-container i {
-                color: #000;
+            .season-wrapper-a {
+                background-color: #c9d1d8;
+                cursor: pointer;
+            }
+            .season-wrapper > * {
+                vertical-align: middle;
+                color: #c9d1d8;
+            }
+            .img-season {
+                height: 2rem;
+                width: 2rem;
+            }
+            #header-snippet {
+                display: none;
             }
             .container {
-                height: 81vh;
-                padding: 0;
+                display: flex;
+                height: 90vh;
+                padding: 0.25rem 0;
+            }
+
+            .wrapper {
+                display: inherit;
+                flex-wrap: wrap;
+                height: 100%;
             }
             #left {
-                border-radius: none;
-                grid-template-columns: 1fr;
-                grid-gap: initial;
-                padding: 0.25rem 0.5rem;
-            }
-            .wrapper > .label:nth-last-child(1) {
-                display: none;
-            }
-            .label {
-                flex: 0 1 100%;
-                flex-flow: row wrap;
-                justify-content: space-around;
-                height: auto;
-                width: auto;
-                margin: 0.25rem 0;
-            }
-            #item-scale i {
-                font-size: 2rem;
+                flex: 1 0;
+                overflow: auto;
+                justify-content: space-between;
+                align-items: flex-start;
+                border-radius: 0 0.25rem 0 0;
+                padding: 0.5rem;
+                background-color: #e3e8ed;
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+                grid-gap: 0.5em;
             }
             #right {
-                display: none;
+                width: 20.5rem;
+                align-items: flex-start;
+                justify-content: center;
             }
-            #snippet-area {
+            .label {
+                background-color: #b4d455;
+                border-radius: 0.3rem;
+                cursor: pointer;
                 display: flex;
-                height: 9vh;
-                padding: 0.1rem;
+                flex-flow: column wrap;
+                justify-content: center;
+                align-items: center;
+                width: 10rem;
+                height: 8.75rem;
             }
-            #snippet-price {
-                flex: 1;
-                background-color: #74d613;
-                border-radius: 0.25rem;
-                margin: 0.1rem;
+            input[type='checkbox']:checked + .label {
+                background-color: pink;
+            }
+            #checkout {
+                background-color: #000;
+                color: #fff;
+                grid-area: 4 / 6 / 5 / 7;
+            }
+            #above {
+                display: flex;
+                flex-direction: column;
+                background-color: rgba(0, 0, 0, 0.75);
+                height: 100vh;
+                width: 100vw;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+
+                justify-content: center;
+                align-items: center;
+                }
+            .item-container {
+                background-color: white;
+                width: 18rem;
+                height: 13rem;
                 display: inherit;
                 justify-content: center;
                 align-items: center;
                 flex-direction: column;
-                cursor: pointer;
-                color: #0c5f0c;
             }
-            #snippet-total {
+            .item-container p {
                 margin: 0;
-                text-align: center;
             }
-            #snippet-total > span {
-                font-size: 0.8rem;
+            #item-scale {
+                width: 75%;
+                display: inherit;
+                justify-content: space-around;
+                align-items: inherit;
             }
-            #snippet-checkout {
-                background-color: #000;
-                color: #fff;
-                border-radius: 0.25rem;
-                padding: 0.25rem 0.5rem;
+            #item-scale i {
+                font-size: 1.5rem;
                 cursor: pointer;
+            }
+            #choose-container {
+                display: inherit;
+                margin: 0.5rem;
+                justify-content: space-around;
+                align-items: center;
+                width: 100%;
+            }
+            .choose-box {
+                flex: 0 1 35%;
+                text-align: center;
+                border-radius: 0.25rem;
                 display: inherit;
                 justify-content: center;
                 align-items: center;
-
-            }
-            #snippet-checkout p {
-                margin: 0;
-            }
-            #close-receipt {
-                color: #fff;
-                display: flex;
-                justify-content: flex-end;
-                font-size: 1.75rem;
-                margin-top: 0.5rem;
-            }
-            #close-receipt > i {
+                height: 2rem;
                 cursor: pointer;
             }
-            #recepit-snippet {
-                align-self: center;
+            .fix {
+                height: 2rem;
+                width: 2rem;
+                pointer-events: none;
             }
-            @media screen and (max-height: 650px) {
+
+            .margin-fix {
+                margin: 0;
+                pointer-events: none;
+            }
+            .product-holder {
+                display: inherit;
+                flex-direction: column;
+                align-items: center;
+                pointer-events: none;
+            }
+
+            .price-tag {
+                margin: 0;
+                pointer-events: none;
+            }
+
+            .receipt {
+                width: 20rem;
+                padding: 0.5rem 1rem;
+                background-color: antiquewhite;
+                display: none;
+                flex-direction: column;
+                font-family: 'VT323', monospace;
+                letter-spacing: 0.1rem;
+                cursor: default;
+                font-size: 0.999rem;
+            }
+            .title-line {
+                text-align: center;
+                font-weight: bold;
+            }
+            .receiptItem {
+                margin: 0;
+                display: inherit;
+                justify-content: space-between;
+            }
+            #snippet-area {
+                display: none;
+            }
+
+            @media screen and (max-width: 520px) {
+                body {
+                    height: 100vh;
+                    width: 100vw;
+                    overflow: hidden;
+                }
+                #header {
+                    overflow: auto;
+                    justify-content: flex-start;
+                    height: 10vh;
+                }
+                #header > div:nth-child(1) {
+                    width: 25vw;
+                    flex: 1 0 auto;
+                }
+                #header > div > p {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    background-color: #000;
+                    color: #fff;
+                }
+                #header > div > p > span:nth-child(1) {
+                    display: none;
+                }
+                #header-left, #header-right {
+                    display: none;
+                }
+                #header-right {
+                    justify-content: flex-start;
+                    width: auto;
+                }
+                #header-right > div:nth-child(1) {
+                    display: inherit;
+                    flex-direction: column;
+                }
+                #header-snippet {
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                }
                 .snippet-buttons {
-                    height: 90%;
-                    font-size: 2.5vh;
+                    display: inherit;
+                    flex-direction: column;
+                    align-items: center;
+                    background-color: #e3e8ed;
+                    padding: 0.1rem 1rem;
+                    border-radius: 0.25rem;
+                    cursor: pointer;
                 }
                 #header-snippet i {
-                    font-size: 4.5vh;
+                    font-size: 1.75rem;
+                    pointer-events: none;
+                }
+                #header-snippet p {
+                    margin: 0;
+                    pointer-events: none;
+                }
+                #header-snippet p ol {
+                    padding: 0;
+                }
+                .enable-header {
+                    background-color: #e3e8ed;
+                    display: flex;
+                }
+                .options-fix {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    margin-bottom: 0.5em;
+                }
+                #snippet-season-holder {
+                    display: grid;
+                    grid-template-columns: 50% 50%;
+                    grid-gap: 0.5em;
+                    justify-content: center;
+                }
+                .snippet-season {
+                    display: flex;
+                    text-align: center;
+                    text-transform: capitalize;
+                    justify-content: inherit;
+                    flex-direction: column;
+                }
+                .season-mobile {
+                    width: 5em;
+                    pointer-events: none;
+                }
+                .snippet-season span {
+                    pointer-events: none;
                 }
                 .snippet-container {
-                    font-size: 2.35vh;
+                    background-color: white;
+                    width: 18rem;
+                    display: inherit;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    padding: 1rem 0.25rem;
+                    border-radius: 0.25rem;
+                }
+                .snippet-container p {
+
+                }
+                .snippet-container i {
+                    color: #000;
+                }
+                .container {
+                    height: 81vh;
+                    padding: 0;
+                }
+                #left {
+                    border-radius: none;
+                    grid-template-columns: 1fr;
+                    grid-gap: initial;
+                    padding: 0.25rem 0.5rem;
+                }
+                .wrapper > .label:nth-last-child(1) {
+                    display: none;
+                }
+                .label {
+                    flex: 0 1 100%;
+                    flex-flow: row wrap;
+                    justify-content: space-around;
+                    height: auto;
+                    width: auto;
+                    margin: 0.25rem 0;
+                }
+                #item-scale i {
+                    font-size: 2rem;
+                }
+                #right {
+                    display: none;
+                }
+                #snippet-area {
+                    display: flex;
+                    height: 9vh;
+                    padding: 0.1rem;
+                }
+                #snippet-price {
+                    flex: 1;
+                    background-color: #74d613;
+                    border-radius: 0.25rem;
+                    margin: 0.1rem;
+                    display: inherit;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    cursor: pointer;
+                    color: #0c5f0c;
+                }
+                #snippet-total {
+                    margin: 0;
+                    text-align: center;
+                }
+                #snippet-total > span {
+                    font-size: 0.8rem;
+                }
+                #snippet-checkout {
+                    background-color: #000;
+                    color: #fff;
+                    border-radius: 0.25rem;
+                    padding: 0.25rem 0.5rem;
+                    cursor: pointer;
+                    display: inherit;
+                    justify-content: center;
+                    align-items: center;
+
+                }
+                #snippet-checkout p {
+                    margin: 0;
+                }
+                #close-receipt {
+                    color: #fff;
+                    display: flex;
+                    justify-content: flex-end;
+                    font-size: 1.75rem;
+                    margin-top: 0.5rem;
+                }
+                #close-receipt > i {
+                    cursor: pointer;
+                }
+                #recepit-snippet {
+                    align-self: center;
+                }
+                @media screen and (max-height: 650px) {
+                    .snippet-buttons {
+                        height: 90%;
+                        font-size: 2.5vh;
+                    }
+                    #header-snippet i {
+                        font-size: 4.5vh;
+                    }
+                    .snippet-container {
+                        font-size: 2.35vh;
+                    }
                 }
             }
-        }
-    </style>
+        </style>
 </head>
 
 <body>
@@ -489,7 +489,7 @@
             </div>
             <button id='removeOptions' class='snippet-buttons' disabled>
                 <i class="fas fa-trash-alt"></i>
-                <p>Remove Options</p>
+                <p>Clear settings</p>
             </button>
             <div id='howTo' class='snippet-buttons'>
                 <i class="far fa-question-circle"></i>
@@ -540,7 +540,7 @@
                 outOfSeason: undefined,
                 regularPrice: 3.99,
                 priceOnSeason: undefined,
-                priceOutOfSeason: undefined,
+                priceOutOfSeason: 5.99,
                 unit: 'unit'
             }, {
                 productName: 'Mushroom',
@@ -566,7 +566,7 @@
                 onSeason: undefined,
                 outOfSeason: undefined,
                 regularPrice: 0.95,
-                priceOnSeason: undefined,
+                priceOnSeason: 0.79,
                 priceOutOfSeason: undefined,
                 unit: 'kg'
             }, {
@@ -593,7 +593,7 @@
                 onSeason: undefined,
                 outOfSeason: undefined,
                 regularPrice: 2.99,
-                priceOnSeason: undefined,
+                priceOnSeason: 1.89,
                 priceOutOfSeason: undefined,
                 unit: 'tray'
             }, {
@@ -602,7 +602,7 @@
                 onSeason: undefined,
                 outOfSeason: undefined,
                 regularPrice: 0.95,
-                priceOnSeason: undefined,
+                priceOnSeason: 0.69,
                 priceOutOfSeason: undefined,
                 unit: 'kg'
             }, {
@@ -630,7 +630,7 @@
                 outOfSeason: undefined,
                 regularPrice: 1.95,
                 priceOnSeason: undefined,
-                priceOutOfSeason: undefined,
+                priceOutOfSeason: 3.95,
                 unit: 'unit'
             }, {
                 productName: 'Pumpkin',
@@ -638,7 +638,7 @@
                 onSeason: undefined,
                 outOfSeason: undefined,
                 regularPrice: 1.99,
-                priceOnSeason: undefined,
+                priceOnSeason: 0.99,
                 priceOutOfSeason: undefined,
                 unit: 'kg'
             }, {
@@ -666,7 +666,7 @@
                 outOfSeason: undefined,
                 regularPrice: undefined,
                 priceOnSeason: undefined,
-                priceOutOfSeason: undefined,
+                priceOutOfSeason: 3.95,
                 unit: 'kg'
             }, {
                 productName: 'Green Pepper',
@@ -745,17 +745,19 @@
         label[(label.length - 1)].id = 'checkout';
         label[(label.length - 1)].appendChild(checkout);
 
+        var removeOptions = document.getElementById('removeOptions');
+
         left.addEventListener('click', function (e) {
             if (e.target.id != 'checkout') {
                 var a = e.target.children[0];
-                var b = e.target.children[3];
-                a.checked = !a.checked;
-                if (a.checked) {
-                    b.removeAttribute('disabled');
+                if (a.checked === false) {
+                    a.checked = true;
+                    removeOptions.removeAttribute('disabled');
                 } else {
-                    b.setAttribute('disabled', 'disabled');
-                    b.value = "";
-                }
+                    a.checked = true;
+                    removeOptions.removeAttribute('disabled');
+                };
+
                 var idSet = e.target.id;
                 label[idSet].style.border = '2px dashed #789618';
                 // Create container
@@ -799,43 +801,77 @@
                 itemScale.appendChild(itemMinus);
                 var itemScaleSet = document.createElement('input');
                 itemScaleSet.type = 'number';
+                itemScaleSet.step = '0.250';
                 itemScale.appendChild(itemScaleSet);
                 var itemPlus = document.createElement('span');
                 itemPlus.innerHTML = '<i class="fas fa-plus-square"></i>';
                 itemScale.appendChild(itemPlus);
                 itemContainer.appendChild(itemScale);
                 // Logic
-                itemScaleSet.value = parseInt(scale[setId].textContent);
+                itemScaleSet.valueAsNumber = parseFloat(scale[setId].textContent);
                 var itemScaleNewValue = 0;
                 itemMinus.addEventListener('click', function () {
-                    debugger;
-                    if (itemScaleSet.value <= 1) {
-                        itemScaleSet.value = '';
-                        itemScaleNewValue = 0;
-                    } else if (itemScaleSet.value == parseInt(scale[setId].textContent)) {
-                        itemScaleNewValue = itemScaleSet.valueAsNumber;
-                        itemScaleNewValue--;
-                        itemScaleSet.value = itemScaleNewValue;
-                    } else {
-                        itemScaleNewValue--;
-                        itemScaleSet.value = itemScaleNewValue;
-                        if (itemScaleNewValue === 0) {
+                    if (productList[idSet].unit === 'kg') {
+                        if (itemScaleSet.value <= 0) {
                             itemScaleSet.value = '';
+                            itemScaleNewValue = 0;
+                        } else if (itemScaleSet.value == parseFloat(scale[setId].textContent)) {
+                            itemScaleNewValue = itemScaleSet.valueAsNumber;
+                            itemScaleNewValue = (itemScaleNewValue - 0.250);
+                            itemScaleSet.value = itemScaleNewValue;
+                        } else {
+                            itemScaleNewValue = (itemScaleNewValue - 0.250);
+                            itemScaleSet.value = itemScaleNewValue;
+                            if (itemScaleNewValue === 0) {
+                                itemScaleSet.value = '';
+                            }
+                        }
+                    } else {
+                        if (itemScaleSet.value <= 0) {
+                            itemScaleSet.value = '';
+                            itemScaleNewValue = 0;
+                        } else if (itemScaleSet.value == parseFloat(scale[setId].textContent)) {
+                            itemScaleNewValue = itemScaleSet.valueAsNumber;
+                            itemScaleNewValue--;
+                            itemScaleSet.value = itemScaleNewValue;
+                        } else {
+                            itemScaleNewValue--;
+                            itemScaleSet.value = itemScaleNewValue;
+                            if (itemScaleNewValue === 0) {
+                                itemScaleSet.value = '';
+                            }
                         }
                     }
                 });
                 itemPlus.addEventListener('click', function () {
-                    if (itemScaleSet.value === '') {
-                        if (itemScaleNewValue === 0) {
-                            itemScaleNewValue++;
-                            itemScaleSet.value = itemScaleNewValue;
+                    if (productList[idSet].unit === 'kg') {
+                        if (itemScaleSet.value === '') {
+                            if (itemScaleNewValue === 0) {
+                                itemScaleNewValue = (itemScaleNewValue + 0.250);
+                                itemScaleSet.value = itemScaleNewValue;
+                            } else {
+                                itemScaleNewValue = 0;
+                                itemScaleSet.value = itemScaleNewValue;
+                            }
                         } else {
-                            itemScaleNewValue = 0;
+                            itemScaleNewValue = itemScaleSet.valueAsNumber;
+                            itemScaleNewValue = (itemScaleNewValue + 0.250);
                             itemScaleSet.value = itemScaleNewValue;
                         }
                     } else {
-                        itemScaleNewValue++;
-                        itemScaleSet.value = itemScaleNewValue;
+                        if (itemScaleSet.value === '') {
+                            if (itemScaleNewValue === 0) {
+                                itemScaleNewValue++;
+                                itemScaleSet.value = itemScaleNewValue;
+                            } else {
+                                itemScaleNewValue = 0;
+                                itemScaleSet.value = itemScaleNewValue;
+                            }
+                        } else {
+                            itemScaleNewValue = itemScaleSet.valueAsNumber;
+                            itemScaleNewValue++;
+                            itemScaleSet.value = itemScaleNewValue;
+                        }
                     }
                 });
                 //
@@ -879,6 +915,7 @@
                     } else {
                         scale[setId].textContent = ' ';
                     }
+                    removeOptions.setAttribute('disabled', 'disabled');
                 });
             }
         });
@@ -1020,11 +1057,11 @@
             // Calculate the total
 
             for (var x = 0; x < scale.length; x++) {
-                if (parseInt(scale[x].textContent) > 0) {
+                if (parseFloat(scale[x].textContent) > 0) {
                     var stringPrice = priceTag[x].textContent;
                     var re = /\d\.[0-9]{2}/g
                     var finalPrice = parseFloat(stringPrice.match(re));
-                    sum.push(parseInt(scale[x].textContent) * finalPrice);
+                    sum.push(parseFloat(parseFloat(scale[x].textContent).toFixed(2)) * finalPrice);
                 }
             }
             if (sum.length === 0) {
@@ -1163,202 +1200,215 @@
         var optionsButton = document.getElementById('optionsButton');
         var howTo = document.getElementById('howTo');
         headerSnippet.addEventListener('click', function (e) {
-            var above = document.createElement('div');
-            above.id = 'above';
-            document.body.appendChild(above);
-            var snippetContainer = document.createElement('div');
-            snippetContainer.className = 'snippet-container';
-            var title = document.createElement('p');
-            title.style.fontWeight = 'bold';
+            if (e.target.id != 'removeOptions') {
+                var above = document.createElement('div');
+                above.id = 'above';
+                document.body.appendChild(above);
+                var snippetContainer = document.createElement('div');
+                snippetContainer.className = 'snippet-container';
+                var title = document.createElement('p');
+                title.style.fontWeight = 'bold';
 
-            // Options
-            if (e.target.id === 'optionsButton') {
-                title.textContent = 'Options';
-                snippetContainer.appendChild(title);
+                // Options
+                if (e.target.id === 'optionsButton') {
+                    title.textContent = 'Options';
+                    snippetContainer.appendChild(title);
 
-                var int1 = document.createElement('div');
-                int1.className = 'options-fix';
-                var int2 = document.createElement('input');
-                int2.setAttribute('type', 'checkbox');
-                int2.id = 'toggleAlla';
-                int1.appendChild(int2);
-                var int3 = document.createElement('label');
-                int3.className = 'enable-header';
-                int3.htmlFor = 'toggleAlla';
-                var int4 = document.createElement('span');
-                int4.textContent = 'Enable All';
-                int3.appendChild(int4);
-                int1.appendChild(int3);
+                    var int1 = document.createElement('div');
+                    int1.className = 'options-fix';
+                    var int2 = document.createElement('input');
+                    int2.setAttribute('type', 'checkbox');
+                    int2.id = 'toggleAlla';
+                    int1.appendChild(int2);
+                    var int3 = document.createElement('label');
+                    int3.className = 'enable-header';
+                    int3.htmlFor = 'toggleAlla';
+                    var int4 = document.createElement('span');
+                    int4.textContent = 'Enable All';
+                    int3.appendChild(int4);
+                    int1.appendChild(int3);
 
-                var intA1 = document.createElement('div');
-                intA1.className = 'options-fix';
-                var intA = document.createElement('input');
-                intA.setAttribute('type', 'checkbox');
-                intA.setAttribute('disabled', 'disabled');
-                intA.id = 'setValueAllb';
-                intA1.appendChild(intA);
-                var intB = document.createElement('label');
-                intB.className = 'enable-header';
-                intB.htmlFor = 'setValueAllb';
-                var intC = document.createElement('span');
-                intC.textContent = 'Set Value to All';
-                intB.appendChild(intC);
-                intA1.appendChild(intB);
-                var intD = document.createElement('input');
-                intD.setAttribute('type', 'number');
-                intD.setAttribute('disabled', 'disabled');
-                intD.id = 'inputb'
-                intA1.appendChild(intD);
-                var intE = document.createElement('button');
-                intE.className = 'enable-header';
-                intE.textContent = 'OK';
-                intE.id = 'intOK';
-                intE.setAttribute('disabled', 'disabled');
-                intA1.appendChild(intE);
-                int1.appendChild(intA1);
-
-                snippetContainer.appendChild(int1);
-
-                var snippetSeasons = document.createElement('div');
-                snippetSeasons.className = 'options-fix';
-                var seasonbutton = document.createElement('input');
-                seasonbutton.id = 'seasonbutton';
-                seasonbutton.setAttribute('type', 'checkbox');
-                snippetSeasons.appendChild(seasonbutton);
-                var enableSeasonA = document.createElement('label');
-                enableSeasonA.htmlFor = 'seasonbutton';
-                enableSeasonA.textContent = 'Enable Seasons';
-                enableSeasonA.className = 'enable-header';
-                snippetSeasons.appendChild(enableSeasonA);
-                var snippetholderS = document.createElement('div');
-                snippetholderS.id = 'snippet-season-holder';
-
-                function createSeason(seasonName) {
-                    var snippetS = document.createElement('label');
-                    snippetS.htmlFor = seasonName;
-                    snippetS.id = 'snippet-' + seasonName;
-                    snippetS.className = 'snippet-season';
-                    var seasonSelect = document.createElement('input');
-                    seasonSelect.setAttribute('type', 'radio');
-                    seasonSelect.className = 'snippet-toggle';
-                    seasonSelect.name = 'season';
-                    seasonSelect.setAttribute('disabled', 'disabled');
-                    seasonSelect.id = seasonName;
-                    snippetS.appendChild(seasonSelect);
-                    var seasonImage = document.createElement('img');
-                    seasonImage.src = 'images/' + seasonName + '.png';
-                    seasonImage.className = 'season-mobile';
-                    snippetS.appendChild(seasonImage);
-                    var seasonTitle = document.createElement('span');
-                    seasonTitle.textContent = seasonName;
-                    snippetS.appendChild(seasonTitle);
-                    snippetholderS.appendChild(snippetS);
-                    snippetSeasons.appendChild(snippetholderS);
-                }
-                createSeason('spring');
-                createSeason('summer');
-                createSeason('autumn');
-                createSeason('winter');
-
-                snippetContainer.appendChild(snippetSeasons);
-
-                // Hot to play
-            } else if (e.target.id === 'howTo') {
-                title.textContent = 'How To Play';
-                snippetContainer.appendChild(title);
-                var howToPlay = document.createElement('p');
-                howToPlay.innerHTML = '<ol><li>Tap a product to select</li><li>Input a value of how much of that product you want to buy</li><li>Click \'OK\' to send the value</li><li>If you want to remove the value, tap the product again and select \'Remove value\'</li><li>Tap the \'Checkout\' button to discover how much you will pay for the products</li><li>You can print your receipt by tapping the total value</li><li>Repeat the process if you want to make another purchase</li></ol>';
-                snippetContainer.appendChild(howToPlay);
-            }
-
-
-            var closeX = document.createElement('span');
-            closeX.id = 'close-receipt';
-            closeX.innerHTML = '<i class="fas fa-times"></i>';
-            closeX.addEventListener('click', function (e) {
-                document.body.removeChild(document.getElementById('above'));
-            });
-            snippetContainer.appendChild(closeX);
-            above.appendChild(snippetContainer);
-
-            // Logic
-
-            // Toggle All
-            var toggleAlla = document.getElementById('toggleAlla');
-            var setValueAllb = document.getElementById('setValueAllb');
-
-            toggleAlla.addEventListener('change', function (e) {
-                for (var x = 0; x < testing.length; x++) {
-                    if (e.target.checked) {
-                        setValueAllb.removeAttribute('disabled');
-                        testing[x].checked = true;
-                        label[x].style.border = '2px dashed #789618';
-                    } else {
-                        setValueAllb.setAttribute('disabled', 'disabled');
-                        testing[x].checked = false;
-                        label[x].style.border = '2px solid #b4d455';
-                    }
-                }
-            });
-
-            // Set value to all
-            var inputb = document.getElementById('inputb');
-            var intE = document.getElementById('intOK');
-            setValueAllb.addEventListener('change', function (e) {
-                if (e.target.checked === true) {
-                    inputb.removeAttribute('disabled');
-                    intE.removeAttribute('disabled');
-                } else {
-                    inputb.setAttribute('disabled', 'disabled');
+                    var intA1 = document.createElement('div');
+                    intA1.className = 'options-fix';
+                    var intA = document.createElement('input');
+                    intA.setAttribute('type', 'checkbox');
+                    intA.setAttribute('disabled', 'disabled');
+                    intA.id = 'setValueAllb';
+                    intA1.appendChild(intA);
+                    var intB = document.createElement('label');
+                    intB.className = 'enable-header';
+                    intB.htmlFor = 'setValueAllb';
+                    var intC = document.createElement('span');
+                    intC.textContent = 'Set Value to All';
+                    intB.appendChild(intC);
+                    intA1.appendChild(intB);
+                    var intD = document.createElement('input');
+                    intD.setAttribute('type', 'number');
+                    intD.setAttribute('disabled', 'disabled');
+                    intD.id = 'inputb'
+                    intA1.appendChild(intD);
+                    var intE = document.createElement('button');
+                    intE.className = 'enable-header';
+                    intE.textContent = 'OK';
+                    intE.id = 'intOK';
                     intE.setAttribute('disabled', 'disabled');
-                }
-                var intValue;
-                inputb.addEventListener('change', function (e) {
-                    intValue = e.target.value;
-                    console.log(intValue);
-                    if (intValue < 1) {
-                        e.target.value = '';
-                        intValue = '';
-                    }
-                })
-            });
+                    intA1.appendChild(intE);
+                    int1.appendChild(intA1);
 
-            // Select season
-            var snippetToggle = document.querySelectorAll('.snippet-toggle');
-            document.getElementById('seasonbutton').addEventListener('click', function (e) {
-                if (e.target.checked === true) {
-                    for (var x = 0; x < snippetToggle.length; x++) {
-                        snippetToggle[x].removeAttribute('disabled');
+                    snippetContainer.appendChild(int1);
+
+                    var snippetSeasons = document.createElement('div');
+                    snippetSeasons.className = 'options-fix';
+                    var seasonbutton = document.createElement('input');
+                    seasonbutton.id = 'seasonbutton';
+                    seasonbutton.setAttribute('type', 'checkbox');
+                    snippetSeasons.appendChild(seasonbutton);
+                    var enableSeasonA = document.createElement('label');
+                    enableSeasonA.htmlFor = 'seasonbutton';
+                    enableSeasonA.textContent = 'Enable Seasons';
+                    enableSeasonA.className = 'enable-header';
+                    snippetSeasons.appendChild(enableSeasonA);
+                    var snippetholderS = document.createElement('div');
+                    snippetholderS.id = 'snippet-season-holder';
+
+                    function createSeason(seasonName) {
+                        var snippetS = document.createElement('label');
+                        snippetS.htmlFor = seasonName;
+                        snippetS.id = 'snippet-' + seasonName;
+                        snippetS.className = 'snippet-season';
+                        var seasonSelect = document.createElement('input');
+                        seasonSelect.setAttribute('type', 'radio');
+                        seasonSelect.className = 'snippet-toggle';
+                        seasonSelect.name = 'season';
+                        seasonSelect.setAttribute('disabled', 'disabled');
+                        seasonSelect.id = seasonName;
+                        snippetS.appendChild(seasonSelect);
+                        var seasonImage = document.createElement('img');
+                        seasonImage.src = 'images/' + seasonName + '.png';
+                        seasonImage.className = 'season-mobile';
+                        snippetS.appendChild(seasonImage);
+                        var seasonTitle = document.createElement('span');
+                        seasonTitle.textContent = seasonName;
+                        snippetS.appendChild(seasonTitle);
+                        snippetholderS.appendChild(snippetS);
+                        snippetSeasons.appendChild(snippetholderS);
                     }
-                } else {
-                    for (var x = 0; x < snippetToggle.length; x++) {
-                        snippetToggle[x].setAttribute('disabled', 'disabled');
-                        snippetToggle[x].checked = false;
-                    }
+                    createSeason('spring');
+                    createSeason('summer');
+                    createSeason('autumn');
+                    createSeason('winter');
+
+                    snippetContainer.appendChild(snippetSeasons);
+
+                    // Hot to play
+                } else if (e.target.id === 'howTo') {
+                    title.textContent = 'How To Play';
+                    snippetContainer.appendChild(title);
+                    var howToPlay = document.createElement('p');
+                    howToPlay.innerHTML = '<ol><li>Tap a product to select</li><li>Input a value of how much of that product you want to buy</li><li>Click \'OK\' to send the value</li><li>If you want to remove the value, tap the product again and select \'Remove value\'</li><li>Tap the \'Checkout\' button to discover how much you will pay for the products</li><li>You can print your receipt by tapping the total value</li><li>Repeat the process if you want to make another purchase</li></ol>';
+                    snippetContainer.appendChild(howToPlay);
                 }
-            });
-            document.getElementById('snippet-season-holder').addEventListener('click', function (e) {
-                if (e.target.className === 'snippet-toggle') {
-                    for (var x = 0; x < snippetToggle.length; x++) {
-                        if (snippetToggle[x].checked) {
-                            for (var y = 0; y < productList.length; y++) {
-                                if (productList[y].onSeason === x) {
-                                    label[y].style.backgroundColor = 'blue';
-                                    priceTag[y].textContent = 'Price: ' + productList[y].priceOnSeason + '/' + productList[y].unit;
-                                } else if (productList[y].outOfSeason === x) {
-                                    label[y].style.backgroundColor = 'red';
-                                    priceTag[y].textContent = 'Price: ' + productList[y].priceOutOfSeason + '/' + productList[y].unit;
-                                } else {
-                                    label[y].style.backgroundColor = '#b4d455';
-                                    priceTag[y].textContent = 'Price: ' + productList[y].regularPrice + '/' + productList[y].unit;
+
+
+                var closeX = document.createElement('span');
+                closeX.id = 'close-receipt';
+                closeX.innerHTML = '<i class="fas fa-times"></i>';
+                closeX.addEventListener('click', function (e) {
+                    document.body.removeChild(document.getElementById('above'));
+                });
+                snippetContainer.appendChild(closeX);
+                above.appendChild(snippetContainer);
+
+                // Logic
+
+                // Toggle All
+                var toggleAlla = document.getElementById('toggleAlla');
+                var setValueAllb = document.getElementById('setValueAllb');
+
+                toggleAlla.addEventListener('change', function (e) {
+                    for (var x = 0; x < testing.length; x++) {
+                        if (e.target.checked) {
+                            setValueAllb.removeAttribute('disabled');
+                            testing[x].checked = true;
+                            label[x].style.border = '2px dashed #789618';
+                            removeOptions.removeAttribute('disabled');
+                        } else {
+                            setValueAllb.setAttribute('disabled', 'disabled');
+                            testing[x].checked = false;
+                            label[x].style.border = '2px solid #b4d455';
+                        }
+                    }
+                });
+
+                // Set value to all
+                var inputb = document.getElementById('inputb');
+                var intE = document.getElementById('intOK');
+                setValueAllb.addEventListener('change', function (e) {
+                    if (e.target.checked === true) {
+                        inputb.removeAttribute('disabled');
+                        intE.removeAttribute('disabled');
+                    } else {
+                        inputb.setAttribute('disabled', 'disabled');
+                        intE.setAttribute('disabled', 'disabled');
+                    }
+                    var intValue;
+                    inputb.addEventListener('change', function (e) {
+                        intValue = e.target.value;
+                        console.log(intValue);
+                        if (intValue < 1) {
+                            e.target.value = '';
+                            intValue = '';
+                        }
+                    })
+                });
+
+                // Select season
+                var snippetToggle = document.querySelectorAll('.snippet-toggle');
+                document.getElementById('seasonbutton').addEventListener('click', function (e) {
+                    if (e.target.checked === true) {
+                        for (var x = 0; x < snippetToggle.length; x++) {
+                            snippetToggle[x].removeAttribute('disabled');
+                        }
+                    } else {
+                        for (var x = 0; x < snippetToggle.length; x++) {
+                            snippetToggle[x].setAttribute('disabled', 'disabled');
+                            snippetToggle[x].checked = false;
+                        }
+                    }
+                });
+                document.getElementById('snippet-season-holder').addEventListener('click', function (e) {
+                    if (e.target.className === 'snippet-toggle') {
+                        for (var x = 0; x < snippetToggle.length; x++) {
+                            if (snippetToggle[x].checked) {
+                                for (var y = 0; y < productList.length; y++) {
+                                    if (productList[y].onSeason === x) {
+                                        label[y].style.backgroundColor = 'blue';
+                                        priceTag[y].textContent = 'Price: ' + productList[y].priceOnSeason + '/' + productList[y].unit;
+                                    } else if (productList[y].outOfSeason === x) {
+                                        label[y].style.backgroundColor = 'red';
+                                        priceTag[y].textContent = 'Price: ' + productList[y].priceOutOfSeason + '/' + productList[y].unit;
+                                    } else {
+                                        label[y].style.backgroundColor = '#b4d455';
+                                        priceTag[y].textContent = 'Price: ' + productList[y].regularPrice + '/' + productList[y].unit;
+                                    }
                                 }
                             }
                         }
                     }
-                }
-            });
+                });
+            }
         });
 
+        // Clear settings 
+        removeOptions.addEventListener('click', function () {
+            removeOptions.setAttribute('disabled', 'disabled');
+            for (var x = 0; x < testing.length; x++) {
+                if (testing[x].checked) {
+                    testing[x].checked = false;
+                    label[x].children[3].textContent = ' ';
+                }
+            }
+        });
 
 
         // Mobile receipt
@@ -1375,11 +1425,11 @@
             // Calculate the total
 
             for (var x = 0; x < scale.length; x++) {
-                if (parseInt(scale[x].textContent) > 0) {
+                if (parseFloat(scale[x].textContent) > 0) {
                     var stringPrice = priceTag[x].textContent;
                     var re = /\d\.[0-9]{2}/g
                     var finalPrice = parseFloat(stringPrice.match(re));
-                    snippetSum.push(parseInt(scale[x].textContent) * finalPrice);
+                    snippetSum.push(parseFloat(parseFloat(scale[x].textContent).toFixed(2)) * finalPrice);
                 }
             }
             if (snippetSum.length === 0) {
