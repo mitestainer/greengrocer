@@ -12,7 +12,6 @@
     <style>
         * {
                 box-sizing: border-box;
-                outline: 1px solid; 
             }
             body {
                 margin: 0;
@@ -126,6 +125,7 @@
             }
             .label {
                 background-color: #b4d455;
+                border: 2px solid #b4d455;
                 border-radius: 0.3rem;
                 cursor: pointer;
                 display: flex;
@@ -140,6 +140,7 @@
             }
             #checkout {
                 background-color: #000;
+                border-color: #000;
                 color: #fff;
                 grid-area: 4 / 6 / 5 / 7;
             }
@@ -293,6 +294,8 @@
                     padding: 0.1rem 1rem;
                     border-radius: 0.25rem;
                     cursor: pointer;
+                    width: 5em;
+                    border: 0;
                 }
                 #header-snippet i {
                     font-size: 1.75rem;
@@ -308,12 +311,19 @@
                 .enable-header {
                     background-color: #e3e8ed;
                     display: flex;
+                    border: 0;
+                }
+                .mobile-button:checked + .enable-header {
+                    background-color: #c9d1d8;
                 }
                 .options-fix {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
                     margin-bottom: 0.5em;
+                    border: 2px solid #e3e8ed;
+                    border-radius: 0.25rem;
+                    width: 70%;
                 }
                 #snippet-season-holder {
                     display: grid;
@@ -327,6 +337,11 @@
                     text-transform: capitalize;
                     justify-content: inherit;
                     flex-direction: column;
+                    cursor: pointer;
+                }
+                #seasonbutton:checked + .snippet-season {
+                    border: 2px solid #e3e8ed;
+                    border-radius: 0.25rem;
                 }
                 .season-mobile {
                     width: 5em;
@@ -344,9 +359,6 @@
                     flex-direction: column;
                     padding: 1rem 0.25rem;
                     border-radius: 0.25rem;
-                }
-                .snippet-container p {
-
                 }
                 .snippet-container i {
                     color: #000;
@@ -489,7 +501,7 @@
             </div>
             <button id='removeOptions' class='snippet-buttons' disabled>
                 <i class="fas fa-trash-alt"></i>
-                <p>Clear settings</p>
+                <p>Reset</p>
             </button>
             <div id='howTo' class='snippet-buttons'>
                 <i class="far fa-question-circle"></i>
@@ -622,7 +634,7 @@
                 regularPrice: undefined,
                 priceOnSeason: undefined,
                 priceOutOfSeason: undefined,
-                unit: 'kg'
+                unit: 'tray'
             }, {
                 productName: 'Pineapple',
                 pic: 'images/pineapple.png',
@@ -1103,6 +1115,7 @@
             }
 
             function drawLine(input) {
+                debugger;
                 var p = document.createElement('p');
                 p.style.textAlign = 'center';
                 p.style.margin = '0';
@@ -1200,7 +1213,7 @@
         var optionsButton = document.getElementById('optionsButton');
         var howTo = document.getElementById('howTo');
         headerSnippet.addEventListener('click', function (e) {
-            if (e.target.id != 'removeOptions') {
+            if (e.target.id === 'optionsButton' || e.target.id === 'howTo') {
                 var above = document.createElement('div');
                 above.id = 'above';
                 document.body.appendChild(above);
@@ -1219,6 +1232,7 @@
                     var int2 = document.createElement('input');
                     int2.setAttribute('type', 'checkbox');
                     int2.id = 'toggleAlla';
+                    int2.className = 'mobile-button';
                     int1.appendChild(int2);
                     var int3 = document.createElement('label');
                     int3.className = 'enable-header';
@@ -1230,10 +1244,12 @@
 
                     var intA1 = document.createElement('div');
                     intA1.className = 'options-fix';
+                    intA1.style.border = 'none';
                     var intA = document.createElement('input');
                     intA.setAttribute('type', 'checkbox');
                     intA.setAttribute('disabled', 'disabled');
                     intA.id = 'setValueAllb';
+                    intA.className = 'mobile-button';
                     intA1.appendChild(intA);
                     var intB = document.createElement('label');
                     intB.className = 'enable-header';
@@ -1261,6 +1277,7 @@
                     snippetSeasons.className = 'options-fix';
                     var seasonbutton = document.createElement('input');
                     seasonbutton.id = 'seasonbutton';
+                    seasonbutton.className = 'mobile-button';
                     seasonbutton.setAttribute('type', 'checkbox');
                     snippetSeasons.appendChild(seasonbutton);
                     var enableSeasonA = document.createElement('label');
@@ -1384,9 +1401,11 @@
                                     if (productList[y].onSeason === x) {
                                         label[y].style.backgroundColor = 'blue';
                                         priceTag[y].textContent = 'Price: ' + productList[y].priceOnSeason + '/' + productList[y].unit;
+                                        removeOptions.removeAttribute('disabled');
                                     } else if (productList[y].outOfSeason === x) {
                                         label[y].style.backgroundColor = 'red';
                                         priceTag[y].textContent = 'Price: ' + productList[y].priceOutOfSeason + '/' + productList[y].unit;
+                                        removeOptions.removeAttribute('disabled');
                                     } else {
                                         label[y].style.backgroundColor = '#b4d455';
                                         priceTag[y].textContent = 'Price: ' + productList[y].regularPrice + '/' + productList[y].unit;
@@ -1399,13 +1418,16 @@
             }
         });
 
-        // Clear settings 
+        // Reset settings 
         removeOptions.addEventListener('click', function () {
             removeOptions.setAttribute('disabled', 'disabled');
             for (var x = 0; x < testing.length; x++) {
+                priceTag[x].textContent = 'Price: ' + productList[x].regularPrice + '/' + productList[x].unit;
+                label[x].style.backgroundColor = '#b4d455';
                 if (testing[x].checked) {
                     testing[x].checked = false;
                     label[x].children[3].textContent = ' ';
+                    label[x].style.border = '2px solid #b4d455';
                 }
             }
         });
