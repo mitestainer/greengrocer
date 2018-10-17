@@ -1,3 +1,7 @@
+// Notes to myself:
+// 1. USE MORE FUNCTIONS!
+// 2. Don't repeat the same lines so often
+
 var productList = [
     {
         productName: 'Apple',
@@ -20,8 +24,8 @@ var productList = [
     }, {
         productName: 'Grapes', // aka Wild Grapes
         pic: 'images/wgrape.png',
-        onSeason: undefined,
-        outOfSeason: undefined,
+        onSeason: 1,
+        outOfSeason: 3,
         regularPrice: 3.99,
         priceOnSeason: undefined,
         priceOutOfSeason: 5.99,
@@ -38,7 +42,7 @@ var productList = [
     }, {
         productName: 'Turnip',
         pic: 'images/turnip.png',
-        onSeason: undefined,
+        onSeason: 2,
         outOfSeason: undefined,
         regularPrice: 2.19,
         priceOnSeason: undefined,
@@ -65,7 +69,7 @@ var productList = [
     }, {
         productName: 'Cabbage',
         pic: 'images/cabbage.png',
-        onSeason: undefined,
+        onSeason: 2,
         outOfSeason: undefined,
         regularPrice: 0.69,
         priceOnSeason: undefined,
@@ -95,8 +99,8 @@ var productList = [
         onSeason: undefined,
         outOfSeason: undefined,
         regularPrice: 1.59,
-        priceOnSeason: undefined,
-        priceOutOfSeason: undefined,
+        priceOnSeason: 0.89,
+        priceOutOfSeason: 3.99,
         unit: 'kg'
     }, {
         productName: 'Corn',
@@ -110,7 +114,7 @@ var productList = [
     }, {
         productName: 'Pineapple',
         pic: 'images/pineapple.png',
-        onSeason: undefined,
+        onSeason: 1,
         outOfSeason: undefined,
         regularPrice: 1.95,
         priceOnSeason: undefined,
@@ -119,8 +123,8 @@ var productList = [
     }, {
         productName: 'Pumpkin',
         pic: 'images/pumpkin.png',
-        onSeason: undefined,
-        outOfSeason: undefined,
+        onSeason: 3,
+        outOfSeason: 1,
         regularPrice: 1.99,
         priceOnSeason: 0.99,
         priceOutOfSeason: undefined,
@@ -146,7 +150,7 @@ var productList = [
     }, {
         productName: 'Sweet Potato',
         pic: 'images/spotato.png',
-        onSeason: undefined,
+        onSeason: 3,
         outOfSeason: undefined,
         regularPrice: undefined,
         priceOnSeason: undefined,
@@ -232,7 +236,7 @@ label[(label.length - 1)].appendChild(checkout);
 var removeOptions = document.getElementById('removeOptions');
 
 left.addEventListener('click', function (e) {
-    if (e.target.id != 'checkout') {
+    if (e.target.id != 'checkout' && e.target.className === 'label') {
         var a = e.target.children[0];
         if (a.checked === false) {
             a.checked = true;
@@ -391,15 +395,20 @@ left.addEventListener('click', function (e) {
             }
         });
         document.getElementById('choose-cancel').addEventListener('click', function () {
+            debugger;
             label[idSet].style.border = '2px solid #b4d455';
             document.body.removeChild(document.getElementById('above'));
             testing[setId].checked = false;
-            if (itemScaleSet.value === '') {
-                scale[setId].textContent = ' ';
-            } else {
-                scale[setId].textContent = ' ';
+            scale[setId].textContent = ' ';
+            var counter = 0;
+            for (var x = 0; x < (label.length - 1); x++) {
+                if (label[x].style.backgroundColor !== 'rgb(180, 212, 85)') {
+                    counter++;
+                }
             }
-            removeOptions.setAttribute('disabled', 'disabled');
+            if (counter == 0) {
+                removeOptions.setAttribute('disabled', 'disabled');
+            }
         });
     }
 });
@@ -466,6 +475,20 @@ setValueAll.addEventListener('change', function (e) {
 });
 
 
+// Reset settings 
+removeOptions.addEventListener('click', function () {
+    enableSeason.checked = false;
+    for (var x = 0; x < testing.length; x++) {
+        priceTag[x].textContent = 'Price: ' + productList[x].regularPrice + '/' + productList[x].unit;
+        label[x].style.backgroundColor = '#b4d455';
+        if (testing[x].checked) {
+            testing[x].checked = false;
+            label[x].children[3].textContent = ' ';
+            label[x].style.border = '2px solid #b4d455';
+        }
+    }
+    removeOptions.setAttribute('disabled', 'disabled');
+});
 
 // Enable seasons
 
@@ -504,6 +527,7 @@ document.getElementById('season-box').addEventListener('click', function (e) {
     if (e.target.className === 'toggleSeason') {
         for (var x = 0; x < toggleSeason.length; x++) {
             if (toggleSeason[x].checked) {
+                removeOptions.removeAttribute('disabled');
                 for (var y = 0; y < productList.length; y++) {
                     if (productList[y].onSeason === parseInt(toggleSeason[x].id)) {
                         label[y].style.backgroundColor = 'blue';
@@ -684,18 +708,21 @@ checkoutFoo.addEventListener('click', function () {
 var headerSnippet = document.getElementById('header-snippet');
 var optionsButton = document.getElementById('optionsButton');
 var howTo = document.getElementById('howTo');
+
 headerSnippet.addEventListener('click', function (e) {
     if (e.target.id === 'optionsButton' || e.target.id === 'howTo') {
-        var above = document.createElement('div');
-        above.id = 'above';
-        document.body.appendChild(above);
-        var snippetContainer = document.createElement('div');
-        snippetContainer.className = 'snippet-container';
-        var title = document.createElement('p');
-        title.style.fontWeight = 'bold';
 
         // Options
         if (e.target.id === 'optionsButton') {
+            var above = document.createElement('div');
+            above.id = 'above';
+            document.body.appendChild(above);
+            var snippetContainer = document.createElement('div');
+            snippetContainer.className = 'snippet-container';
+            above.appendChild(snippetContainer);
+            var title = document.createElement('p');
+            title.style.fontWeight = 'bold';
+            above.appendChild(title);
             title.textContent = 'Options';
             snippetContainer.appendChild(title);
 
@@ -802,6 +829,15 @@ headerSnippet.addEventListener('click', function (e) {
 
             // Hot to play
         } else if (e.target.id === 'howTo') {
+            var above = document.createElement('div');
+            above.id = 'above';
+            document.body.appendChild(above);
+            var snippetContainer = document.createElement('div');
+            snippetContainer.className = 'snippet-container';
+            above.appendChild(snippetContainer);
+            var title = document.createElement('p');
+            title.style.fontWeight = 'bold';
+            above.appendChild(title);
             title.textContent = 'How To Play';
             snippetContainer.appendChild(title);
             var howToPlay = document.createElement('p');
@@ -927,19 +963,6 @@ headerSnippet.addEventListener('click', function (e) {
     }
 });
 
-// Reset settings 
-removeOptions.addEventListener('click', function () {
-    removeOptions.setAttribute('disabled', 'disabled');
-    for (var x = 0; x < testing.length; x++) {
-        priceTag[x].textContent = 'Price: ' + productList[x].regularPrice + '/' + productList[x].unit;
-        label[x].style.backgroundColor = '#b4d455';
-        if (testing[x].checked) {
-            testing[x].checked = false;
-            label[x].children[3].textContent = ' ';
-            label[x].style.border = '2px solid #b4d455';
-        }
-    }
-});
 
 
 // Mobile receipt
