@@ -21,7 +21,7 @@ body input[type='checkbox'], input[type='radio'] {
     padding: 0.25rem 0;
 }
 #header-left {
-    width: 49.75%;
+    flex: 1 0 40%;
     border-radius: 0 0 0.25rem 0;
 }
 .header-section {
@@ -35,6 +35,9 @@ body input[type='checkbox'], input[type='radio'] {
     justify-content: space-between;
     align-items: center;
 }
+#toggle-section input[type='number'] {
+    width: 25%;
+}
 label[for='setValueAll'] {
     display: inherit;
     justify-content: inherit;
@@ -42,7 +45,7 @@ label[for='setValueAll'] {
     border: 2px solid #e3e8ed;
 }
 #header-right {
-    width: 50%;
+    flex: 1 0 45%;
     border-radius: 0 0 0 0.25rem;
 }
 #season-box {
@@ -80,13 +83,37 @@ label[for='setValueAll'] {
     height: 2rem;
     width: 2rem;
 }
-#header-snippet {
+.header-snippet {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex: 1 0 15%;
+}
+.header-snippet p {
+    margin: 0;
+    pointer-events: none;
+}
+#optionsButton {
     display: none;
+}
+.snippet-buttons {
+    display: inherit;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #e3e8ed;
+    padding: 0.1em 0.5em;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    width: 5em;
+    border: 0;
+    height: 80%;
+    font-size: 2.5vh;
 }
 .container {
     display: flex;
     height: 90vh;
-    padding: 0.25rem 0;
+    padding-top: 0.25rem;
 }
 
 .wrapper {
@@ -120,8 +147,8 @@ label[for='setValueAll'] {
     flex-flow: column wrap;
     justify-content: center;
     align-items: center;
-    width: 10rem;
-    height: 8.75rem;
+    width: 100%;
+    height: 100%;
 }
 input[type='checkbox']:checked + .label {
     background-color: pink;
@@ -146,7 +173,22 @@ input[type='checkbox']:checked + .label {
 
     justify-content: center;
     align-items: center;
-    }
+}
+.snippet-container {
+    background-color: white;
+    width: 18rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem 0.25rem;
+    border-radius: 0.25rem;
+}
+.snippet-container i {
+    color: #000;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
 .item-container {
     background-color: white;
     width: 18rem;
@@ -268,34 +310,20 @@ input[type='checkbox']:checked + .label {
         display: inherit;
         flex-direction: column;
     }
-    #header-snippet {
+    .header-snippet {
         width: 100%;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
+    }
+    #optionsButton {
+        display: inherit;
     }
     .snippet-buttons {
-        display: inherit;
-        flex-direction: column;
-        align-items: center;
-        background-color: #e3e8ed;
-        padding: 0.1em 0.5em;
-        border-radius: 0.25rem;
-        cursor: pointer;
-        width: 5em;
-        border: 0;
         height: 90%;
-        font-size: 2.5vh;
     }
-    #header-snippet i {
+    .header-snippet i {
         font-size: 1.75rem;
         pointer-events: none;
     }
-    #header-snippet p {
-        margin: 0;
-        pointer-events: none;
-    }
-    #header-snippet p ol {
+    .header-snippet p ol {
         padding: 0;
     }
     .enable-header {
@@ -346,24 +374,14 @@ input[type='checkbox']:checked + .label {
         border-radius: 0.25rem;
     }
     .season-mobile {
-        width: 5em;
+        width: 4em;
         pointer-events: none;
     }
     .snippet-season span {
         pointer-events: none;
     }
-    .snippet-container {
-        background-color: white;
-        width: 18rem;
-        display: inherit;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        padding: 1rem 0.25rem;
-        border-radius: 0.25rem;
-    }
     .snippet-container i {
-        color: #000;
+        font-size: 1rem;
     }
     .container {
         height: 81vh;
@@ -445,7 +463,7 @@ input[type='checkbox']:checked + .label {
         align-self: center;
     }
     @media screen and (max-height: 650px) {
-        #header-snippet i {
+        .header-snippet i {
             font-size: 4.5vh;
         }
         .snippet-container {
