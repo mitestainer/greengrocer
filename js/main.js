@@ -33,8 +33,8 @@ var productList = [
     }, {
         productName: 'Mushroom',
         pic: 'images/mushroom.png',
-        onSeason: undefined,
-        outOfSeason: undefined,
+        onSeason: 2,
+        outOfSeason: 1,
         regularPrice: undefined,
         priceOnSeason: undefined,
         priceOutOfSeason: undefined,
@@ -43,7 +43,7 @@ var productList = [
         productName: 'Turnip',
         pic: 'images/turnip.png',
         onSeason: 2,
-        outOfSeason: undefined,
+        outOfSeason: 1,
         regularPrice: 2.19,
         priceOnSeason: undefined,
         priceOutOfSeason: undefined,
@@ -51,8 +51,8 @@ var productList = [
     }, {
         productName: 'Potato',
         pic: 'images/potato.png',
-        onSeason: undefined,
-        outOfSeason: undefined,
+        onSeason: 2,
+        outOfSeason: 0,
         regularPrice: 0.95,
         priceOnSeason: 0.79,
         priceOutOfSeason: undefined,
@@ -60,7 +60,7 @@ var productList = [
     }, {
         productName: 'Cucumber',
         pic: 'images/cucumber.png',
-        onSeason: undefined,
+        onSeason: 1,
         outOfSeason: 3,
         regularPrice: undefined,
         priceOnSeason: undefined,
@@ -70,7 +70,7 @@ var productList = [
         productName: 'Cabbage',
         pic: 'images/cabbage.png',
         onSeason: 2,
-        outOfSeason: undefined,
+        outOfSeason: 1,
         regularPrice: 0.69,
         priceOnSeason: undefined,
         priceOutOfSeason: undefined,
@@ -78,8 +78,8 @@ var productList = [
     }, {
         productName: 'Strawberry',
         pic: 'images/strawberry.png',
-        onSeason: undefined,
-        outOfSeason: undefined,
+        onSeason: 0,
+        outOfSeason: 2,
         regularPrice: 2.99,
         priceOnSeason: 1.89,
         priceOutOfSeason: undefined,
@@ -87,17 +87,17 @@ var productList = [
     }, {
         productName: 'Onion',
         pic: 'images/onion.png',
-        onSeason: undefined,
-        outOfSeason: undefined,
+        onSeason: 0,
+        outOfSeason: 1,
         regularPrice: 0.95,
         priceOnSeason: 0.69,
-        priceOutOfSeason: undefined,
+        priceOutOfSeason: 1.79,
         unit: 'kg'
     }, {
         productName: 'Tomato',
         pic: 'images/tomato.png',
-        onSeason: undefined,
-        outOfSeason: undefined,
+        onSeason: 1,
+        outOfSeason: 3,
         regularPrice: 1.59,
         priceOnSeason: 0.89,
         priceOutOfSeason: 3.99,
@@ -105,8 +105,8 @@ var productList = [
     }, {
         productName: 'Corn',
         pic: 'images/corn.png',
-        onSeason: undefined,
-        outOfSeason: undefined,
+        onSeason: 1,
+        outOfSeason: 3,
         regularPrice: undefined,
         priceOnSeason: undefined,
         priceOutOfSeason: 2.79,
@@ -115,7 +115,7 @@ var productList = [
         productName: 'Pineapple',
         pic: 'images/pineapple.png',
         onSeason: 1,
-        outOfSeason: undefined,
+        outOfSeason: 0,
         regularPrice: 1.95,
         priceOnSeason: undefined,
         priceOutOfSeason: 3.95,
@@ -141,8 +141,8 @@ var productList = [
     }, {
         productName: 'Eggplant',
         pic: 'images/eggplant.png',
-        onSeason: undefined,
-        outOfSeason: undefined,
+        onSeason: 1,
+        outOfSeason: 0,
         regularPrice: 1.99,
         priceOnSeason: undefined,
         priceOutOfSeason: undefined,
@@ -151,7 +151,7 @@ var productList = [
         productName: 'Sweet Potato',
         pic: 'images/spotato.png',
         onSeason: 3,
-        outOfSeason: undefined,
+        outOfSeason: 0,
         regularPrice: undefined,
         priceOnSeason: undefined,
         priceOutOfSeason: 3.95,
@@ -159,8 +159,8 @@ var productList = [
     }, {
         productName: 'Green Pepper',
         pic: 'images/gpepper.png',
-        onSeason: undefined,
-        outOfSeason: undefined,
+        onSeason: 2,
+        outOfSeason: 0,
         regularPrice: undefined,
         priceOnSeason: undefined,
         priceOutOfSeason: undefined,
@@ -168,8 +168,8 @@ var productList = [
     }, {
         productName: 'Spinach',
         pic: 'images/spinach.png',
-        onSeason: undefined,
-        outOfSeason: undefined,
+        onSeason: 2,
+        outOfSeason: 1,
         regularPrice: undefined,
         priceOnSeason: undefined,
         priceOutOfSeason: undefined,
@@ -185,7 +185,7 @@ var left = document.getElementById('left');
 
 for (var x = 0; x < (productList.length + 1); x++) {
     var createLabel = document.createElement('div');
-    createLabel.className = 'label';
+    createLabel.className = 'label label-regular';
     left.appendChild(createLabel);
 }
 
@@ -236,7 +236,7 @@ label[(label.length - 1)].appendChild(checkout);
 var removeOptions = document.getElementById('removeOptions');
 
 left.addEventListener('click', function (e) {
-    if (e.target.id != 'checkout' && e.target.className === 'label') {
+    if (e.target.id != 'checkout' && e.target.className.indexOf('label') !== -1) {
         var a = e.target.children[0];
         if (a.checked === false) {
             a.checked = true;
@@ -247,7 +247,21 @@ left.addEventListener('click', function (e) {
         };
 
         var idSet = e.target.id;
-        label[idSet].style.border = '2px dashed #789618';
+        if (enableSeason.checked) {
+            for (var x = 0; x < toggleSeason.length; x++) {
+                if (toggleSeason[x].checked) {
+                    if (productList[idSet].onSeason == toggleSeason[x].id) {
+                        label[idSet].className = 'label label-on-season label-os-selected';
+                    } else if (productList[idSet].outOfSeason == toggleSeason[x].id) {
+                        label[idSet].className = 'label label-out-of-season label-oos-selected';
+                    } else {
+                        label[idSet].className = 'label label-regular label-r-selected';
+                    }
+                }
+            }
+        } else {
+            label[idSet].className = 'label label-regular label-r-selected';
+        }
         // Create container
         var above = document.createElement('div');
         above.id = 'above';
@@ -395,8 +409,21 @@ left.addEventListener('click', function (e) {
             }
         });
         document.getElementById('choose-cancel').addEventListener('click', function () {
-            debugger;
-            label[idSet].style.border = '2px solid #b4d455';
+            if (enableSeason.checked) {
+                for (var x = 0; x < toggleSeason.length; x++) {
+                    if (toggleSeason[x].checked) {
+                        if (productList[idSet].onSeason == toggleSeason[x].id) {
+                            label[idSet].className = 'label label-on-season';
+                        } else if (productList[idSet].outOfSeason == toggleSeason[x].id) {
+                            label[idSet].className = 'label label-out-of-season';
+                        } else {
+                            label[idSet].className = 'label label-regular';
+                        }
+                    }
+                }
+            } else {
+                label[idSet].className = 'label label-regular';
+            }
             document.body.removeChild(document.getElementById('above'));
             testing[setId].checked = false;
             scale[setId].textContent = ' ';
@@ -477,15 +504,22 @@ setValueAll.addEventListener('change', function (e) {
 
 // Reset settings 
 removeOptions.addEventListener('click', function () {
-    enableSeason.checked = false;
     for (var x = 0; x < testing.length; x++) {
+        label[x].className = 'label label-regular';
         priceTag[x].textContent = 'Price: ' + productList[x].regularPrice + '/' + productList[x].unit;
-        label[x].style.backgroundColor = '#b4d455';
         if (testing[x].checked) {
             testing[x].checked = false;
             label[x].children[3].textContent = ' ';
-            label[x].style.border = '2px solid #b4d455';
         }
+    }
+    debugger;
+    enableSeason.checked = false;
+    seasonSpan.textContent = 'Enable Seasons';
+    seasonBox.removeAttribute('class');
+    for (var x = 0; x < toggleSeason.length; x++) {
+        toggleSeason[x].checked = false;
+        toggleSeason[x].setAttribute('disabled', 'disabled');
+        seasonWrapper[x].className = 'season-wrapper season-wrapper-disabled';
     }
     removeOptions.setAttribute('disabled', 'disabled');
 });
@@ -499,24 +533,36 @@ var seasonWrapper = document.querySelectorAll('.season-wrapper');
 var seasonBox = document.getElementById('season-box');
 
 enableSeason.addEventListener('change', function (e) {
-    for (var x = 0; x < toggleSeason.length; x++) {
-        if (e.target.checked) {
-            enableSeason.parentNode.className = 'enable-header season-wrapper-a';
-            seasonSpan.textContent = ' Disable Seasons';
+    if (e.target.checked) {
+        removeOptions.removeAttribute('disabled');
+        enableSeason.parentNode.className = 'enable-header season-wrapper-enabled';
+        seasonSpan.textContent = ' Disable Seasons';
+        seasonBox.className = 'header-section';
+        seasonBox.style.border = '2px solid #c9d1d8';
+        for (var x = 0; x < toggleSeason.length; x++) {
             toggleSeason[x].removeAttribute('disabled');
-            seasonBox.className = 'header-section';
-            seasonBox.style.border = '2px solid #c9d1d8';
-            seasonWrapper[x].className = 'season-wrapper season-wrapper-a';
+            seasonWrapper[x].className = 'season-wrapper season-wrapper-enabled';
             seasonWrapper[x].lastElementChild.style.color = '#7994b0';
-        } else {
-            enableSeason.parentNode.className = 'enable-header';
-            seasonSpan.textContent = ' Enable Seasons';
+        }
+    } else {
+        enableSeason.parentNode.className = 'enable-header';
+        seasonSpan.textContent = ' Enable Seasons';
+        seasonBox.removeAttribute('class');
+        seasonBox.style.border = '2px solid #e3e8ed';
+        for (var x = 0; x < toggleSeason.length; x++) {
             toggleSeason[x].setAttribute('disabled', 'disabled');
             toggleSeason[x].checked = false;
-            seasonBox.removeAttribute('class');
-            seasonBox.style.border = '2px solid #e3e8ed';
             seasonWrapper[x].className = 'season-wrapper';
             seasonWrapper[x].lastElementChild.style.color = '#c9d1d8';
+        }
+        var checkedA = 0;
+        for (var x = 0; x < testing.length; x++) {
+            if (testing[x].checked) {
+                checkedA++;
+            }
+        }
+        if (checkedA < 1) {
+            removeOptions.setAttribute('disabled', 'disabled');
         }
     }
 })
@@ -530,13 +576,13 @@ document.getElementById('season-box').addEventListener('click', function (e) {
                 removeOptions.removeAttribute('disabled');
                 for (var y = 0; y < productList.length; y++) {
                     if (productList[y].onSeason === parseInt(toggleSeason[x].id)) {
-                        label[y].style.backgroundColor = 'blue';
+                        label[y].className = 'label label-on-season';
                         priceTag[y].textContent = 'Price: ' + productList[y].priceOnSeason + '/' + productList[y].unit;
                     } else if (productList[y].outOfSeason === parseInt(toggleSeason[x].id)) {
-                        label[y].style.backgroundColor = 'red';
+                        label[y].className = 'label label-out-of-season';
                         priceTag[y].textContent = 'Price: ' + productList[y].priceOutOfSeason + '/' + productList[y].unit;
                     } else {
-                        label[y].style.backgroundColor = '#b4d455';
+                        label[y].className = 'label label-regular';
                         priceTag[y].textContent = 'Price: ' + productList[y].regularPrice + '/' + productList[y].unit;
                     }
                 }
@@ -550,7 +596,7 @@ document.getElementById('season-box').addEventListener('click', function (e) {
 enableSeason.addEventListener('change', function (e) {
     if (e.target.checked === false) {
         for (var x = 0; x < productList.length; x++) {
-            label[x].style.backgroundColor = '#b4d455';
+            label[x].className = 'label label-regular';
             priceTag[x].textContent = 'Price: ' + productList[x].regularPrice + '/' + productList[x].unit;
         }
     }

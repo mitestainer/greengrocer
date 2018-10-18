@@ -70,13 +70,14 @@ label[for='setValueAll'] {
     padding: 0.25rem 0;
     cursor: not-allowed;
     height: 2.5rem;
+    display: flex;
+    align-items: center;
 }
-.season-wrapper-a {
+.season-wrapper-enabled {
     background-color: #c9d1d8;
     cursor: pointer;
 }
-.season-wrapper > * {
-    vertical-align: middle;
+.season-wrapper-disabled {
     color: #c9d1d8;
 }
 .img-season {
@@ -139,8 +140,7 @@ label[for='setValueAll'] {
     justify-content: center;
 }
 .label {
-    background-color: #b4d455;
-    border: 2px solid #b4d455;
+    border: 2px solid;
     border-radius: 0.3rem;
     cursor: pointer;
     display: flex;
@@ -149,6 +149,27 @@ label[for='setValueAll'] {
     align-items: center;
     width: 100%;
     height: 100%;
+}
+.label-regular {
+    background-color: #b4d455;
+    border-color: #b4d455;
+}
+.label-r-selected {
+    border: 2px dashed #789618;
+}
+.label-on-season {
+    background-color: #28bac1;
+    border-color: #28bac1;
+}
+.label-os-selected {
+border: 2px dashed #217284;
+}
+.label-out-of-season {
+    background-color: #ed3a12;
+    border-color: #ed3a12;
+}
+.label-oos-selected {
+border: 2px dashed #81230e;
 }
 input[type='checkbox']:checked + .label {
     background-color: pink;
@@ -233,7 +254,6 @@ input[type='checkbox']:checked + .label {
     width: 2rem;
     pointer-events: none;
 }
-
 .margin-fix {
     margin: 0;
     pointer-events: none;
@@ -244,12 +264,10 @@ input[type='checkbox']:checked + .label {
     align-items: center;
     pointer-events: none;
 }
-
 .price-tag {
     margin: 0;
     pointer-events: none;
 }
-
 .receipt {
     width: 20rem;
     padding: 0.5rem 1rem;
@@ -403,6 +421,17 @@ input[type='checkbox']:checked + .label {
         height: auto;
         width: auto;
         margin: 0.25rem 0;
+    }
+    .product-holder {
+        flex: 1 0 40%;
+    }
+    .price-tag {
+        flex: 1 0 40%;
+        text-align: center;
+    }    
+    .scale {
+        flex: 1 0 20%;
+        text-align: center;
     }
     #item-scale i {
         font-size: 2rem;
