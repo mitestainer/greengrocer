@@ -27,7 +27,7 @@ var productList = [
         onSeason: 1,
         outOfSeason: 3,
         regularPrice: 3.99,
-        priceOnSeason: undefined,
+        priceOnSeason: 1.99,
         priceOutOfSeason: 5.99,
         unit: 'unit'
     }, {
@@ -45,8 +45,8 @@ var productList = [
         onSeason: 2,
         outOfSeason: 1,
         regularPrice: 2.19,
-        priceOnSeason: undefined,
-        priceOutOfSeason: undefined,
+        priceOnSeason: 1.69,
+        priceOutOfSeason: 4.09,
         unit: 'unit'
     }, {
         productName: 'Potato',
@@ -55,7 +55,7 @@ var productList = [
         outOfSeason: 0,
         regularPrice: 0.95,
         priceOnSeason: 0.79,
-        priceOutOfSeason: undefined,
+        priceOutOfSeason: 1.29,
         unit: 'kg'
     }, {
         productName: 'Cucumber',
@@ -153,7 +153,7 @@ var productList = [
         onSeason: 3,
         outOfSeason: 0,
         regularPrice: undefined,
-        priceOnSeason: undefined,
+        priceOnSeason: 0.99,
         priceOutOfSeason: 3.95,
         unit: 'kg'
     }, {
@@ -218,7 +218,7 @@ for (var x = 0; x < (label.length - 1); x++) {
     //label[x].appendChild(productImage);
     // Setting price
     var productPrice = document.createElement('p');
-    productPrice.textContent = 'Price: ' + productList[x].regularPrice + '/' + productList[x].unit;
+    productPrice.textContent = 'Price: $' + productList[x].regularPrice + '/' + productList[x].unit;
     productPrice.className = 'price-tag';
     label[x].appendChild(productPrice);
     // Setting Input box 
@@ -246,6 +246,7 @@ left.addEventListener('click', function (e) {
             removeOptions.removeAttribute('disabled');
         };
 
+        debugger;
         var idSet = e.target.id;
         if (enableSeason.checked) {
             for (var x = 0; x < toggleSeason.length; x++) {
@@ -506,16 +507,16 @@ setValueAll.addEventListener('change', function (e) {
 removeOptions.addEventListener('click', function () {
     for (var x = 0; x < testing.length; x++) {
         label[x].className = 'label label-regular';
-        priceTag[x].textContent = 'Price: ' + productList[x].regularPrice + '/' + productList[x].unit;
+        priceTag[x].textContent = 'Price: $' + productList[x].regularPrice + '/' + productList[x].unit;
         if (testing[x].checked) {
             testing[x].checked = false;
             label[x].children[3].textContent = ' ';
         }
     }
-    debugger;
     enableSeason.checked = false;
+    enableSeason.parentElement.className = 'enable-header';
     seasonSpan.textContent = 'Enable Seasons';
-    seasonBox.removeAttribute('class');
+    seasonBox.removeAttribute('style');
     for (var x = 0; x < toggleSeason.length; x++) {
         toggleSeason[x].checked = false;
         toggleSeason[x].setAttribute('disabled', 'disabled');
@@ -577,13 +578,13 @@ document.getElementById('season-box').addEventListener('click', function (e) {
                 for (var y = 0; y < productList.length; y++) {
                     if (productList[y].onSeason === parseInt(toggleSeason[x].id)) {
                         label[y].className = 'label label-on-season';
-                        priceTag[y].textContent = 'Price: ' + productList[y].priceOnSeason + '/' + productList[y].unit;
+                        priceTag[y].textContent = 'Price: $' + productList[y].priceOnSeason + '/' + productList[y].unit;
                     } else if (productList[y].outOfSeason === parseInt(toggleSeason[x].id)) {
                         label[y].className = 'label label-out-of-season';
-                        priceTag[y].textContent = 'Price: ' + productList[y].priceOutOfSeason + '/' + productList[y].unit;
+                        priceTag[y].textContent = 'Price: $' + productList[y].priceOutOfSeason + '/' + productList[y].unit;
                     } else {
                         label[y].className = 'label label-regular';
-                        priceTag[y].textContent = 'Price: ' + productList[y].regularPrice + '/' + productList[y].unit;
+                        priceTag[y].textContent = 'Price: $' + productList[y].regularPrice + '/' + productList[y].unit;
                     }
                 }
             }
@@ -597,7 +598,7 @@ enableSeason.addEventListener('change', function (e) {
     if (e.target.checked === false) {
         for (var x = 0; x < productList.length; x++) {
             label[x].className = 'label label-regular';
-            priceTag[x].textContent = 'Price: ' + productList[x].regularPrice + '/' + productList[x].unit;
+            priceTag[x].textContent = 'Price: $' + productList[x].regularPrice + '/' + productList[x].unit;
         }
     }
 });
@@ -657,7 +658,6 @@ checkoutFoo.addEventListener('click', function () {
     }
 
     function drawLine(input) {
-        debugger;
         var p = document.createElement('p');
         p.style.textAlign = 'center';
         p.style.margin = '0';
@@ -750,6 +750,13 @@ checkoutFoo.addEventListener('click', function () {
 
 //MOBILE
 
+var closeX = document.createElement('span');
+closeX.id = 'close-receipt';
+closeX.innerHTML = '<i class="fas fa-times"></i>';
+closeX.addEventListener('click', function (e) {
+    document.body.removeChild(document.getElementById('above'));
+});
+
 // Header buttons
 var headerSnippet = document.getElementById('header-snippet');
 var optionsButton = document.getElementById('optionsButton');
@@ -757,255 +764,46 @@ var howTo = document.getElementById('howTo');
 
 headerSnippet.addEventListener('click', function (e) {
     if (e.target.id === 'optionsButton' || e.target.id === 'howTo') {
-
+        var under = document.getElementById('under');
+        under.className = 'under under-visible';
         // Options
         if (e.target.id === 'optionsButton') {
-            var above = document.createElement('div');
-            above.id = 'above';
-            document.body.appendChild(above);
-            var snippetContainer = document.createElement('div');
-            snippetContainer.className = 'snippet-container';
-            above.appendChild(snippetContainer);
-            var title = document.createElement('p');
-            title.style.fontWeight = 'bold';
-            above.appendChild(title);
-            title.textContent = 'Options';
-            snippetContainer.appendChild(title);
-
-            var int1 = document.createElement('div');
-            int1.className = 'options-fix';
-            var int2 = document.createElement('input');
-            int2.setAttribute('type', 'checkbox');
-            int2.id = 'toggleAlla';
-            int2.className = 'mobile-button';
-            int1.appendChild(int2);
-            var int3 = document.createElement('label');
-            int3.className = 'enable-header';
-            int3.htmlFor = 'toggleAlla';
-            var int4 = document.createElement('span');
-            int4.textContent = 'Enable All';
-            int3.appendChild(int4);
-            int1.appendChild(int3);
-
-            var intA1 = document.createElement('div');
-            intA1.className = 'options-fix';
-            intA1.style.border = 'none';
-            var intA = document.createElement('input');
-            intA.setAttribute('type', 'checkbox');
-            intA.setAttribute('disabled', 'disabled');
-            intA.id = 'setValueAllb';
-            intA.className = 'mobile-button';
-            intA1.appendChild(intA);
-            var intB = document.createElement('label');
-            intB.className = 'enable-header';
-            intB.htmlFor = 'setValueAllb';
-            var intC = document.createElement('span');
-            intC.textContent = 'Set Value to All';
-            intB.appendChild(intC);
-            intA1.appendChild(intB);
-            var intD = document.createElement('div');
-            intD.className = 'snippet-value-all';
-            var intMinus = document.createElement('span');
-            intMinus.innerHTML = '<i class="fas fa-minus-square"></i>';
-            intMinus.id = 'snippetMinus';
-            intD.appendChild(intMinus);
-            var intE = document.createElement('input');
-            intE.setAttribute('type', 'number');
-            intE.setAttribute('disabled', 'disabled');
-            intE.id = 'inputb'
-            intD.appendChild(intE);
-            var intPlus = document.createElement('span');
-            intPlus.innerHTML = '<i class="fas fa-plus-square"></i>';
-            intPlus.id = 'snippetPlus';
-            intD.appendChild(intPlus);
-            intA1.appendChild(intD);
-            var intE = document.createElement('button');
-            intE.className = 'enable-header';
-            intE.textContent = 'OK';
-            intE.id = 'intOK';
-            intE.setAttribute('disabled', 'disabled');
-            intA1.appendChild(intE);
-            int1.appendChild(intA1);
-
-            snippetContainer.appendChild(int1);
-
-            var snippetSeasons = document.createElement('div');
-            snippetSeasons.className = 'options-fix';
-            var seasonbutton = document.createElement('input');
-            seasonbutton.id = 'seasonbutton';
-            seasonbutton.className = 'mobile-button';
-            seasonbutton.setAttribute('type', 'checkbox');
-            snippetSeasons.appendChild(seasonbutton);
-            var enableSeasonA = document.createElement('label');
-            enableSeasonA.htmlFor = 'seasonbutton';
-            enableSeasonA.textContent = 'Enable Seasons';
-            enableSeasonA.className = 'enable-header';
-            snippetSeasons.appendChild(enableSeasonA);
-            var snippetholderS = document.createElement('div');
-            snippetholderS.id = 'snippet-season-holder';
-
-            function createSeason(seasonName) {
-                var snippetS = document.createElement('label');
-                snippetS.htmlFor = seasonName;
-                snippetS.id = 'snippet-' + seasonName;
-                snippetS.className = 'snippet-season';
-                var seasonSelect = document.createElement('input');
-                seasonSelect.setAttribute('type', 'radio');
-                seasonSelect.className = 'snippet-toggle';
-                seasonSelect.name = 'season';
-                seasonSelect.setAttribute('disabled', 'disabled');
-                seasonSelect.id = seasonName;
-                snippetS.appendChild(seasonSelect);
-                var seasonImage = document.createElement('img');
-                seasonImage.src = 'images/' + seasonName + '.png';
-                seasonImage.className = 'season-mobile';
-                snippetS.appendChild(seasonImage);
-                var seasonTitle = document.createElement('span');
-                seasonTitle.textContent = seasonName;
-                snippetS.appendChild(seasonTitle);
-                snippetholderS.appendChild(snippetS);
-                snippetSeasons.appendChild(snippetholderS);
-            }
-            createSeason('spring');
-            createSeason('summer');
-            createSeason('autumn');
-            createSeason('winter');
-
-            snippetContainer.appendChild(snippetSeasons);
-
-            // Hot to play
+            var forOptions = document.getElementById('for-options');
+            forOptions.style.visibility = 'visible';
+            forOptions.className = 'snippet-container for-options-mobile';
+            document.getElementById('options-title').style.display = 'initial';
+            var headerLeft = document.getElementById('header-left');
+            headerLeft.className = 'header header-fix-mobile';
+            headerLeft.children[0].style.display = 'none';
+            document.querySelectorAll('.enable-fix')[0].className = 'enable-fix-mobile';
+            var headerRight = document.getElementById('header-right');
+            headerRight.className = 'header header-fix-mobile';
+            seasonBox.className = 'season-box-fix-mobile';
+            document.querySelectorAll('.enable-fix')[0].className = 'enable-fix-mobile';
+            var closeOptions = document.getElementById('close-options');
+            closeOptions.style.display = 'initial';
+            closeOptions.addEventListener('click', function () {
+                debugger;
+                document.getElementById('options-title').style.display = 'none';
+                headerLeft.className = 'header header-fix';
+                headerLeft.children[0].style.display = 'initial';
+                document.querySelectorAll('.enable-fix-mobile')[0].className = 'enable-fix';
+                headerRight.className = 'header header-fix';
+                document.querySelectorAll('.enable-fix-mobile')[0].className = 'enable-fix';
+                seasonBox.className = 'season-box-fix';
+                closeOptions.style.display = 'none';
+                forOptions.style.visibility = 'hidden';
+                under.className = 'under';
+            });
+            // How to play
         } else if (e.target.id === 'howTo') {
-            var above = document.createElement('div');
-            above.id = 'above';
-            document.body.appendChild(above);
-            var snippetContainer = document.createElement('div');
-            snippetContainer.className = 'snippet-container';
-            above.appendChild(snippetContainer);
-            var title = document.createElement('p');
-            title.style.fontWeight = 'bold';
-            above.appendChild(title);
-            title.textContent = 'How To Play';
-            snippetContainer.appendChild(title);
-            var howToPlay = document.createElement('p');
-            howToPlay.innerHTML = '<ol><li>Tap a product to select</li><li>Input a value of how much of that product you want to buy</li><li>Click \'OK\' to send the value</li><li>If you want to remove the value, tap the product again and select \'Remove value\'</li><li>Tap the \'Checkout\' button to discover how much you will pay for the products</li><li>You can print your receipt by tapping the total value</li><li>Repeat the process if you want to make another purchase</li></ol>';
-            snippetContainer.appendChild(howToPlay);
+            var forHowTo = document.getElementById('for-howto');
+            forHowTo.style.visibility = 'visible';
+            document.getElementById('close-howto').addEventListener('click', function () {
+                forHowTo.style.visibility = 'hidden';
+                under.className = 'under';
+            });
         }
-
-
-        var closeX = document.createElement('span');
-        closeX.id = 'close-receipt';
-        closeX.innerHTML = '<i class="fas fa-times"></i>';
-        closeX.addEventListener('click', function (e) {
-            document.body.removeChild(document.getElementById('above'));
-        });
-        snippetContainer.appendChild(closeX);
-        above.appendChild(snippetContainer);
-
-        // Logic
-
-        // Toggle All
-        var toggleAlla = document.getElementById('toggleAlla');
-        var setValueAllb = document.getElementById('setValueAllb');
-
-        toggleAlla.addEventListener('change', function (e) {
-            for (var x = 0; x < testing.length; x++) {
-                if (e.target.checked) {
-                    setValueAllb.removeAttribute('disabled');
-                    testing[x].checked = true;
-                    label[x].style.border = '2px dashed #789618';
-                    removeOptions.removeAttribute('disabled');
-                } else {
-                    setValueAllb.setAttribute('disabled', 'disabled');
-                    testing[x].checked = false;
-                    label[x].style.border = '2px solid #b4d455';
-                }
-            }
-        });
-
-        // Set value to all
-        var inputb = document.getElementById('inputb');
-        var intE = document.getElementById('intOK');
-        setValueAllb.addEventListener('change', function (e) {
-            if (e.target.checked === true) {
-                inputb.removeAttribute('disabled');
-                intE.removeAttribute('disabled');
-                var inputThisValue = 0;
-                document.getElementById('snippetMinus').addEventListener('click', function (e) {
-                    inputThisValue--;
-                    inputb.value = inputThisValue;
-                    if (inputThisValue < 1) {
-                        inputThisValue = 0;
-                        inputb.value = '';
-                    }
-                });
-                document.getElementById('snippetPlus').addEventListener('click', function (e) {
-                    inputThisValue++;
-                    inputb.value = inputThisValue;
-                });
-            } else {
-                inputb.setAttribute('disabled', 'disabled');
-                intE.setAttribute('disabled', 'disabled');
-            }
-            var intValue;
-            inputb.addEventListener('change', function (e) {
-                intValue = e.target.value;
-                console.log(intValue);
-                if (intValue < 1) {
-                    e.target.value = '';
-                    intValue = '';
-                }
-            });
-            document.getElementById('intOK').addEventListener('click', function (e) {
-                if (inputb.value == '') {
-                    alert('set a value first');
-                } else {
-                    for (var x = 0; x < scale.length; x++) {
-                        scale[x].textContent = inputb.value;
-                    }
-                    document.body.removeChild(document.getElementById('above'));
-                }
-            });
-        });
-
-        // Select season
-        var snippetToggle = document.querySelectorAll('.snippet-toggle');
-        document.getElementById('seasonbutton').addEventListener('click', function (e) {
-            if (e.target.checked === true) {
-                for (var x = 0; x < snippetToggle.length; x++) {
-                    snippetToggle[x].removeAttribute('disabled');
-                }
-            } else {
-                for (var x = 0; x < snippetToggle.length; x++) {
-                    snippetToggle[x].setAttribute('disabled', 'disabled');
-                    snippetToggle[x].checked = false;
-                    label[x].style.backgroundColor = '#b4d455';
-                    priceTag[x].textContent = 'Price: ' + productList[x].regularPrice + '/' + productList[x].unit;
-                    removeOptions.setAttribute('disabled', 'disabled');
-                }
-            }
-        });
-        document.getElementById('snippet-season-holder').addEventListener('click', function (e) {
-            if (e.target.className === 'snippet-toggle') {
-                for (var x = 0; x < snippetToggle.length; x++) {
-                    if (snippetToggle[x].checked) {
-                        for (var y = 0; y < productList.length; y++) {
-                            if (productList[y].onSeason === x) {
-                                label[y].style.backgroundColor = 'blue';
-                                priceTag[y].textContent = 'Price: ' + productList[y].priceOnSeason + '/' + productList[y].unit;
-                                removeOptions.removeAttribute('disabled');
-                            } else if (productList[y].outOfSeason === x) {
-                                label[y].style.backgroundColor = 'red';
-                                priceTag[y].textContent = 'Price: ' + productList[y].priceOutOfSeason + '/' + productList[y].unit;
-                                removeOptions.removeAttribute('disabled');
-                            } else {
-                                label[y].style.backgroundColor = '#b4d455';
-                                priceTag[y].textContent = 'Price: ' + productList[y].regularPrice + '/' + productList[y].unit;
-                            }
-                        }
-                    }
-                }
-            }
-        });
     }
 });
 
