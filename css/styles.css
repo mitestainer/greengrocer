@@ -10,19 +10,23 @@ body input[type='checkbox'], input[type='radio'] {
     display: none;
 }
 #header {
-    display: flex;
+    display: grid;
     justify-content: space-between;
+    grid-template-columns: 85.65% 14.15%;
 }
 .header {
-    display: inherit;
+    display: flex;
     align-items: center;
     background-color: #e3e8ed;
     justify-content: space-around;
     padding: 0.25rem 0;
+    height: 100%;
 }
 #header-left {
-    flex: 1 0 40%;
     border-radius: 0 0 0.25rem 0;
+}
+.header-fix {
+    visibility: visible;
 }
 .header-section {
     border: 2px solid #c9d1d8;
@@ -45,12 +49,26 @@ label[for='setValueAll'] {
     border: 2px solid #e3e8ed;
 }
 #header-right {
-    flex: 1 0 45%;
-    border-radius: 0 0 0 0.25rem;
+    border-radius: 0 0 0.25rem 0.25rem;
+}
+#for-options {
+    width: 100%;
+    flex-direction: row;
+    padding: 0;
+    justify-content: space-between;
+}
+#options-title {
+    display: none;
+}
+#close-options {
+    display: none;
 }
 #season-box {
     display: inherit;
     border: 2px solid #e3e8ed;
+}
+.season-box-fix {
+    visibility: visible;
 }
 .enable-header {
     cursor: pointer;
@@ -60,6 +78,10 @@ label[for='setValueAll'] {
     align-items: center;
     border-radius: 0.25rem;
     width: 7rem;
+    visibility: visible;
+}
+.enable-fix {
+    visibility: visible;
 }
 .season-wrapper {
     background-color: #e3e8ed;
@@ -88,7 +110,8 @@ label[for='setValueAll'] {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    flex: 1 0 15%;
+    visibility: visible;
+    height: 100%;
 }
 .header-snippet p {
     margin: 0;
@@ -133,6 +156,7 @@ label[for='setValueAll'] {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-gap: 0.5em;
+    grid-template-rows: repeat(4, 1fr);
 }
 #right {
     width: 20.5rem;
@@ -169,10 +193,7 @@ border: 2px dashed #217284;
     border-color: #ed3a12;
 }
 .label-oos-selected {
-border: 2px dashed #81230e;
-}
-input[type='checkbox']:checked + .label {
-    background-color: pink;
+    border: 2px dashed #81230e;
 }
 #checkout {
     background-color: #000;
@@ -191,9 +212,30 @@ input[type='checkbox']:checked + .label {
     bottom: 0;
     left: 0;
     right: 0;
-
     justify-content: center;
     align-items: center;
+}
+.under {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.75);
+    height: 0;
+    width: 0;
+    position: unset;
+    top: unset;
+    bottom: unset;
+    left: unset;
+    right: unset;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+}
+.under-visible {
+    visibility: visible;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
 }
 .snippet-container {
     background-color: white;
@@ -206,7 +248,6 @@ input[type='checkbox']:checked + .label {
     border-radius: 0.25rem;
 }
 .snippet-container i {
-    color: #000;
     cursor: pointer;
     font-size: 1.5rem;
 }
@@ -300,29 +341,36 @@ input[type='checkbox']:checked + .label {
     }
     #header {
         overflow: auto;
-        justify-content: flex-start;
+        justify-content: center;
         height: 10vh;
-    }
-    #header > div:nth-child(1) {
-        width: 25vw;
-        flex: 1 0 auto;
-    }
-    #header > div > p {
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: #000;
-        color: #fff;
     }
-    #header > div > p > span:nth-child(1) {
-        display: none;
+    .header-fix {
+        visibility: hidden;
+    }
+    .header-fix-mobile {
+        visibility: visible;
     }
     #header-left, #header-right {
-        display: none;
+        flex-direction: inherit;
     }
-    #header-right {
-        justify-content: flex-start;
-        width: auto;
+    #toggle-section {
+        flex-direction: inherit;
+    }
+    #season-box {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .season-box-fix {
+        visibility: hidden;
+    }
+    .season-box-fix-mobile {
+        visibility: visible;
+    }
+    .season-wrapper {
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
     }
     #header-right > div:nth-child(1) {
         display: inherit;
@@ -333,6 +381,30 @@ input[type='checkbox']:checked + .label {
     }
     #optionsButton {
         display: inherit;
+    }
+    #for-options {
+        position: absolute;
+        flex-direction: column;
+        width: unset;
+        padding: 1em;
+        height: 80vh;
+        margin: 10vh;
+    }
+    .for-options-mobile {
+        visibility: visible;
+        z-index: 1;
+    }
+    /* #close-options i {
+        font-size: 1.5em;
+        margin: 0.5em;
+    } */
+    #for-howto {
+        position: absolute;
+    }
+    #under {
+        position: absolute;
+        height: 100vh;
+        width: 100vw;
     }
     .snippet-buttons {
         height: 90%;
@@ -349,6 +421,13 @@ input[type='checkbox']:checked + .label {
         display: flex;
         border: 0;
         margin: 1em 0;
+        visibility: hidden;
+    }
+    .enable-fix {
+        visibility: hidden;
+    }
+    .enable-fix-mobile {
+        visibility: visible;
     }
     .mobile-button:checked + .enable-header {
         background-color: #c9d1d8;
@@ -375,9 +454,10 @@ input[type='checkbox']:checked + .label {
     }
     #snippet-season-holder {
         display: grid;
-        grid-template-columns: 50% 50%;
+        grid-template-columns: repeat(2, 1fr);
         grid-gap: 0.5em;
         justify-content: center;
+        margin-bottom: 0.5em;
     }
     .snippet-season {
         display: flex;
@@ -386,8 +466,16 @@ input[type='checkbox']:checked + .label {
         justify-content: inherit;
         flex-direction: column;
         cursor: pointer;
+        height: auto;
+        width: auto;
+        padding: 0.5em;
+        margin: 0;
     }
     #seasonbutton:checked + .snippet-season {
+        border: 2px solid #e3e8ed;
+        border-radius: 0.25rem;
+    }
+    .snippet-toggle:checked + .snippet-season {
         border: 2px solid #e3e8ed;
         border-radius: 0.25rem;
     }
