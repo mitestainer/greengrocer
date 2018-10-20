@@ -14,17 +14,47 @@
 
 <body>
     <div id="header">
-        <div id="header-left" class="header">
-            <p>Pick your products:</p>
-            <div id="toggle-section">
-                <label for="toggleAll" class="enable-header">
-                    <input type="checkbox" id="toggleAll" /><span id="select-all">Select all</span>
-                </label>
-                <label for="setValueAll" id='setValueAlla'>
-                    <input type="checkbox" id="setValueAll" disabled /><span id="value-all">Set value to all selected:</span>
-                    <input type="number" id="input-value-all" disabled />
-                </label>
+        <div id="for-options" class="snippet-container" style="visibility: hidden">
+            <p id="options-title" style="font-weight: bold">Options</p>
+            <div id="header-left" class="header header-fix">
+                <p>Pick your products:</p>
+                <div id="toggle-section">
+                    <label for="toggleAll" class="enable-header enable-fix">
+                        <input type="checkbox" id="toggleAll" /><span id="select-all">Select all</span>
+                    </label>
+                    <label for="setValueAll" id='setValueAlla'>
+                        <input type="checkbox" id="setValueAll" disabled /><span id="value-all">Set value to all
+                            selected:</span>
+                        <input type="number" id="input-value-all" disabled />
+                    </label>
+                </div>
             </div>
+            <div id="header-right" class="header header-fix">
+                <label for="enable-season" class="enable-header enable-fix">
+                    <input type="checkbox" id="enable-season" /><span id="season-span"> Enable Seasons</span>
+                </label>
+                <div id="season-box" class="season-box-fix">
+                    <label for="0" class="season-wrapper season-wrapper-disabled">
+                        <input type="radio" name="season" id="0" class="toggleSeason" disabled /><img src="images/spring.png"
+                            alt="" class="img-season" /><span>Spring</span>
+                    </label>
+                    <label for="1" class="season-wrapper season-wrapper-disabled">
+                        <input type="radio" name="season" id="1" class="toggleSeason" disabled /><img src="images/summer.png"
+                            alt="" class="img-season" /><span>Summer</span>
+                    </label>
+                    <label for="2" class="season-wrapper season-wrapper-disabled">
+                        <input type="radio" name="season" id="2" class="toggleSeason" disabled /><img src="images/autumn.png"
+                            alt="" class="img-season" /><span>Autumn</span>
+                    </label>
+                    <label for="3" class="season-wrapper season-wrapper-disabled">
+                        <input type="radio" name="season" id="3" class="toggleSeason" disabled /><img src="images/winter.png"
+                            alt="" class="img-season" /><span>Winter</span>
+                    </label>
+                </div>
+            </div>
+            <span id="close-options">
+                <i class="fas fa-times"></i>
+            </span>
         </div>
         <div id="header-snippet" class="header-snippet">
             <div id='optionsButton' class='snippet-buttons'>
@@ -39,30 +69,10 @@
                 <i class="far fa-question-circle"></i>
                 <p>How to</p>
             </div>
+
         </div>
-        <div id="header-right" class="header">
-            <label for="enable-season" class="enable-header">
-                <input type="checkbox" id="enable-season" /><span id="season-span"> Enable Seasons</span>
-            </label>
-            <div id="season-box">
-                <label for="0" class="season-wrapper season-wrapper-disabled">
-                    <input type="radio" name="season" id="0" class="toggleSeason" disabled /><img src="images/spring.png"
-                        alt="" class="img-season" /><span>Spring</span>
-                </label>
-                <label for="1" class="season-wrapper season-wrapper-disabled">
-                    <input type="radio" name="season" id="1" class="toggleSeason" disabled /><img src="images/summer.png"
-                        alt="" class="img-season" /><span>Summer</span>
-                </label>
-                <label for="2" class="season-wrapper season-wrapper-disabled">
-                    <input type="radio" name="season" id="2" class="toggleSeason" disabled /><img src="images/autumn.png"
-                        alt="" class="img-season" /><span>Autumn</span>
-                </label>
-                <label for="3" class="season-wrapper season-wrapper-disabled">
-                    <input type="radio" name="season" id="3" class="toggleSeason" disabled /><img src="images/winter.png"
-                        alt="" class="img-season" /><span>Winter</span>
-                </label>
-            </div>
-        </div>
+    </div>
+    </div>
     </div>
     <div class="container">
         <div id="left" class="wrapper"></div>
@@ -78,6 +88,28 @@
             <p>
                 <i class="fas fa-shopping-cart"></i> Checkout
             </p>
+        </div>
+    </div>
+    <div id="under" class="under">
+
+
+        <div id="for-howto" class="snippet-container" style="visibility: hidden">
+            <p style="font-weight: bold">How to Play</p>
+            <p>
+                <ol>
+                    <li>Tap a product to select</li>
+                    <li>Input a value of how much of that product you want to buy</li>
+                    <li>Click 'OK' to send the value</li>
+                    <li>If you want to remove the value, tap the product again and select 'Remove value'</li>
+                    <li>Tap the 'Checkout' button to discover how much you will pay for the products</li>
+                    <li>You can print your receipt by tapping the total value</li>
+                    <li>Repeat the process if you want to make another purchase</li>
+
+                </ol>
+            </p>
+            <span id="close-howto">
+                <i class="fas fa-times"></i>
+            </span>
         </div>
     </div>
     <script src="js/main.js"></script>
