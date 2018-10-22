@@ -514,7 +514,7 @@ removeOptions.addEventListener('click', function () {
         }
     }
     enableSeason.checked = false;
-    enableSeason.parentElement.className = 'enable-header';
+    enableSeason.parentElement.className = 'enable-header enable-fix';
     seasonSpan.textContent = 'Enable Seasons';
     seasonBox.removeAttribute('style');
     for (var x = 0; x < toggleSeason.length; x++) {
@@ -534,9 +534,10 @@ var seasonWrapper = document.querySelectorAll('.season-wrapper');
 var seasonBox = document.getElementById('season-box');
 
 enableSeason.addEventListener('change', function (e) {
+    debugger;
     if (e.target.checked) {
         removeOptions.removeAttribute('disabled');
-        enableSeason.parentNode.className = 'enable-header season-wrapper-enabled';
+        enableSeason.parentNode.className = 'enable-header season-wrapper-enabled enable-fix-mobile'; ///
         seasonSpan.textContent = ' Disable Seasons';
         seasonBox.className = 'header-section';
         seasonBox.style.border = '2px solid #c9d1d8';
@@ -546,7 +547,7 @@ enableSeason.addEventListener('change', function (e) {
             seasonWrapper[x].lastElementChild.style.color = '#7994b0';
         }
     } else {
-        enableSeason.parentNode.className = 'enable-header';
+        enableSeason.parentNode.className = 'enable-header enable-fix';
         seasonSpan.textContent = ' Enable Seasons';
         seasonBox.removeAttribute('class');
         seasonBox.style.border = '2px solid #e3e8ed';
