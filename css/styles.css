@@ -35,19 +35,37 @@ body input[type='checkbox'], input[type='radio'] {
 #toggle-section {
     display: inherit;
     flex-direction: row;
-    width: 65%;
     justify-content: space-between;
     align-items: center;
 }
 #toggle-section input[type='number'] {
     width: 25%;
 }
-label[for='setValueAll'] {
+#setValueAlla {
     display: inherit;
     justify-content: inherit;
     align-items: center;
     border: 2px solid #e3e8ed;
-    flex-direction: inherit;
+    flex-direction: column;
+}
+#set-value-to-all {
+    display: inherit;
+    justify-content: center;
+    align-items: center;
+}
+#set-value-to-all i {
+    pointer-events: none;
+}
+#set-value-to-all button {
+    cursor: pointer;
+    padding: 0;
+}
+.small-button {
+    background-color: #e3e8ed;
+    border: 0;
+}
+.small-button-checked {
+    background-color: #c9d1d8;
 }
 #header-right {
     border-radius: 0 0 0.25rem 0.25rem;
@@ -242,7 +260,9 @@ border: 2px dashed #217284;
 .snippet-container {
     background-color: white;
     width: 18rem;
-    display: flex;
+    display: grid;
+    grid-template-columns: 45% 55%;
+    grid-gap: 0.25rem;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -366,6 +386,7 @@ border: 2px dashed #217284;
     #season-box {
         display: flex;
         flex-flow: row wrap;
+        justify-content: center;
     }
     .season-box-fix {
         visibility: hidden;
@@ -375,7 +396,7 @@ border: 2px dashed #217284;
     }
     .season-wrapper {
         flex-direction: column;
-        height: 100%;
+        height: 5.5em;
         justify-content: center;
     }
     #header-right > div:nth-child(1) {
@@ -394,21 +415,12 @@ border: 2px dashed #217284;
         flex-direction: column;
         width: 18rem;
         padding: 1em;
-        /* height: 80vh; */
-        /* margin: 10vh 5vw;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0; */
+        display: flex;
     }
     .for-options-mobile {
         visibility: visible;
         z-index: 1;
     }
-    /* #close-options i {
-        font-size: 1.5em;
-        margin: 0.5em;
-    } */
     #for-howto {
         position: absolute;
     }
