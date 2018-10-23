@@ -364,8 +364,8 @@ border: 2px dashed #217284;
         flex-direction: inherit;
     }
     #season-box {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        display: flex;
+        flex-flow: row wrap;
     }
     .season-box-fix {
         visibility: hidden;
