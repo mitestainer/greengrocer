@@ -22,11 +22,19 @@
                     <label for="toggleAll" class="enable-header enable-fix">
                         <input type="checkbox" id="toggleAll" /><span id="select-all">Select all</span>
                     </label>
-                    <label for="setValueAll" id='setValueAlla'>
-                        <input type="checkbox" id="setValueAll" disabled /><span id="value-all">Set value to all
-                            selected:</span>
-                        <input type="number" id="input-value-all" disabled />
-                    </label>
+                    <div id='setValueAlla'>
+                        <span id="value-all">Set same value to all selected:</span>
+                        <div id="set-value-to-all">
+                            <button id="minus" class="small-button" disabled>
+                            <i class="fas fa-minus-square"></i>
+                        </button>
+                            <input type="number" id="input-value-all" disabled />
+                            <button id="plus" class="small-button" disabled>
+                            <i class="fas fa-plus-square"></i>
+                        </button>
+                            <button id="setvalueOK" class="small-button" disabled>OK</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div id="header-right" class="header header-fix">
