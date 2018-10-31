@@ -62,7 +62,7 @@ var productList = [
         pic: 'images/cucumber.png',
         onSeason: 1,
         outOfSeason: 3,
-        regularPrice: undefined,
+        regularPrice: 1.77,
         priceOnSeason: undefined,
         priceOutOfSeason: 4.49,
         unit: 'kg'
@@ -256,7 +256,6 @@ left.addEventListener('click', function (e) {
             removeOptions.removeAttribute('disabled');
         };
 
-        debugger;
         var idSet = e.target.id;
         if (enableSeason.checked) {
             for (var x = 0; x < toggleSeason.length; x++) {
@@ -462,8 +461,7 @@ var inputValueAll = document.getElementById('input-value-all');
 
 var toggleAll = document.getElementById('toggleAll');
 var setValueAlla = document.getElementById('setValueAlla');
-toggleAll.addEventListener('click', function (e) {
-    debugger;
+toggleAll.addEventListener('change', function (e) {
     var minus = document.getElementById('minus');
     var plus = document.getElementById('plus');
     var setvalueOK = document.getElementById('setvalueOK');
@@ -484,6 +482,7 @@ toggleAll.addEventListener('click', function (e) {
             label[x].style.border = '2px dashed #789618';
             scale[x].removeAttribute('disabled');
         }
+        removeOptions.removeAttribute('disabled');
     } else {
         toggleAll.parentNode.className = 'enable-header enable-fix-mobile';
         setValueAlla.removeAttribute('class');
@@ -491,6 +490,7 @@ toggleAll.addEventListener('click', function (e) {
         selectAll.textContent = 'Select all';
         minus.setAttribute('disabled', 'disabled');
         minus.className = 'small-button';
+        valueToBe = 0;
         inputValueAll.value = '';
         inputValueAll.setAttribute('disabled', 'disabled');
         plus.setAttribute('disabled', 'disabled');
@@ -501,8 +501,9 @@ toggleAll.addEventListener('click', function (e) {
             testing[x].checked = false;
             label[x].style.border = '2px solid #b4d455';
             scale[x].setAttribute('disabled', 'disabled');
-            scale[x].textContent = "";
+            scale[x].textContent = " ";
         }
+        removeOptions.setAttribute('disabled', 'disabled');
     }
 });
 
@@ -540,6 +541,22 @@ removeOptions.addEventListener('click', function () {
             label[x].children[3].textContent = ' ';
         }
     }
+
+    toggleAll.checked = false;
+    toggleAll.parentNode.className = 'enable-header enable-fix-mobile';
+    setValueAlla.removeAttribute('class');
+    setValueAlla.style.border = '2px solid #e3e8ed';
+    selectAll.textContent = 'Select all';
+    minus.setAttribute('disabled', 'disabled');
+    minus.className = 'small-button';
+    valueToBe = 0;
+    inputValueAll.value = '';
+    inputValueAll.setAttribute('disabled', 'disabled');
+    plus.setAttribute('disabled', 'disabled');
+    plus.className = 'small-button';
+    setvalueOK.setAttribute('disabled', 'disabled');
+    setvalueOK.className = 'small-button';
+
     enableSeason.checked = false;
     enableSeason.parentElement.className = 'enable-header enable-fix';
     seasonSpan.textContent = 'Enable Seasons';
@@ -548,6 +565,13 @@ removeOptions.addEventListener('click', function () {
         toggleSeason[x].checked = false;
         toggleSeason[x].setAttribute('disabled', 'disabled');
         seasonWrapper[x].className = 'season-wrapper season-wrapper-disabled';
+    }
+
+    for (var x = 0; x < testing.length; x++) {
+        testing[x].checked = false;
+        label[x].style.border = '2px solid #b4d455';
+        scale[x].setAttribute('disabled', 'disabled');
+        scale[x].textContent = " ";
     }
     removeOptions.setAttribute('disabled', 'disabled');
 });
@@ -561,7 +585,6 @@ var seasonWrapper = document.querySelectorAll('.season-wrapper');
 var seasonBox = document.getElementById('season-box');
 
 enableSeason.addEventListener('change', function (e) {
-    debugger;
     if (e.target.checked) {
         removeOptions.removeAttribute('disabled');
         enableSeason.parentNode.className = 'enable-header season-wrapper-enabled enable-fix-mobile'; ///
@@ -574,7 +597,7 @@ enableSeason.addEventListener('change', function (e) {
             seasonWrapper[x].lastElementChild.style.color = '#7994b0';
         }
     } else {
-        enableSeason.parentNode.className = 'enable-header enable-fix';
+        enableSeason.parentNode.className = 'enable-header enable-fix-mobile';
         seasonSpan.textContent = ' Enable Seasons';
         seasonBox.removeAttribute('class');
         seasonBox.style.border = '2px solid #e3e8ed';
@@ -795,7 +818,6 @@ var headerLeft = document.getElementById('header-left');
 var headerRight = document.getElementById('header-right');
 
 headerSnippet.addEventListener('click', function (e) {
-    debugger;
     if (e.target.id === 'optionsButton' || e.target.id === 'howTo') {
         var under = document.getElementById('under');
         under.className = 'under under-visible';
@@ -806,10 +828,10 @@ headerSnippet.addEventListener('click', function (e) {
             document.getElementById('options-title').style.display = 'initial';
             headerLeft.className = 'header header-fix-mobile';
             headerLeft.children[0].style.display = 'none';
-            document.querySelectorAll('.enable-fix')[0].className = 'enable-fix-mobile';
+            document.getElementById('forToggleAll').className = 'enable-header enable-fix-mobile';
             headerRight.className = 'header header-fix-mobile';
             seasonBox.className = 'season-box-fix-mobile';
-            document.querySelectorAll('.enable-fix')[0].className = 'enable-fix-mobile';
+            document.getElementById('forSetSeasons').className = 'enable-header enable-fix-mobile';
             closeOptions.style.display = 'initial';
             // How to play
         } else if (e.target.id === 'howTo') {
@@ -824,13 +846,12 @@ headerSnippet.addEventListener('click', function (e) {
 });
 
 closeOptions.addEventListener('click', function () {
-    debugger;
     document.getElementById('options-title').style.display = 'none';
     headerLeft.className = 'header header-fix';
     headerLeft.children[0].style.display = 'initial';
-    document.querySelectorAll('.enable-fix-mobile')[0].className = 'enable-fix';
+    document.getElementById('forToggleAll').className = 'enable-fix';
     headerRight.className = 'header header-fix';
-    document.querySelectorAll('.enable-fix-mobile')[0].className = 'enable-fix';
+    document.getElementById('forSetSeasons').className = 'enable-fix';
     seasonBox.className = 'season-box-fix';
     closeOptions.style.display = 'none';
     forOptions.style.visibility = 'hidden';
