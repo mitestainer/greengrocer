@@ -17,10 +17,10 @@ var productList = [
         pic: 'images/honey.png',
         onSeason: undefined,
         outOfSeason: undefined,
-        regularPrice: undefined,
+        regularPrice: 12.95,
         priceOnSeason: undefined,
         priceOutOfSeason: undefined,
-        unit: 'unit'
+        unit: 'bottle'
     }, {
         productName: 'Grapes', // aka Wild Grapes
         pic: 'images/wgrape.png',
@@ -35,7 +35,7 @@ var productList = [
         pic: 'images/mushroom.png',
         onSeason: 2,
         outOfSeason: 1,
-        regularPrice: undefined,
+        regularPrice: 8.79,
         priceOnSeason: undefined,
         priceOutOfSeason: undefined,
         unit: 'tray'
@@ -161,7 +161,7 @@ var productList = [
         pic: 'images/gpepper.png',
         onSeason: 2,
         outOfSeason: 0,
-        regularPrice: undefined,
+        regularPrice: 4.75,
         priceOnSeason: undefined,
         priceOutOfSeason: undefined,
         unit: 'kg'
@@ -170,7 +170,7 @@ var productList = [
         pic: 'images/spinach.png',
         onSeason: 2,
         outOfSeason: 1,
-        regularPrice: undefined,
+        regularPrice: 2.69,
         priceOnSeason: undefined,
         priceOutOfSeason: undefined,
         unit: 'unit'
@@ -569,7 +569,7 @@ removeOptions.addEventListener('click', function () {
 
     for (var x = 0; x < testing.length; x++) {
         testing[x].checked = false;
-        label[x].style.border = '2px solid #b4d455';
+        label[x].className = 'label label-regular';
         scale[x].setAttribute('disabled', 'disabled');
         scale[x].textContent = " ";
     }
@@ -665,7 +665,7 @@ checkoutFoo.addEventListener('click', function () {
     for (var x = 0; x < scale.length; x++) {
         if (parseFloat(scale[x].textContent) > 0) {
             var stringPrice = priceTag[x].textContent;
-            var re = /\d\.[0-9]{2}/g
+            var re = /\d+(\.\d{1,2})?/g
             var finalPrice = parseFloat(stringPrice.match(re));
             sum.push(parseFloat(parseFloat(scale[x].textContent).toFixed(2)) * finalPrice);
         }
@@ -681,7 +681,7 @@ checkoutFoo.addEventListener('click', function () {
             return total;
         }
     }
-    var bill = sumValue(sum).toFixed(2);
+    var bill = '$ ' + sumValue(sum).toFixed(2);
 
     var receipt = document.getElementById('receipt');
     receipt.innerHTML = '';
@@ -771,9 +771,9 @@ checkoutFoo.addEventListener('click', function () {
         var unitOfProduct = productList[idx].unit;
         var sumOfProduct = sum[x].toFixed(2);
         if (unitOfProduct === 'kg') {
-            addItem(purchasedProduct + ' (' + amountPurchased + unitOfProduct + ')', sumOfProduct);
+            addItem(purchasedProduct + ' (' + amountPurchased + unitOfProduct + ')', '$ ' + sumOfProduct);
         } else {
-            addItem(purchasedProduct + ' (' + amountPurchased + ' ' + unitOfProduct + ')', sumOfProduct);
+            addItem(purchasedProduct + ' (' + amountPurchased + ' ' + unitOfProduct + ')', '$ ' + sumOfProduct);
         }
     }
     drawLine('-');
@@ -875,7 +875,7 @@ snippetCheckout.addEventListener('click', function () {
     for (var x = 0; x < scale.length; x++) {
         if (parseFloat(scale[x].textContent) > 0) {
             var stringPrice = priceTag[x].textContent;
-            var re = /\d\.[0-9]{2}/g
+            var re = /\d+(\.\d{1,2})?/g
             var finalPrice = parseFloat(stringPrice.match(re));
             snippetSum.push(parseFloat(parseFloat(scale[x].textContent).toFixed(2)) * finalPrice);
         }
@@ -891,7 +891,7 @@ snippetCheckout.addEventListener('click', function () {
             return total;
         }
     }
-    var bill = sumValue(snippetSum).toFixed(2);
+    var bill = '$ ' + sumValue(snippetSum).toFixed(2);
 
 
     var snippetTotal = document.getElementById('snippet-total');
@@ -927,7 +927,7 @@ snippetCheckout.addEventListener('click', function () {
         line.style.display = 'inline-block';
         line.className = 'line-snippet';
         p.appendChild(line);
-    }
+}
 
     // Receipt Lines
 
@@ -977,9 +977,9 @@ snippetCheckout.addEventListener('click', function () {
         var unitOfProduct = productList[idx].unit;
         var sumOfProduct = snippetSum[x].toFixed(2);
         if (unitOfProduct === 'kg') {
-            addItem(purchasedProduct + ' (' + amountPurchased + unitOfProduct + ')', sumOfProduct);
+            addItem(purchasedProduct + ' (' + amountPurchased + unitOfProduct + ')', '$ ' + sumOfProduct);
         } else {
-            addItem(purchasedProduct + ' (' + amountPurchased + ' ' + unitOfProduct + ')', sumOfProduct);
+            addItem(purchasedProduct + ' (' + amountPurchased + ' ' + unitOfProduct + ')', '$ ' + sumOfProduct);
         }
     }
     drawLine('-');
