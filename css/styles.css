@@ -47,6 +47,7 @@ body input[type='checkbox'], input[type='radio'] {
     align-items: center;
     border: 2px solid #e3e8ed;
     flex-direction: column;
+    width: 65%;
 }
 #set-value-to-all {
     display: inherit;
@@ -58,14 +59,22 @@ body input[type='checkbox'], input[type='radio'] {
 }
 #set-value-to-all button {
     cursor: pointer;
-    padding: 0;
+}
+#set-value-to-all input[type='number'] {
+    margin: 0 0.5em;
 }
 .small-button {
     background-color: #e3e8ed;
     border: 0;
+    padding: 0;
 }
 .small-button-checked {
     background-color: #c9d1d8;
+}
+#setvalueOK {
+    margin-left: 1em;
+    padding: 0.5em;
+    border-radius: 0.25em;
 }
 #header-right {
     border-radius: 0 0 0.25rem 0.25rem;
@@ -98,6 +107,7 @@ body input[type='checkbox'], input[type='radio'] {
     border-radius: 0.25rem;
     width: 7rem;
     visibility: visible;
+    background-color: #c9d1d8;
 }
 .enable-fix {
     visibility: visible;
@@ -139,6 +149,9 @@ body input[type='checkbox'], input[type='radio'] {
 }
 #optionsButton {
     display: none;
+}
+#for-howto {
+    display: flex;
 }
 .snippet-buttons {
     display: inherit;
@@ -440,7 +453,6 @@ border: 2px dashed #217284;
         padding: 0;
     }
     .enable-header {
-        background-color: #e3e8ed;
         display: flex;
         border: 0;
         margin: 1em 0;
@@ -450,7 +462,7 @@ border: 2px dashed #217284;
         visibility: hidden;
     }
     .enable-fix-mobile {
-        visibility: visible;
+        visibility: inherit;
     }
     .mobile-button:checked + .enable-header {
         background-color: #c9d1d8;
@@ -464,7 +476,7 @@ border: 2px dashed #217284;
         border-radius: 0.25rem;
         width: 70%;
     }
-    .snippet-value-all {
+    /* .snippet-value-all {
         display: flex;
         justify-content: center;
     }
@@ -474,7 +486,7 @@ border: 2px dashed #217284;
     .snippet-value-all > span {
         display: inherit;
         font-size: 1.5em;
-    }
+    } */
     #snippet-season-holder {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -511,6 +523,23 @@ border: 2px dashed #217284;
     }
     .snippet-container i {
         font-size: 1rem;
+    }
+    #set-value-to-all {
+        height: 3.5em;
+    }
+    #setValueAlla {
+        width: 90%;
+    }
+    .small-button {
+        font-size: 1.25em;
+    }
+    .small-button i {
+        font-size: 1.25em;
+    }
+    #setvalueOK {
+        margin-left: 1em;
+        padding: 0.5em;
+        border-radius: 0.25em;
     }
     .container {
         height: 81vh;
