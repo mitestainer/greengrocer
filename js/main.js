@@ -63,7 +63,7 @@ var productList = [
         onSeason: 1,
         outOfSeason: 3,
         regularPrice: 1.77,
-        priceOnSeason: undefined,
+        priceOnSeason: 0.97,
         priceOutOfSeason: 4.49,
         unit: 'kg'
     }, {
@@ -161,9 +161,9 @@ var productList = [
         pic: 'images/gpepper.png',
         onSeason: 2,
         outOfSeason: 0,
-        regularPrice: 4.75,
+        regularPrice: 2.99,
         priceOnSeason: undefined,
-        priceOutOfSeason: undefined,
+        priceOutOfSeason: 4.75,
         unit: 'kg'
     }, {
         productName: 'Spinach',
@@ -179,7 +179,7 @@ var productList = [
 
 var cashierNames = ['Azeem Lawson', 'Kamran Mora', 'Wendy Grant', 'Jan Dejesus', 'Hana Macias', 'Kerry Medrano', 'Avery Weir', 'Missy Reed', 'Cyrus Lott', 'Lee Hough'];
 
-window.onload = function() {
+window.onload = function () {
     removeOptions.setAttribute('disabled', 'disabled');
     toggleAll.checked = false;
     document.getElementById('minus').setAttribute('disabled', 'disabled');
@@ -479,7 +479,7 @@ toggleAll.addEventListener('change', function (e) {
         setvalueOK.className = 'small-button small-button-checked';
         for (var x = 0; x < testing.length; x++) {
             testing[x].checked = true;
-            label[x].style.border = '2px dashed #789618';
+            label[x].className = 'label label-regular label-r-selected';
             scale[x].removeAttribute('disabled');
         }
         removeOptions.removeAttribute('disabled');
@@ -499,7 +499,7 @@ toggleAll.addEventListener('change', function (e) {
         setvalueOK.className = 'small-button';
         for (var x = 0; x < testing.length; x++) {
             testing[x].checked = false;
-            label[x].style.border = '2px solid #b4d455';
+            label[x].className = 'label label-regular';
             scale[x].setAttribute('disabled', 'disabled');
             scale[x].textContent = " ";
         }
@@ -804,7 +804,7 @@ checkoutFoo.addEventListener('click', function () {
 var closeX = document.createElement('span');
 closeX.id = 'close-receipt';
 closeX.innerHTML = '<i class="fas fa-times"></i>';
-closeX.addEventListener('click', function (e) {
+closeX.addEventListener('click', function () {
     document.body.removeChild(document.getElementById('above'));
 });
 
@@ -812,7 +812,7 @@ closeX.addEventListener('click', function (e) {
 var headerSnippet = document.getElementById('header-snippet');
 var optionsButton = document.getElementById('optionsButton');
 var howTo = document.getElementById('howTo');
-var closeOptions = document.getElementById('close-options');
+var okOptions = document.getElementById('OK-options');
 var forOptions = document.getElementById('for-options');
 var headerLeft = document.getElementById('header-left');
 var headerRight = document.getElementById('header-right');
@@ -832,7 +832,7 @@ headerSnippet.addEventListener('click', function (e) {
             headerRight.className = 'header header-fix-mobile';
             seasonBox.className = 'season-box-fix-mobile';
             document.getElementById('forSetSeasons').className = 'enable-header enable-fix-mobile';
-            closeOptions.style.display = 'initial';
+            okOptions.style.display = 'initial';
             // How to play
         } else if (e.target.id === 'howTo') {
             var forHowTo = document.getElementById('for-howto');
@@ -845,15 +845,39 @@ headerSnippet.addEventListener('click', function (e) {
     }
 });
 
-closeOptions.addEventListener('click', function () {
+document.getElementById('options-footer').addEventListener('click', function (e) {
+    if (e.target.id === 'OK-options') {
+        for (var x = 0; x < scale.length; x++) {
+            scale[x].textContent = inputValueAll.value;
+        }
+    } else {
+        document.getElementById('forToggleAll').className = 'enable-header enable-fix';
+        selectAll.textContent = 'Select all';
+        toggleAll.checked = false;
+        setValueAlla.removeAttribute('class');
+        setValueAlla.style.border = '2px solid #e3e8ed';
+        minus.setAttribute('disabled', 'disabled');
+        minus.className = 'small-button';
+        valueToBe = 0;
+        plus.setAttribute('disabled', 'disabled');
+        plus.className = 'small-button';
+        if (inputValueAll.value > 0) {
+            inputValueAll.value = ' ';
+        }
+        for (var x = 0; x < testing.length; x++) {
+            testing[x].checked = false;
+            label[x].className = 'label label-regular';
+            removeOptions.setAttribute('disabled', 'disabled');
+        }
+    }
     document.getElementById('options-title').style.display = 'none';
     headerLeft.className = 'header header-fix';
     headerLeft.children[0].style.display = 'initial';
-    document.getElementById('forToggleAll').className = 'enable-fix';
+    document.getElementById('forToggleAll').className = 'enable-header enable-fix';
     headerRight.className = 'header header-fix';
-    document.getElementById('forSetSeasons').className = 'enable-fix';
+    document.getElementById('forSetSeasons').className = 'enable-header enable-fix';
     seasonBox.className = 'season-box-fix';
-    closeOptions.style.display = 'none';
+    okOptions.style.display = 'none';
     forOptions.style.visibility = 'hidden';
     under.className = 'under';
 });
@@ -927,7 +951,7 @@ snippetCheckout.addEventListener('click', function () {
         line.style.display = 'inline-block';
         line.className = 'line-snippet';
         p.appendChild(line);
-}
+    }
 
     // Receipt Lines
 
@@ -1006,35 +1030,40 @@ snippetCheckout.addEventListener('click', function () {
 
 var snippetPrice = document.getElementById('snippet-price');
 snippetPrice.addEventListener('click', function () {
-    var above = document.createElement('div');
-    above.id = 'above';
-    document.body.appendChild(above);
-    above.appendChild(receiptSnippet);
-    var lineSnippet = document.querySelectorAll('.line-snippet');
-    for (var x = 0; x < lineSnippet.length; x++) {
-        if (x === 0 || x === 3) {
-            var y;
-            do {
-                y = lineSnippet[x].textContent;
-                lineSnippet[x].textContent += '*';
-            } while (lineSnippet[x].offsetWidth < lineSnippet[x].parentNode.offsetWidth)
-            lineSnippet[x].textContent = y;
-        } else {
-            var y;
-            do {
-                y = lineSnippet[x].textContent;
-                lineSnippet[x].textContent += '-';
-            } while (lineSnippet[x].offsetWidth < lineSnippet[x].parentNode.offsetWidth)
-            lineSnippet[x].textContent = y;
+    debugger;
+    if (snippetSum.length === 0) {
+        alert('You have to chekout first so that I can print your receipt, sir.');
+    } else {
+        var above = document.createElement('div');
+        above.id = 'above';
+        document.body.appendChild(above);
+        above.appendChild(receiptSnippet);
+        var lineSnippet = document.querySelectorAll('.line-snippet');
+        for (var x = 0; x < lineSnippet.length; x++) {
+            if (x === 0 || x === 3) {
+                var y;
+                do {
+                    y = lineSnippet[x].textContent;
+                    lineSnippet[x].textContent += '*';
+                } while (lineSnippet[x].offsetWidth < lineSnippet[x].parentNode.offsetWidth)
+                lineSnippet[x].textContent = y;
+            } else {
+                var y;
+                do {
+                    y = lineSnippet[x].textContent;
+                    lineSnippet[x].textContent += '-';
+                } while (lineSnippet[x].offsetWidth < lineSnippet[x].parentNode.offsetWidth)
+                lineSnippet[x].textContent = y;
+            }
         }
+        var closeReceipt = document.createElement('div');
+        var closeX = document.createElement('span');
+        closeX.id = 'close-receipt';
+        closeX.innerHTML = '<i class="fas fa-times"></i>';
+        closeX.addEventListener('click', function (e) {
+            document.body.removeChild(document.getElementById('above'));
+        });
+        closeReceipt.appendChild(closeX);
+        above.appendChild(closeReceipt);
     }
-    var closeReceipt = document.createElement('div');
-    var closeX = document.createElement('span');
-    closeX.id = 'close-receipt';
-    closeX.innerHTML = '<i class="fas fa-times"></i>';
-    closeX.addEventListener('click', function (e) {
-        document.body.removeChild(document.getElementById('above'));
-    });
-    closeReceipt.appendChild(closeX);
-    above.appendChild(closeReceipt);
 });
