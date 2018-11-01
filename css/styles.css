@@ -13,6 +13,7 @@ body input[type='checkbox'], input[type='radio'] {
     display: grid;
     justify-content: space-between;
     grid-template-columns: 85.65% 14.15%;
+    height: 10vh;
 }
 .header {
     display: flex;
@@ -76,6 +77,20 @@ body input[type='checkbox'], input[type='radio'] {
     padding: 0.5em;
     border-radius: 0.25em;
 }
+#options-footer {
+    visibility: inherit;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.ok-options {
+    padding: 0.5em;
+    border-radius: 0.25em;
+    border: 0;
+    width: 40%;
+    cursor: pointer;
+}
 #header-right {
     border-radius: 0 0 0.25rem 0.25rem;
 }
@@ -84,6 +99,7 @@ body input[type='checkbox'], input[type='radio'] {
     flex-direction: row;
     padding: 0;
     justify-content: space-between;
+    height: inherit;
 }
 #options-title {
     display: none;
@@ -429,6 +445,7 @@ border: 2px dashed #217284;
         width: 18rem;
         padding: 1em;
         display: flex;
+        height: unset;
     }
     .for-options-mobile {
         visibility: visible;
@@ -537,9 +554,7 @@ border: 2px dashed #217284;
         font-size: 1.25em;
     }
     #setvalueOK {
-        margin-left: 1em;
-        padding: 0.5em;
-        border-radius: 0.25em;
+        display: none;
     }
     .container {
         height: 81vh;
