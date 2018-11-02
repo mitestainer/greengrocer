@@ -573,6 +573,7 @@ removeOptions.addEventListener('click', function () {
         scale[x].setAttribute('disabled', 'disabled');
         scale[x].textContent = " ";
     }
+    document.getElementById('snippet-total').innerHTML = 'Make a purchase';
     removeOptions.setAttribute('disabled', 'disabled');
 });
 
@@ -1024,8 +1025,7 @@ snippetCheckout.addEventListener('click', function () {
 
     drawLine('*');
     addP('Thanks for shopping!');
-
-    snippetSum = [];
+    
 });
 
 var snippetPrice = document.getElementById('snippet-price');
@@ -1066,4 +1066,6 @@ snippetPrice.addEventListener('click', function () {
         closeReceipt.appendChild(closeX);
         above.appendChild(closeReceipt);
     }
+
+    snippetSum = [];
 });
