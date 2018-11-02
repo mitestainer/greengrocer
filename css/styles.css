@@ -297,6 +297,7 @@ border: 2px dashed #217284;
     flex-direction: column;
     padding: 1rem 0.25rem;
     border-radius: 0.25rem;
+    font-size: 2.35vh;
 }
 .snippet-container i {
     cursor: pointer;
@@ -463,7 +464,7 @@ border: 2px dashed #217284;
         height: 90%;
     }
     .header-snippet i {
-        font-size: 1.75rem;
+        font-size: 4.5vh;
         pointer-events: none;
     }
     .header-snippet p ol {
@@ -651,13 +652,5 @@ border: 2px dashed #217284;
     }
     #recepit-snippet {
         align-self: center;
-    }
-    @media screen and (max-height: 650px) {
-        .header-snippet i {
-            font-size: 4.5vh;
-        }
-        .snippet-container {
-            font-size: 2.35vh;
-        }
     }
 }
