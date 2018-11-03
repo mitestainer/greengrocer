@@ -574,6 +574,8 @@ removeOptions.addEventListener('click', function () {
         scale[x].textContent = " ";
     }
     document.getElementById('snippet-total').innerHTML = 'Make a purchase';
+    receipt.innerHTML = '';
+    receipt.removeAttribute('style');
     removeOptions.setAttribute('disabled', 'disabled');
 });
 
@@ -629,13 +631,25 @@ document.getElementById('season-box').addEventListener('click', function (e) {
                 removeOptions.removeAttribute('disabled');
                 for (var y = 0; y < productList.length; y++) {
                     if (productList[y].onSeason === parseInt(toggleSeason[x].id)) {
-                        label[y].className = 'label label-on-season';
+                        if (testing[y].checked) {
+                            label[y].className = 'label label-on-season label-os-selected';
+                        } else {
+                            label[y].className = 'label label-on-season';
+                        }
                         priceTag[y].textContent = 'Price: $' + productList[y].priceOnSeason + '/' + productList[y].unit;
                     } else if (productList[y].outOfSeason === parseInt(toggleSeason[x].id)) {
-                        label[y].className = 'label label-out-of-season';
+                        if (testing[y].checked) {
+                            label[y].className = 'label label-out-of-season label-oos-selected';
+                        } else {
+                            label[y].className = 'label label-out-of-season';
+                        }
                         priceTag[y].textContent = 'Price: $' + productList[y].priceOutOfSeason + '/' + productList[y].unit;
                     } else {
-                        label[y].className = 'label label-regular';
+                        if (testing[y].checked) {
+                            label[y].className = 'label label-regular label-r-selected';
+                        } else {
+                            label[y].className = 'label label-regular';
+                        }
                         priceTag[y].textContent = 'Price: $' + productList[y].regularPrice + '/' + productList[y].unit;
                     }
                 }
@@ -649,7 +663,11 @@ document.getElementById('season-box').addEventListener('click', function (e) {
 enableSeason.addEventListener('change', function (e) {
     if (e.target.checked === false) {
         for (var x = 0; x < productList.length; x++) {
-            label[x].className = 'label label-regular';
+            if (!testing[x].checked) {
+                label[x].className = 'label label-regular';
+            } else {
+                label[x].className = 'label label-regular label-r-selected';
+            }
             priceTag[x].textContent = 'Price: $' + productList[x].regularPrice + '/' + productList[x].unit;
         }
     }
@@ -920,7 +938,7 @@ snippetCheckout.addEventListener('click', function () {
 
 
     var snippetTotal = document.getElementById('snippet-total');
-    snippetTotal.innerHTML = 'The total is <strong>$ ' + bill + '</strong><br /><span>(Tap here to print your receipt)</span>';
+    snippetTotal.innerHTML = 'The total is <strong>' + bill + '</strong><br /><span>(Tap here to print your receipt)</span>';
 
     // Functions to add lines on the snippet receipt
 
@@ -1025,7 +1043,7 @@ snippetCheckout.addEventListener('click', function () {
 
     drawLine('*');
     addP('Thanks for shopping!');
-    
+
 });
 
 var snippetPrice = document.getElementById('snippet-price');
