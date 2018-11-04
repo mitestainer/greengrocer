@@ -26,6 +26,9 @@ body input[type='checkbox'], input[type='radio'] {
 #header-left {
     border-radius: 0 0 0.25rem 0;
 }
+#header-left > p {
+    margin: 0;
+}
 .header-fix {
     visibility: visible;
 }
@@ -79,10 +82,7 @@ body input[type='checkbox'], input[type='radio'] {
 }
 #options-footer {
     visibility: inherit;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+    display: none;
 }
 .ok-options {
     padding: 0.5em;
@@ -203,9 +203,9 @@ body input[type='checkbox'], input[type='radio'] {
     padding: 0.5rem;
     background-color: #e3e8ed;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-gap: 0.5em;
+    grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
     grid-template-rows: repeat(4, 1fr);
+    grid-gap: 0.5em;
 }
 #right {
     width: 20.5rem;
@@ -248,7 +248,7 @@ border: 2px dashed #217284;
     background-color: #000;
     border-color: #000;
     color: #fff;
-    grid-area: 4 / 6 / 5 / 7;
+    grid-column-end: -1;
 }
 #above {
     display: flex;
@@ -385,6 +385,37 @@ border: 2px dashed #217284;
     display: none;
 }
 
+@media screen and (max-width: 1200px) {
+    #header-left > p {
+        display: none;
+    }
+    #season-box span {
+        display: none;
+    }
+    #season-box label {
+        width: 6.5vw;
+        justify-content: center;
+    }
+    .snippet-buttons {
+        width: 6.5vw;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    #header {
+        height: 13vh;
+    }
+    .enable-header {
+        width: 12vw;
+    }
+    .container {
+        height: 87vh;
+    }
+    .snippet-container > * {
+        font-size: 1.75vw;
+    }
+}
+
 @media screen and (max-width: 520px) {
     body {
         height: 100vh;
@@ -417,6 +448,12 @@ border: 2px dashed #217284;
         display: flex;
         flex-flow: row wrap;
         justify-content: center;
+    }
+    #season-box span {
+        display: initial;
+    }
+    #season-box label {
+        width: 7rem;
     }
     .season-box-fix {
         visibility: hidden;
@@ -475,6 +512,7 @@ border: 2px dashed #217284;
         border: 0;
         margin: 1em 0;
         visibility: hidden;
+        width: 7rem;
     }
     .enable-fix {
         visibility: hidden;
@@ -494,17 +532,12 @@ border: 2px dashed #217284;
         border-radius: 0.25rem;
         width: 70%;
     }
-    /* .snippet-value-all {
+    #options-footer {
+        width: 100%;
         display: flex;
-        justify-content: center;
+        align-items: center;
+        justify-content: space-around;
     }
-    .snippet-value-all > input[type='number'] {
-        width: 60%;
-    }
-    .snippet-value-all > span {
-        display: inherit;
-        font-size: 1.5em;
-    } */
     #snippet-season-holder {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -541,6 +574,12 @@ border: 2px dashed #217284;
     }
     .snippet-container i {
         font-size: 1rem;
+    }
+    .snippet-buttons {
+        width: 5em;
+    }
+    .snippet-container > * {
+        font-size: 2.35vh;
     }
     #set-value-to-all {
         height: 3.5em;
