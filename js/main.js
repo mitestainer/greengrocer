@@ -36,8 +36,8 @@ var productList = [
         onSeason: 2,
         outOfSeason: 1,
         regularPrice: 8.79,
-        priceOnSeason: undefined,
-        priceOutOfSeason: undefined,
+        priceOnSeason: 6.59,
+        priceOutOfSeason: 11.99,
         unit: 'tray'
     }, {
         productName: 'Turnip',
@@ -71,9 +71,9 @@ var productList = [
         pic: 'images/cabbage.png',
         onSeason: 2,
         outOfSeason: 1,
-        regularPrice: 0.69,
-        priceOnSeason: undefined,
-        priceOutOfSeason: undefined,
+        regularPrice: 0.99,
+        priceOnSeason: 0.69,
+        priceOutOfSeason: 1.29,
         unit: 'kg'
     }, {
         productName: 'Strawberry',
@@ -82,7 +82,7 @@ var productList = [
         outOfSeason: 2,
         regularPrice: 2.99,
         priceOnSeason: 1.89,
-        priceOutOfSeason: undefined,
+        priceOutOfSeason: 4.19,
         unit: 'tray'
     }, {
         productName: 'Onion',
@@ -127,7 +127,7 @@ var productList = [
         outOfSeason: 1,
         regularPrice: 1.99,
         priceOnSeason: 0.99,
-        priceOutOfSeason: undefined,
+        priceOutOfSeason: 2.59,
         unit: 'kg'
     }, {
         productName: 'Carrot',
@@ -144,8 +144,8 @@ var productList = [
         onSeason: 1,
         outOfSeason: 0,
         regularPrice: 1.99,
-        priceOnSeason: undefined,
-        priceOutOfSeason: undefined,
+        priceOnSeason: 0.99,
+        priceOutOfSeason: 2.69,
         unit: 'kg'
     }, {
         productName: 'Sweet Potato',
@@ -162,7 +162,7 @@ var productList = [
         onSeason: 2,
         outOfSeason: 0,
         regularPrice: 2.99,
-        priceOnSeason: undefined,
+        priceOnSeason: 1.99,
         priceOutOfSeason: 4.75,
         unit: 'kg'
     }, {
@@ -171,8 +171,8 @@ var productList = [
         onSeason: 2,
         outOfSeason: 1,
         regularPrice: 2.69,
-        priceOnSeason: undefined,
-        priceOutOfSeason: undefined,
+        priceOnSeason: 1.79,
+        priceOutOfSeason: 3.99,
         unit: 'unit'
     }
 ];
@@ -187,6 +187,9 @@ window.onload = function () {
     inputValueAll.setAttribute('disabled', 'disabled');
     document.getElementById('plus').setAttribute('disabled', 'disabled');
     enableSeason.checked = false;
+    for (var x = 0; x < toggleSeason.length; x++) {
+        toggleSeason[x].checked = false;
+    }
 }
 
 // Left side!
@@ -479,8 +482,13 @@ toggleAll.addEventListener('change', function (e) {
         setvalueOK.className = 'small-button small-button-checked';
         for (var x = 0; x < testing.length; x++) {
             testing[x].checked = true;
-            label[x].className = 'label label-regular label-r-selected';
-            scale[x].removeAttribute('disabled');
+            if (label[x].className === 'label label-on-season') {
+                label[x].className = 'label label-on-season label-os-selected';
+            } else if (label[x].className === 'label label-out-of-season') {
+                label[x].className = 'label label-out-of-season label-oos-selected';
+            } else {
+                label[x].className = 'label label-regular label-r-selected';
+            }
         }
         removeOptions.removeAttribute('disabled');
     } else {
@@ -499,9 +507,14 @@ toggleAll.addEventListener('change', function (e) {
         setvalueOK.className = 'small-button';
         for (var x = 0; x < testing.length; x++) {
             testing[x].checked = false;
-            label[x].className = 'label label-regular';
-            scale[x].setAttribute('disabled', 'disabled');
             scale[x].textContent = " ";
+            if (label[x].className === 'label label-on-season label-os-selected') {
+                label[x].className = 'label label-on-season';
+            } else if (label[x].className === 'label label-out-of-season label-oos-selected') {
+                label[x].className = 'label label-out-of-season';
+            } else {
+                label[x].className = 'label label-regular';
+            }
         }
         removeOptions.setAttribute('disabled', 'disabled');
     }
@@ -846,7 +859,6 @@ headerSnippet.addEventListener('click', function (e) {
             forOptions.className = 'snippet-container for-options-mobile';
             document.getElementById('options-title').style.display = 'initial';
             headerLeft.className = 'header header-fix-mobile';
-            headerLeft.children[0].style.display = 'none';
             document.getElementById('forToggleAll').className = 'enable-header enable-fix-mobile';
             headerRight.className = 'header header-fix-mobile';
             seasonBox.className = 'season-box-fix-mobile';
@@ -865,40 +877,47 @@ headerSnippet.addEventListener('click', function (e) {
 });
 
 document.getElementById('options-footer').addEventListener('click', function (e) {
-    if (e.target.id === 'OK-options') {
-        for (var x = 0; x < scale.length; x++) {
-            scale[x].textContent = inputValueAll.value;
+    if (e.target.id === 'OK-options' || e.target.id === 'cancel-options') {
+        if (e.target.id === 'OK-options') {
+            for (var x = 0; x < scale.length; x++) {
+                if (toggleAll.checked) {
+                    scale[x].textContent = inputValueAll.value;
+                    if (!testing[x].checked) {
+                        testing[x].checked = true;
+                        if (label[x].className === 'label label-on-season') {
+                            label[x].className = 'label label-on-season label-os-selected';
+                        } else if (label[x].className === 'label label-out-of-season') {
+                            label[x].className = 'label label-out-of-season label-oos-selected';
+                        } else {
+                            label[x].className = 'label label-regular label-r-selected';
+                        }
+                    }
+                }
+            }
+        } else {
+            document.getElementById('forToggleAll').className = 'enable-header enable-fix';
+            if (!toggleAll.checked) {
+                selectAll.textContent = 'Select all';
+                toggleAll.checked = false;
+                setValueAlla.removeAttribute('class');
+                setValueAlla.style.border = '2px solid #e3e8ed';
+                minus.setAttribute('disabled', 'disabled');
+                minus.className = 'small-button';
+                valueToBe = 0;
+                plus.setAttribute('disabled', 'disabled');
+                plus.className = 'small-button';
+            }
         }
-    } else {
+        document.getElementById('options-title').style.display = 'none';
+        headerLeft.className = 'header header-fix';
         document.getElementById('forToggleAll').className = 'enable-header enable-fix';
-        selectAll.textContent = 'Select all';
-        toggleAll.checked = false;
-        setValueAlla.removeAttribute('class');
-        setValueAlla.style.border = '2px solid #e3e8ed';
-        minus.setAttribute('disabled', 'disabled');
-        minus.className = 'small-button';
-        valueToBe = 0;
-        plus.setAttribute('disabled', 'disabled');
-        plus.className = 'small-button';
-        if (inputValueAll.value > 0) {
-            inputValueAll.value = ' ';
-        }
-        for (var x = 0; x < testing.length; x++) {
-            testing[x].checked = false;
-            label[x].className = 'label label-regular';
-            removeOptions.setAttribute('disabled', 'disabled');
-        }
+        headerRight.className = 'header header-fix';
+        document.getElementById('forSetSeasons').className = 'enable-header enable-fix';
+        seasonBox.className = 'season-box-fix';
+        okOptions.style.display = 'none';
+        forOptions.style.visibility = 'hidden';
+        under.className = 'under';
     }
-    document.getElementById('options-title').style.display = 'none';
-    headerLeft.className = 'header header-fix';
-    headerLeft.children[0].style.display = 'initial';
-    document.getElementById('forToggleAll').className = 'enable-header enable-fix';
-    headerRight.className = 'header header-fix';
-    document.getElementById('forSetSeasons').className = 'enable-header enable-fix';
-    seasonBox.className = 'season-box-fix';
-    okOptions.style.display = 'none';
-    forOptions.style.visibility = 'hidden';
-    under.className = 'under';
 });
 
 
@@ -1048,7 +1067,6 @@ snippetCheckout.addEventListener('click', function () {
 
 var snippetPrice = document.getElementById('snippet-price');
 snippetPrice.addEventListener('click', function () {
-    debugger;
     if (snippetSum.length === 0) {
         alert('You have to chekout first so that I can print your receipt, sir.');
     } else {
